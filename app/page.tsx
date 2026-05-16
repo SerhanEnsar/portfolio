@@ -522,7 +522,7 @@ export default function Portfolio() {
                 className="inline-flex items-center gap-2 px-3 py-1 rounded border border-emerald-500/30 bg-emerald-500/5 text-emerald-500 font-mono text-xs tracking-widest uppercase"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 status-active" />
-                Computer Engineer · AI · Embedded Systems
+                Computer Engineer · Computer Vision · Embedded Systems
               </motion.div>
 
               <motion.h1
