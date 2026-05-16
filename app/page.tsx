@@ -487,7 +487,13 @@ export default function Portfolio() {
                   <a
                     key={item}
                     href={`#${item}`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileMenuOpen(false);
+                      setTimeout(() => {
+                        document.getElementById(item)?.scrollIntoView({ behavior: "smooth" });
+                      }, 260);
+                    }}
                     className="flex items-center gap-2 py-2.5 px-3 rounded text-muted-foreground hover:text-emerald-400 hover:bg-emerald-500/5 transition-colors tracking-wide"
                   >
                     <span className="text-emerald-500/50 text-xs">./</span>{item}
