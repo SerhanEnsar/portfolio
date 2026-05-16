@@ -439,7 +439,7 @@ export default function Portfolio() {
         >
           <Terminal size={14} className="text-emerald-500" />
           <span className="text-base font-mono font-bold tracking-tight">
-            SEB<span className="text-emerald-500">_</span>
+            SE<span className="text-emerald-500">_</span>
           </span>
         </motion.div>
         <motion.div
@@ -526,7 +526,7 @@ export default function Portfolio() {
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
               <span className="ml-3 text-zinc-500 text-[11px] tracking-wide">
-                serhan@TEKNOFEST-2026 — zsh
+                SerhanEnsar@TEKNOFEST-2026 — zsh
               </span>
             </div>
 
@@ -596,7 +596,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── About ── */}
-      <section id="about" className="py-24 px-6 md:px-12 max-w-5xl mx-auto">
+      <section id="about" className="py-24 px-6 md:px-12 max-w-5xl mx-auto scroll-mt-20">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -643,7 +643,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── Skills ── */}
-      <section id="skills" className="py-24 px-6 md:px-12 bg-muted/20 border-y border-border/50">
+      <section id="skills" className="py-24 px-6 md:px-12 bg-muted/20 border-y border-border/50 scroll-mt-20">
         <div className="max-w-5xl mx-auto space-y-12">
           <motion.div
             variants={fadeUp}
@@ -740,7 +740,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── Projects — Mission Archive ── */}
-      <section id="projects" className="py-24 px-6 md:px-12">
+      <section id="projects" className="py-24 px-6 md:px-12 scroll-mt-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <motion.div
             variants={fadeUp}
@@ -793,7 +793,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── Experience ── */}
-      <section id="experience" className="py-24 px-6 md:px-12 bg-muted/20 border-y border-border/50">
+      <section id="experience" className="py-24 px-6 md:px-12 bg-muted/20 border-y border-border/50 scroll-mt-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <motion.div
             variants={fadeUp}
@@ -883,7 +883,7 @@ export default function Portfolio() {
       </section>
 
       {/* ── Contact ── */}
-      <section id="contact" className="py-24 px-6 md:px-12">
+      <section id="contact" className="py-24 px-6 md:px-12 scroll-mt-20">
         <div className="max-w-2xl mx-auto text-center space-y-8">
           <motion.div
             variants={fadeUp}
@@ -938,7 +938,7 @@ export default function Portfolio() {
       {/* ── Footer ── */}
       <footer className="border-t border-border py-6 px-6 text-center text-xs font-mono text-muted-foreground">
         <p>
-          © 2026 Serhan Ensar Büdün · Built with Next.js + shadcn/ui + Framer Motion
+          © 2026 · Serhan Ensar Büdün
         </p>
       </footer>
 
