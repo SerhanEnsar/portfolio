@@ -21,6 +21,7 @@ import {
   Terminal,
   Shield,
   Wifi,
+  Menu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -427,39 +428,75 @@ function ProjectCard({
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function Portfolio() {
   const [openProject, setOpenProject] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ── Navbar ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-3.5 bg-background/85 backdrop-blur-md border-b border-border/50">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-2"
-        >
-          <Terminal size={14} className="text-emerald-500" />
-          <span className="text-base font-mono font-bold tracking-tight">
-            SE<span className="text-emerald-500">_</span>
-          </span>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-4"
-        >
-          <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground mr-4 font-mono">
-            {["about", "skills", "projects", "contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item}`}
-                className="hover:text-emerald-400 transition-colors tracking-wide"
-              >
-                ./{item}
-              </a>
-            ))}
-          </div>
-          <CinematicThemeSwitcher />
-        </motion.div>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-md border-b border-border/50">
+        <div className="flex items-center justify-between px-6 md:px-12 py-3.5">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-2"
+          >
+            <Terminal size={14} className="text-emerald-500" />
+            <span className="text-base font-mono font-bold tracking-tight">
+              SE<span className="text-emerald-500">_</span>
+            </span>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-4"
+          >
+            <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground mr-4 font-mono">
+              {["about", "skills", "projects", "contact"].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  className="hover:text-emerald-400 transition-colors tracking-wide"
+                >
+                  ./{item}
+                </a>
+              ))}
+            </div>
+            <CinematicThemeSwitcher />
+            <button
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              className="md:hidden flex items-center justify-center w-8 h-8 rounded text-muted-foreground hover:text-emerald-400 hover:bg-emerald-500/5 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </motion.div>
+        </div>
+
+        {/* Mobile dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="overflow-hidden md:hidden border-t border-border/50"
+            >
+              <div className="flex flex-col px-6 py-4 gap-1 font-mono text-sm">
+                {["about", "skills", "projects", "experience", "contact"].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 py-2.5 px-3 rounded text-muted-foreground hover:text-emerald-400 hover:bg-emerald-500/5 transition-colors tracking-wide"
+                  >
+                    <span className="text-emerald-500/50 text-xs">./</span>{item}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* ── Hero — ContainerScroll ── */}
