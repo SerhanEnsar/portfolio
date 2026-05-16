@@ -53,7 +53,7 @@ const projects = [
     icon: Brain,
     highlight: "mAP@50 = 0.655 on 116K images",
     description:
-      "Leading a 5-member team building a YOLOv11-based aerial object detection system. Built the full training pipeline on a 116K-image dataset fusing VisDrone, UAVDT, Stanford Drone, DOTAv2 and custom UAP/UAI labels. Developed a custom augmentation pipeline applying Gaussian blur and synthetic dead pixels to simulate real-field sensor failures.",
+      "Leading a 5-member team building a YOLOv11-based aerial object detection system. Built the full training pipeline on a 25K-image dataset fusing VisDrone, UAVDT, Stanford Drone, DOTAv2 and custom UAP/UAI labels. Developed a custom augmentation pipeline applying Gaussian blur and synthetic dead pixels to simulate real-field sensor failures.",
     bullets: [
       "YOLOv11 training pipeline — 116K image dataset, mAP@50 = 0.655",
       "Custom augmentation: Gaussian blur + synthetic dead pixels",
@@ -596,7 +596,7 @@ export default function Portfolio() {
                 },
                 {
                   prompt: "SerhanEnsar@dev:~$",
-                  cmd: "python train.py --dataset 116K --model yolov11",
+                  cmd: "python train.py --dataset 25K --model yolov11",
                   output: "Epoch 300/300 ── mAP@50: 0.655  ·  mAP@50-95: 0.421  ✓",
                   outColor: "text-amber-400",
                 },
