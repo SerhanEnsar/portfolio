@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest *)",
+      "Bash(cp -r /Users/serhanensar/Desktop/portfolio-temp/. /Users/serhanensar/Desktop/Portfolio/)",
+      "Bash(rm -rf /Users/serhanensar/Desktop/portfolio-temp)",
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(node *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
