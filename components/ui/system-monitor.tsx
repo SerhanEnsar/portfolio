@@ -98,7 +98,7 @@ export default function SystemMonitor() {
     { id: "4", name: "EGENODE", memory: [], color: "#8b5cf6" },
   ])
   const [isExpanded, setIsExpanded] = useState(false)
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
