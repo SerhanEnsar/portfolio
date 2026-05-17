@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Serhan Ensar. All rights reserved.
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 

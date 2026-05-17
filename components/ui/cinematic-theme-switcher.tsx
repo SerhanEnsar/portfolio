@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Serhan Ensar. All rights reserved.
 'use client';
 
 import { Sun, Moon } from 'lucide-react';

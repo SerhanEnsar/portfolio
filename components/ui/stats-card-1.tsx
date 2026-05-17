@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Serhan Ensar. All rights reserved.
 import React, { useEffect, useRef } from "react";
 import { motion, useInView, useAnimation, useSpring } from "framer-motion";
 import { ChevronRight } from "lucide-react";
