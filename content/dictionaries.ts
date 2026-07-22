@@ -15,6 +15,7 @@ export const dictionaries = {
       roles: "Roles",
       contact: "Contact",
       lab: "Lab",
+      sim: "Sim",
       menu: "Menu",
       close: "Close",
     },
@@ -146,6 +147,34 @@ export const dictionaries = {
         note: "Labels export in YOLO format — one line per object, class and box normalised to the frame. Because the scene is composed, those boxes are where the vehicles were placed, not an estimate of where they ended up. That is the whole argument for generating training data: the hard cases are something you ask for, and the truth comes free.",
       },
     },
+    sim: {
+      title: "Rover mission",
+      lead: "EGE ODBARS carries parcels across ground that was not built for wheels. This is that run, at toy scale.",
+      eyebrow: "Field exercise",
+      simTitle: "Delivery run",
+      intro:
+        "Collect four tagged parcels and get them to the depot. Watch the bay load: past 2.4 g the suspension is out of travel and the cargo takes the hit directly, so flat out costs more than it saves. Arrow keys or A / D to drive, and the same keys trim the chassis in the air; R rights the rover for five seconds of penalty.",
+      controls: "← → drive · R recover",
+      start: "Begin run",
+      again: "Run it again",
+      time: "Elapsed",
+      cargo: "Cargo",
+      load: "Bay load",
+      delivered: "Delivered",
+      depot: "DEPOT",
+      forward: "Drive forward",
+      reverse: "Reverse",
+      result: "Score {score}",
+      resultDetail: "All parcels delivered in {time}. Score is cargo integrity, less a point per second.",
+      // Telemetry, so it keeps the terse lowercase register of a device log.
+      log: {
+        aboard: "rfid {id} · aboard",
+        delivered: "{id} · delivered at {integrity}%",
+        shock: "shock · {load} g",
+        recovery: "recovery · +5 s",
+      },
+      note: "Three suspension stations per side, each riding independently — the reason a rocker-bogie crosses a ridge that beaches a rigid axle, and the reason it filters out every bump narrower than its own wheelbase. The 2.4 g limit is not a difficulty setting: it is what three struts at full travel can carry, so crossing it means the hull is taking the load. Physics runs at a fixed 120 Hz regardless of your display, so the same crest throws you the same way on every machine.",
+    },
     console: {
       open: "Open console",
       title: "Console",
@@ -170,6 +199,7 @@ export const dictionaries = {
       roles: "Görevler",
       contact: "İletişim",
       lab: "Laboratuvar",
+      sim: "Sim",
       menu: "Menü",
       close: "Kapat",
     },
@@ -299,6 +329,33 @@ export const dictionaries = {
         note: "Etiketler YOLO formatında iniyor — her nesne için bir satır, sınıf ve kutu kareye göre normalize. Sahne kurulduğu için o kutular araçların konduğu yer; nereye düştüklerine dair bir tahmin değil. Eğitim verisi üretmenin bütün gerekçesi bu: zor durumları isteyerek elde ediyorsun, doğru etiket de üstüne bedava geliyor.",
       },
     },
+    sim: {
+      title: "Rover görevi",
+      lead: "EGE ODBARS, tekerlek için yapılmamış arazide kargo taşıyor. Bu da onun küçültülmüş hâli.",
+      eyebrow: "Saha tatbikatı",
+      simTitle: "Teslimat turu",
+      intro:
+        "Etiketli dört kargoyu topla ve depoya ulaştır. Yük göstergesini izle: 2,4 g'nin ötesinde süspansiyonun yolu biter ve darbeyi doğrudan kargo yer, yani sonuna kadar basmak kazandırdığından fazlasını götürür. Yön tuşları ya da A / D ile sür; havadayken aynı tuşlar gövdeyi dengeler. R roveri doğrultur, karşılığı beş saniye ceza.",
+      controls: "← → sür · R doğrult",
+      start: "Turu başlat",
+      again: "Tekrar sür",
+      time: "Süre",
+      cargo: "Kargo",
+      load: "Yük",
+      delivered: "Teslim",
+      depot: "DEPO",
+      forward: "İleri sür",
+      reverse: "Geri sür",
+      result: "Skor {score}",
+      resultDetail: "Bütün kargolar {time} içinde teslim edildi. Skor, kargo bütünlüğünden saniye başına bir puan düşülerek hesaplanıyor.",
+      log: {
+        aboard: "rfid {id} · yüklendi",
+        delivered: "{id} · %{integrity} ile teslim",
+        shock: "darbe · {load} g",
+        recovery: "doğrultma · +5 sn",
+      },
+      note: "Her yanda bağımsız çalışan üç süspansiyon istasyonu — rocker-bogie'nin, sabit akslı bir aracın takılıp kalacağı sırtı aşabilmesinin sebebi bu; kendi dingil açıklığından dar her tümseği süzmesinin de. 2,4 g sınırı bir zorluk ayarı değil: yolunun sonuna gelmiş üç amortisörün taşıyabileceği yük tam olarak bu, dolayısıyla sınırı geçmek yükü gövdenin üstlenmesi demek. Fizik, ekranından bağımsız olarak sabit 120 Hz'de koşuyor; yani aynı sırt her makinede seni aynı şekilde savuruyor.",
+    },
     console: {
       open: "Konsolu aç",
       title: "Konsol",
@@ -318,17 +375,6 @@ export const dictionaries = {
 } as const;
 
 export type Dictionary = (typeof dictionaries)[Locale];
-
-/**
- * Substitutes `{placeholder}` tokens in a dictionary string.
- * Dictionary values have to stay serialisable to cross the server/client
- * boundary, so interpolation happens here rather than in the strings.
- */
-export function fill(template: string, values: Record<string, string | number>) {
-  return template.replace(/\{(\w+)\}/g, (match, key) =>
-    key in values ? String(values[key]) : match,
-  );
-}
 
 /** Renders the team-size label for a project. */
 export function teamLabel(dict: Dictionary, size: number) {

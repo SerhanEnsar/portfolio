@@ -5,6 +5,7 @@ import { profile } from "@/content/site";
 import { locales, type Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 import { reset as resetProgress } from "@/lib/progress";
+import { fill } from "@/lib/fill";
 
 /**
  * Console command registry. Everything reads from the same content modules the
@@ -29,9 +30,6 @@ export type Command = {
   summary: Record<Locale, string>;
   run: (args: string[], ctx: CommandContext) => CommandOutput | void;
 };
-
-const fill = (template: string, values: Record<string, string>) =>
-  template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? `{${key}}`);
 
 export const commands: Command[] = [
   {

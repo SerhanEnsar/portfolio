@@ -11,7 +11,8 @@ import {
 } from "@/lib/synthetic-scene";
 import { iou, type Box } from "@/lib/iou";
 import { record } from "@/lib/progress";
-import { fill, type Dictionary } from "@/content/dictionaries";
+import { type Dictionary } from "@/content/dictionaries";
+import { fill } from "@/lib/fill";
 
 const ROUNDS = 5;
 
