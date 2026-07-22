@@ -55,11 +55,21 @@ const GRADES = {
     "colorbalance=rs=-0.06:bs=0.11:rm=-0.06:bm=0.09:rh=-0.03:bh=0.06",
     "curves=all='0/0 0.25/0.10 0.6/0.54 1/0.92'",
   ].join(","),
+  thermal: [
+    // IR footage comes in warm and bright; pull it toward the cold near-black
+    // palette but keep the hot signatures readable for the detection pass.
+    "eq=brightness=-0.10:contrast=1.22:saturation=0.30",
+    "colorbalance=rs=-0.04:bs=0.08:rm=-0.05:bm=0.07:rh=0.04:bh=-0.02",
+  ].join(","),
   terrain: [
     "eq=brightness=-0.06:contrast=1.14:saturation=0.62",
     "colorbalance=bs=0.06:bm=0.03",
   ].join(","),
-  board: "eq=brightness=-0.04:contrast=1.08:saturation=0.90",
+  logistics: "eq=brightness=-0.05:contrast=1.10:saturation=0.72",
+  desk: [
+    "eq=brightness=-0.08:contrast=1.12:saturation=0.66",
+    "colorbalance=bs=0.05:bm=0.03",
+  ].join(","),
   lattice: "",
 };
 

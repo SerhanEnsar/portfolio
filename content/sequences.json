@@ -7,10 +7,16 @@
     "aerial": {
       "frames": 72
     },
+    "thermal": {
+      "frames": 64
+    },
     "terrain": {
       "frames": 64
     },
-    "board": {
+    "logistics": {
+      "frames": 64
+    },
+    "desk": {
       "frames": 64
     },
     "lattice": {

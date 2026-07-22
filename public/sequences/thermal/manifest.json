@@ -1,0 +1,10 @@
+{
+  "id": "thermal",
+  "frames": 64,
+  "tiers": [
+    1600,
+    900
+  ],
+  "generated": "2026-07-22T22:34:21.983Z",
+  "placeholder": false
+}

@@ -10,7 +10,14 @@ import manifest from "./sequences.json";
  * copy below are runtime/authoring concerns and stay here.
  */
 
-export const sequenceIds = ["aerial", "terrain", "board", "lattice"] as const;
+export const sequenceIds = [
+  "aerial",
+  "thermal",
+  "terrain",
+  "logistics",
+  "desk",
+  "lattice",
+] as const;
 
 export type SequenceId = (typeof sequenceIds)[number];
 
@@ -47,26 +54,49 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
     posterAlt:
       "Aerial reconnaissance view descending toward a coastal industrial area at dusk",
   },
+  thermal: {
+    id: "thermal",
+    kind: "frames",
+    frames: manifest.sequences.thermal.frames,
+    keyframePrompt:
+      "Infrared thermal camera still from a fixed-wing UAV, white-hot palette on a near-black ground, looking down at a coastal industrial area at night. A few warm figures and vehicles glow bright against cold graphite structures. Faint amber bloom on the hottest points, heavy sensor grain, thin atmospheric wash. No text, no overlays, no UI.",
+    motionPrompt:
+      "One continuous slow descent with a gentle lateral drift. Warm signatures resolve out of the cold field and grow as the camera loses altitude. No cuts, no rotation, no speed change.",
+    posterAlt:
+      "Thermal infrared reconnaissance view of warm signatures over a cold industrial area at night",
+  },
   terrain: {
     id: "terrain",
     kind: "frames",
     frames: manifest.sequences.terrain.frames,
     keyframePrompt:
-      "Low ground-level tracking still of a six-wheeled rocker-bogie unmanned ground vehicle crossing dry rocky terrain. Overcast flat light, cold graphite and dust tones, shallow depth of field with dust suspended in air. Documentary field-test look, not a render. No text, no overlays, no UI, no people visible.",
+      "Low ground-level tracking still of a six-wheeled rocker-bogie unmanned ground vehicle on a marked off-road test course, a raised loose-rock mound directly in its path. A red octagonal STOP sign on a steel post and course marker poles stand at the track edge. Overcast flat light, cold graphite and dust tones, shallow depth of field with dust in the air. Documentary field-test look, not a render. No text, no overlays, no UI, no people visible.",
     motionPrompt:
-      "One continuous lateral tracking shot alongside the vehicle as it drives forward over uneven ground. Camera holds constant height and speed. No cuts, no zoom, no direction change.",
+      "One continuous low tracking shot alongside the vehicle as it drives straight up and over the rock mound in its path, front wheels lifting and the chassis pitching nose-up before it tips over the crest. It stays centred on the marked track and does not steer around the obstacle. Foreground rocks sweep past low and close. No cuts, no zoom, no direction change.",
     posterAlt:
-      "Six-wheeled rocker-bogie ground vehicle crossing rocky terrain in flat overcast light",
+      "Six-wheeled rocker-bogie ground vehicle climbing a rock mound on a marked test course",
   },
-  board: {
-    id: "board",
+  logistics: {
+    id: "logistics",
     kind: "frames",
-    frames: manifest.sequences.board.frames,
+    frames: manifest.sequences.logistics.frames,
     keyframePrompt:
-      "Extreme macro still of a dark green development microcontroller board, ESP32-class module with castellated edges, fine copper traces and surface-mount components. Very shallow depth of field, cold key light with a single warm amber specular highlight on a solder joint. Dust-free studio macro. No text, no logos, no overlays.",
+      "Low three-quarter still of a compact autonomous delivery robot on a warehouse test floor: a four-axis servo arm folded over a small cargo bay, an RFID reader panel on the front, a zipline hook stowed on top. Brushed dark chassis, cold key light with a single warm amber status LED. Shallow depth of field, industrial matte floor. Documentary look, not a render. No text, no logos, no overlays.",
     motionPrompt:
-      "One continuous slow dolly across the board surface, following the traces. Focus plane travels with the camera. No cuts, no rack focus jumps, constant speed and direction.",
-    posterAlt: "Macro view travelling across the copper traces of a microcontroller board",
+      "One continuous slow arc around the robot as the servo arm lifts a parcel toward the cargo bay. The camera orbits close so the arm and RFID panel sweep across frame and grow. No cuts, no rack focus jumps, constant speed and direction.",
+    posterAlt:
+      "Autonomous delivery robot with a servo arm lifting a parcel on a warehouse floor",
+  },
+  desk: {
+    id: "desk",
+    kind: "frames",
+    frames: manifest.sequences.desk.frames,
+    keyframePrompt:
+      "Low macro still across an embedded-systems workbench at night: an ESP32 board on a breadboard wired to sensors, a soldering iron and jumper leads, a laptop screen glowing cold blue-grey out of focus behind. A single warm amber status LED on the board. Deep shadows, near-black surfaces, shallow depth of field, fine grain. Documentary look, not a render. No text, no logos, no overlays.",
+    motionPrompt:
+      "One continuous low dolly along the workbench, following the jumper wires from the board toward the glowing laptop. Foreground components sweep past close while the screen resolves behind. No cuts, no rack focus jumps, constant speed and direction.",
+    posterAlt:
+      "Macro view travelling along an embedded-systems workbench with a wired microcontroller at night",
   },
   lattice: {
     id: "lattice",

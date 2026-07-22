@@ -103,6 +103,7 @@ export const projects: Project[] = [
       ],
     },
     stack: ["YOLOv11", "Python", "FastAPI"],
+    sequence: "thermal",
   },
   {
     slug: "ege-odbars",
@@ -200,7 +201,7 @@ export const projects: Project[] = [
       ],
     },
     stack: ["C++", "ESP32", "Deneyap", "RFID", "IMU", "Arduino", "iBUS"],
-    sequence: "board",
+    sequence: "logistics",
   },
   {
     slug: "homeagent",
@@ -253,6 +254,7 @@ export const projects: Project[] = [
       "Gemini",
       "Raspberry Pi",
     ],
+    sequence: "desk",
   },
   {
     slug: "telemetry",
@@ -287,6 +289,7 @@ export const projects: Project[] = [
       ],
     },
     stack: ["Kotlin", "C++", "ESP32", "Wear OS", "Nextion HMI", "HTTP/JSON"],
+    sequence: "desk",
   },
   {
     slug: "tubitak",
