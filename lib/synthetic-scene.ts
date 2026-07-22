@@ -74,8 +74,49 @@ function groundTone(params: SceneParams, rng: Rng) {
   }
   // Dawn is browner and darker; midday is greyer and flatter.
   const warm = 1 - params.timeOfDay;
-  const base = lerp(38, 72, params.timeOfDay);
-  return `rgb(${Math.round(base + warm * 22)}, ${Math.round(base + warm * 8)}, ${Math.round(base - warm * 4)})`;
+  const base = lerp(30, 58, params.timeOfDay);
+  return `rgb(${Math.round(base + warm * 20)}, ${Math.round(base + warm * 7)}, ${Math.round(base - warm * 4)})`;
+}
+
+/**
+ * Cultivated land, seen from above, is rectangles: a rotated field grid of
+ * slightly mismatched tones. Without it the ground reads as one flat plane
+ * and nothing gives the eye a sense of scale.
+ */
+function drawParcels(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  params: SceneParams,
+  rng: Rng,
+) {
+  const span = Math.max(w, h) * 1.7;
+  ctx.save();
+  ctx.translate(w / 2, h / 2);
+  ctx.rotate((rng() - 0.5) * 1.1);
+
+  for (let y = -span / 2; y < span / 2; ) {
+    const rowHeight = span * (0.05 + rng() * 0.11);
+    for (let x = -span / 2; x < span / 2; ) {
+      const cellWidth = span * (0.07 + rng() * 0.17);
+      const shade = rng();
+
+      // Thermal ground is nearly uniform: fields differ in temperature far
+      // less than they differ in colour.
+      ctx.fillStyle =
+        params.sensor === "ir"
+          ? `rgba(${26 + shade * 14}, ${30 + shade * 14}, ${34 + shade * 15}, 0.5)`
+          : `rgba(${44 + shade * 46}, ${44 + shade * 40}, ${32 + shade * 30}, ${
+              0.18 + shade * 0.22
+            })`;
+      // The extra pixel closes the seam antialiasing would otherwise leave.
+      ctx.fillRect(x, y, cellWidth + 1, rowHeight + 1);
+      x += cellWidth;
+    }
+    y += rowHeight;
+  }
+
+  ctx.restore();
 }
 
 function drawTerrain(
@@ -88,8 +129,10 @@ function drawTerrain(
   ctx.fillStyle = groundTone(params, rng);
   ctx.fillRect(0, 0, w, h);
 
-  // Soft overlapping blobs read as fields and scrub at this scale, and cost
-  // far less than real noise.
+  drawParcels(ctx, w, h, params, rng);
+
+  // Soft overlapping blobs break up the grid — scrub, shadow and moisture on
+  // top of the field edges, and far cheaper than real noise.
   const patches = 90;
   for (let i = 0; i < patches; i++) {
     const cx = rng() * w;
@@ -260,7 +303,7 @@ export function renderScene(
   // altitude hard rather than just small.
   if (params.haze > 0) {
     const tone = params.sensor === "ir" ? "18,22,28" : "150,160,172";
-    ctx.fillStyle = `rgba(${tone},${params.haze * 0.42})`;
+    ctx.fillStyle = `rgba(${tone},${params.haze * 0.34})`;
     ctx.fillRect(0, 0, w, h);
   }
 

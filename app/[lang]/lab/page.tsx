@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { locales, isLocale } from "@/content/locale";
 import { getDictionary } from "@/content/dictionaries";
 import { LiveDetector } from "@/components/lab/detector/live-detector";
+import { SceneGenerator } from "@/components/lab/generator/scene-generator";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -23,8 +24,9 @@ export default async function LabPage({ params }: PageProps<"/[lang]/lab">) {
         {dict.lab.lead}
       </p>
 
-      <div className="mt-14 md:mt-20">
+      <div className="mt-14 space-y-14 md:mt-20 md:space-y-20">
         <LiveDetector dict={dict} />
+        <SceneGenerator dict={dict} />
       </div>
     </div>
   );
