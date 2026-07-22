@@ -38,6 +38,31 @@ function fail(message) {
   process.exit(1);
 }
 
+/**
+ * Per-scene colour grade, applied at frame extraction so it is reproducible
+ * and so every tier is graded identically.
+ *
+ * Generated footage does not arrive in the site's palette and cannot be asked
+ * to. `aerial` came back as bright warm daylight and needed the most work:
+ * pulled down, cooled, desaturated, blacks crushed, so it sits beside the
+ * near-black surfaces the rest of the page is built from. The other two were
+ * close already and only get a nudge — over-grading them would cost the
+ * shadow detail the detection pass needs to find anything.
+ */
+const GRADES = {
+  aerial: [
+    "eq=brightness=-0.15:contrast=1.32:saturation=0.38",
+    "colorbalance=rs=-0.06:bs=0.11:rm=-0.06:bm=0.09:rh=-0.03:bh=0.06",
+    "curves=all='0/0 0.25/0.10 0.6/0.54 1/0.92'",
+  ].join(","),
+  terrain: [
+    "eq=brightness=-0.06:contrast=1.14:saturation=0.62",
+    "colorbalance=bs=0.06:bm=0.03",
+  ].join(","),
+  board: "eq=brightness=-0.04:contrast=1.08:saturation=0.90",
+  lattice: "",
+};
+
 async function requireBinary(name) {
   try {
     await run("which", [name]);
@@ -84,7 +109,7 @@ async function clipDuration(clip) {
   return duration;
 }
 
-async function extractFrames(clip, dir, count) {
+async function extractFrames(clip, dir, count, grade = "") {
   await mkdir(dir, { recursive: true });
   // Resample onto exactly `count` frames whatever the clip's own rate is, so
   // scroll position maps to a frame by plain index lookup with no drift.
@@ -95,7 +120,18 @@ async function extractFrames(clip, dir, count) {
   await run("ffmpeg", [
     "-y", "-hide_banner", "-loglevel", "error",
     "-i", clip,
-    "-vf", `fps=${rate},scale=1920:-2,crop=1920:1080,hqdn3d=4:3:6:4.5`,
+    // Grade before denoise: hqdn3d on already-crushed blacks is far more
+    // effective than denoising first and then crushing the noise it left.
+    "-vf", [
+      `fps=${rate}`,
+      // Cover, then centre-crop. Generators do not all return exactly 16:9 —
+      // 1928x1076 is common — and scaling on width alone leaves a frame too
+      // short to crop 1080 out of.
+      "scale=1920:1080:force_original_aspect_ratio=increase",
+      "crop=1920:1080",
+      ...(grade ? [grade] : []),
+      "hqdn3d=4:3:6:4.5",
+    ].join(","),
     "-frames:v", String(count),
     path.join(dir, "src-%04d.png"),
   ]);
@@ -172,8 +208,11 @@ if (source === "--placeholder") {
 }
 
 const framesDir = path.join(work, "frames");
-console.log("  extracting frames");
-await extractFrames(clip, framesDir, frames);
+// A placeholder is synthesised in the palette already; grading it would be
+// grading our own gradient.
+const grade = source === "--placeholder" ? "" : (GRADES[id] ?? "");
+console.log(`  extracting frames${grade ? " (graded)" : ""}`);
+await extractFrames(clip, framesDir, frames, grade);
 
 await mkdir(outRoot, { recursive: true });
 for (const tier of manifest.tiers) {
