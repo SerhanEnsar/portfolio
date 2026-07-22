@@ -1,0 +1,20 @@
+{
+  "tiers": [
+    1600,
+    900
+  ],
+  "sequences": {
+    "aerial": {
+      "frames": 72
+    },
+    "terrain": {
+      "frames": 64
+    },
+    "board": {
+      "frames": 64
+    },
+    "lattice": {
+      "frames": 64
+    }
+  }
+}

@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Serhan Ensar Büdün
 
-## Getting Started
+Next.js 16 · React 19 · Tailwind v4 · framer-motion. Bilingual (EN/TR), dark only.
 
-First, run the development server:
+The site's defining element is the **scroll-scrubbed scene**: a pinned canvas
+whose frames advance with scroll position, the way a sensor feed advances with
+time. Scenes are AI-generated clips converted to WebP frame tiers.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # http://localhost:3000 → redirects to /en or /tr
+npm run build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Layout
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/[lang]/                  locale-scoped routes; [lang]/layout.tsx is the root layout
+  projects/[slug]/           14 static pages (7 projects × 2 locales)
+proxy.ts                     sends locale-less URLs to /en or /tr
+content/                     all copy and data, typed and bilingual
+  sequences.json             frame counts — read by both the runtime and the build script
+components/sequence/         the scroll-scrub engine
+components/sections/         one file per page section
+scripts/build-sequence.mjs   clip → frame tiers under public/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Next 16 notes that differ from older versions: the middleware convention is now
+`proxy.ts` exporting `proxy()`, route `params` is a Promise, and `PageProps` /
+`LayoutProps` are global type helpers generated from the route tree.
 
-## Learn More
+## Scenes
 
-To learn more about Next.js, take a look at the following resources:
+Four scenes — `aerial`, `terrain`, `board`, `lattice`. Each needs a short clip
+with **one continuous camera move and no cuts**; a scrub only reads correctly if
+the source is a single take. Prompts for both the still and the motion live in
+`content/sequences.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+higgsfield auth login                        # once per session
+# generate a still, animate it to a ~5s clip, then:
+npm run sequence aerial ~/Downloads/aerial.mp4
+npm run sequence aerial -- --placeholder     # neutral stand-in, no AI needed
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The script resamples the clip to an exact frame count, denoises (grain is close
+to incompressible and dominates payload size), and writes two tiers — 1600w for
+desktop, 900w for mobile — plus a blurred poster.
 
-## Deploy on Vercel
+Loading rules the engine enforces:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Only the hero scene loads eagerly; the rest wait until ~1.5 viewports away.
+- Mobile plays every other frame from the 900w tier.
+- The poster shows until 60% of frames are decoded.
+- `prefers-reduced-motion`, data-saver and 2G **skip frames entirely** — the
+  poster becomes the permanent state, and nothing is downloaded.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## CV
+
+Drop the PDF at `public/cv/serhan-ensar-budun-cv.pdf`. The download link renders
+only when that file exists.
+
+## Deploying
+
+Pushes to `main` deploy to the existing Vercel project, so the domain and its
+settings carry over untouched. The previous version of the site is frozen at the
+`v1-legacy` tag and branch.

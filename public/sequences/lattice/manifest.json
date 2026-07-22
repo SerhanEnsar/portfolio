@@ -1,0 +1,10 @@
+{
+  "id": "lattice",
+  "frames": 64,
+  "tiers": [
+    1600,
+    900
+  ],
+  "generated": "2026-07-22T11:23:28.155Z",
+  "placeholder": true
+}

@@ -1,127 +1,161 @@
+/* Copyright (c) 2026 Serhan Ensar Büdün. All rights reserved. */
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 210 20% 97%;
-    --foreground: 216 28% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 216 28% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 216 28% 12%;
-    --primary: 142 68% 32%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 15% 92%;
-    --secondary-foreground: 216 28% 12%;
-    --muted: 210 15% 93%;
-    --muted-foreground: 215 12% 45%;
-    --accent: 162 60% 30%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 214 20% 86%;
-    --input: 214 20% 86%;
-    --ring: 142 68% 32%;
-    --radius: 0.5rem;
-  }
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Palette reads like an EO/IR sensor feed, not a neon terminal:
+   cold graphite ground, signal amber for detections, ice blue for telemetry.
+   `lock` is reserved exclusively for live ACTIVE status — nothing else. */
+@theme {
+  --color-void: #080b0e;
+  --color-surface: #0e1317;
+  --color-haze: #141a20;
+  --color-line: #1e262d;
+  --color-dim: #6e7c87;
+  --color-bone: #e6e9ec;
+  --color-signal: #ffb020;
+  --color-ice: #8fc5dc;
+  --color-lock: #3ddc84;
 
-  .dark {
-    --background: 216 30% 6%;
-    --foreground: 210 18% 88%;
-    --card: 216 28% 9%;
-    --card-foreground: 210 18% 88%;
-    --popover: 216 28% 9%;
-    --popover-foreground: 210 18% 88%;
-    --primary: 142 70% 44%;
-    --primary-foreground: 216 30% 6%;
-    --secondary: 216 22% 13%;
-    --secondary-foreground: 210 18% 80%;
-    --muted: 216 22% 12%;
-    --muted-foreground: 215 12% 52%;
-    --accent: 162 65% 38%;
-    --accent-foreground: 0 0% 5%;
-    --destructive: 0 62% 38%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 216 22% 16%;
-    --input: 216 22% 16%;
-    --ring: 142 70% 44%;
-  }
-}
+  --font-display: var(--font-saira-condensed), ui-sans-serif, system-ui;
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
-@theme inline {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --radius-frame: 2px;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
-  * {
-    border-color: hsl(var(--border));
-  }
+
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: var(--color-void);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Display face is set tight and wide — aviation placard, not web heading. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-void);
+  }
+
+  /* Keyboard focus must survive every restyle below. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* Instrument-grade scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dim);
   }
 }
 
-/* Tactical scan line overlay for dark mode */
-.dark body::before {
+/* ── Atmospheric haze ──────────────────────────────────────────────────────
+   A single fixed vignette + altitude gradient sitting under all content.
+   Cheaper and calmer than per-section gradients. */
+.atmosphere::before {
   content: "";
-  pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(143, 197, 220, 0.06), transparent 60%),
+    radial-gradient(100% 60% at 50% 100%, rgba(255, 176, 32, 0.035), transparent 70%);
 }
 
-/* Tactical grid background for dark cards */
-.dark .tactical-grid {
+/* ── Detection bracket ─────────────────────────────────────────────────────
+   The signature element. Corner marks that frame real content the way the
+   model frames a target. Confidence values come from real metrics only. */
+.bracket {
+  position: relative;
+}
+.bracket::before,
+.bracket::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--color-signal);
+  border-style: solid;
+  opacity: 0.9;
+}
+.bracket::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+.bracket::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* ── Live status ───────────────────────────────────────────────────────────
+   The only pulsing thing on the page. */
+@keyframes lock-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(61, 220, 132, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(61, 220, 132, 0);
+  }
+}
+.status-live {
+  animation: lock-pulse 2.4s ease-in-out infinite;
+}
+
+/* ── Dead-pixel dissolve ───────────────────────────────────────────────────
+   Serhan's own augmentation pipeline (Gaussian blur + synthetic dead pixels)
+   reused as the transition between sensor scenes. */
+.deadpixels {
   background-image:
-    linear-gradient(rgba(34, 197, 94, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
+    radial-gradient(circle at 17% 34%, rgba(230, 233, 236, 0.9) 0.5px, transparent 0.6px),
+    radial-gradient(circle at 73% 12%, rgba(8, 11, 14, 0.9) 0.5px, transparent 0.6px),
+    radial-gradient(circle at 41% 78%, rgba(230, 233, 236, 0.8) 0.5px, transparent 0.6px),
+    radial-gradient(circle at 88% 61%, rgba(8, 11, 14, 0.9) 0.5px, transparent 0.6px);
+  background-size: 53px 47px, 71px 61px, 89px 83px, 43px 97px;
 }
 
-/* Glowing emerald border on hover */
-.dark .glow-border:hover {
-  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), 0 0 20px rgba(34, 197, 94, 0.08);
-}
-
-/* Pulsing status dot */
-@keyframes status-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0); }
-}
-
-.status-active {
-  animation: status-pulse 2s ease-in-out infinite;
+/* ── Reduced motion ────────────────────────────────────────────────────────
+   Sequence components also check this in JS and skip the frame fetch entirely;
+   this covers everything else. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
