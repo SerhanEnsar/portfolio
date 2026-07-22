@@ -70,6 +70,12 @@ const GRADES = {
     "eq=brightness=-0.08:contrast=1.12:saturation=0.66",
     "colorbalance=bs=0.05:bm=0.03",
   ].join(","),
+  // Studio macro, close already — a light crush and desaturate to seat the
+  // metal on near-black without killing the amber glint.
+  optics: "eq=brightness=-0.07:contrast=1.14:saturation=0.70",
+  // The closing field is warm by design; keep it warm, only deepen the black
+  // between the points so it reads against the void.
+  signal: "eq=brightness=-0.06:contrast=1.16:saturation=0.82",
   lattice: "",
 };
 

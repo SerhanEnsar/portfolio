@@ -19,6 +19,12 @@
     "desk": {
       "frames": 64
     },
+    "optics": {
+      "frames": 64
+    },
+    "signal": {
+      "frames": 64
+    },
     "lattice": {
       "frames": 64
     }

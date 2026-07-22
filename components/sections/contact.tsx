@@ -17,7 +17,7 @@ const linkClass =
 export function Contact({ dict }: { dict: Dictionary }) {
   return (
     <div id="contact" data-objective="section:contact" className="relative">
-      <ScrollSequence id="lattice" span={2}>
+      <ScrollSequence id="signal" span={2} scrim="light">
         <div className="flex h-full items-center px-5 md:px-10">
           <div className="mx-auto w-full max-w-[1400px]">
             <div className="max-w-2xl">

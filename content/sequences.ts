@@ -16,6 +16,8 @@ export const sequenceIds = [
   "terrain",
   "logistics",
   "desk",
+  "optics",
+  "signal",
   "lattice",
 ] as const;
 
@@ -97,6 +99,26 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
       "One continuous low dolly along the workbench, following the jumper wires from the board toward the glowing laptop. Foreground components sweep past close while the screen resolves behind. No cuts, no rack focus jumps, constant speed and direction.",
     posterAlt:
       "Macro view travelling along an embedded-systems workbench with a wired microcontroller at night",
+  },
+  optics: {
+    id: "optics",
+    kind: "frames",
+    frames: manifest.sequences.optics.frames,
+    keyframePrompt:
+      "Extreme macro still of a precision camera optic — the front element of a lens or an electro-optical sensor module — dark anodised metal housing, concentric machined rings, a deep glass element catching a thin rim of cold light. Near-black background, desaturated graphite and gunmetal tones, a single warm amber specular glint on the glass edge and one faint ice-blue reflection deep in the lens. Very shallow depth of field, dust-free studio macro, fine grain. No text, no logos, no UI.",
+    motionPrompt:
+      "One continuous slow orbit around the lens element, the camera arcing close so the machined rings and the glass sweep across frame and the amber glint travels along the rim as the angle changes. No cuts, no focus jumps, constant speed and a single direction.",
+    posterAlt: "Macro view orbiting a precision camera lens catching a thin rim of light",
+  },
+  signal: {
+    id: "signal",
+    kind: "frames",
+    frames: manifest.sequences.signal.frames,
+    keyframePrompt:
+      "Abstract dark field of countless small out-of-focus light points suspended in deep three-dimensional space, like a loose constellation or a network of nodes seen through haze. Near-black background. Most points are soft warm bone-white and pale amber; only a few cold ice-blue sparks for depth. Heavy bokeh, volumetric atmosphere, fine grain, denser toward the centre and thinning to pure black at the edges. Cinematic, shot on a long lens wide open. No text, no UI, no recognisable objects.",
+    motionPrompt:
+      "One continuous slow forward push through the field of light points. Near points drift past the camera and blur out while deeper layers resolve and grow, giving strong parallax and depth. Gentle drift, points twinkling softly. No cuts, no rotation, no speed change.",
+    posterAlt: "Abstract field of warm out-of-focus light points receding into darkness",
   },
   lattice: {
     id: "lattice",
