@@ -16,6 +16,12 @@ export type SequenceId = (typeof sequenceIds)[number];
 
 export type SequenceSpec = {
   id: SequenceId;
+  /**
+   * How the scene is produced. "frames" scrubs a decoded WebP sequence;
+   * "shader" runs live on the GPU — no download, and it reacts to the pointer.
+   * Photoreal scenes have to be frames; abstract ones are better as shaders.
+   */
+  kind: "frames" | "shader";
   /** Frames in the desktop tier. Mobile plays every other frame. */
   frames: number;
   /** Prompt for the still that seeds the shot. */
@@ -32,6 +38,7 @@ export type SequenceSpec = {
 export const sequences: Record<SequenceId, SequenceSpec> = {
   aerial: {
     id: "aerial",
+    kind: "frames",
     frames: manifest.sequences.aerial.frames,
     keyframePrompt:
       "Cinematic aerial reconnaissance still from a fixed-wing UAV electro-optical camera, looking down at a coastal Aegean industrial area at dusk. Cold desaturated slate and graphite tones, thin atmospheric haze between camera and ground, faint amber highlights on roads. Shot on a long lens, slight barrel distortion, fine sensor grain. No text, no overlays, no UI, no people visible.",
@@ -42,6 +49,7 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
   },
   terrain: {
     id: "terrain",
+    kind: "frames",
     frames: manifest.sequences.terrain.frames,
     keyframePrompt:
       "Low ground-level tracking still of a six-wheeled rocker-bogie unmanned ground vehicle crossing dry rocky terrain. Overcast flat light, cold graphite and dust tones, shallow depth of field with dust suspended in air. Documentary field-test look, not a render. No text, no overlays, no UI, no people visible.",
@@ -52,6 +60,7 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
   },
   board: {
     id: "board",
+    kind: "frames",
     frames: manifest.sequences.board.frames,
     keyframePrompt:
       "Extreme macro still of a dark green development microcontroller board, ESP32-class module with castellated edges, fine copper traces and surface-mount components. Very shallow depth of field, cold key light with a single warm amber specular highlight on a solder joint. Dust-free studio macro. No text, no logos, no overlays.",
@@ -61,7 +70,8 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
   },
   lattice: {
     id: "lattice",
-    frames: manifest.sequences.lattice.frames,
+    kind: "shader",
+    frames: 0,
     keyframePrompt:
       "Abstract dark field of fine luminous particles connected by hairline links, forming a loose irregular lattice in three-dimensional depth. Cold ice-blue points with occasional amber nodes on a near-black ground. Volumetric, softly out of focus toward the edges. No text, no geometry that reads as a logo, no UI.",
     motionPrompt:
