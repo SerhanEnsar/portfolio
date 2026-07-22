@@ -5,13 +5,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   DEFAULT_PARAMS,
-  iou,
   renderScene,
   type SceneParams,
   type Target,
 } from "@/lib/synthetic-scene";
+import { iou, type Box } from "@/lib/iou";
 import { record } from "@/lib/progress";
-import type { Dictionary } from "@/content/dictionaries";
+import { fill, type Dictionary } from "@/content/dictionaries";
 
 const ROUNDS = 5;
 
@@ -35,11 +35,6 @@ function roundParams(round: number): SceneParams {
     targets: 1,
   };
 }
-
-type Box = { x: number; y: number; w: number; h: number };
-
-const fill = (template: string, values: Record<string, string>) =>
-  template.replace(/\{(\w+)\}/g, (_, k) => values[k] ?? `{${k}}`);
 
 export function DetectionChallenge({ dict }: { dict: Dictionary }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -111,7 +106,7 @@ export function DetectionChallenge({ dict }: { dict: Dictionary }) {
       return;
     }
     setGuess(drag);
-    setScores((prev) => [...prev, iou({ ...drag, label: "guess" }, truth)]);
+    setScores((prev) => [...prev, iou(drag, truth)]);
   };
 
   const skip = () => {
@@ -158,10 +153,7 @@ export function DetectionChallenge({ dict }: { dict: Dictionary }) {
         </div>
         {started && !done && (
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-dim">
-            {fill(dict.challenge.round, {
-              n: String(round + 1),
-              total: String(ROUNDS),
-            })}
+            {fill(dict.challenge.round, { n: round + 1, total: ROUNDS })}
           </p>
         )}
       </div>

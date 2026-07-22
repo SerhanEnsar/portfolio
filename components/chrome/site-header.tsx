@@ -40,7 +40,11 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
-        lifted ? "border-b border-line bg-void/85 backdrop-blur-md" : "bg-transparent",
+        // Transparent only where there is a scene to be transparent over.
+        // Every other route starts at the top of its own text.
+        lifted || !onHome
+          ? "border-b border-line bg-void/85 backdrop-blur-md"
+          : "bg-transparent",
       )}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 py-4 md:px-10">
@@ -62,6 +66,19 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
               {dict.nav[id]}
             </a>
           ))}
+          {/* A route, not an anchor — and the only nav item that runs code, so
+              it carries the signal colour the instruments use. */}
+          <Link
+            href={`/${locale}/lab`}
+            className={cn(
+              "font-mono text-[11px] uppercase tracking-[0.2em] transition-colors",
+              pathname.startsWith(`/${locale}/lab`)
+                ? "text-signal"
+                : "text-dim hover:text-signal",
+            )}
+          >
+            {dict.nav.lab}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-4">
@@ -122,6 +139,13 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
                   {dict.nav[id]}
                 </a>
               ))}
+              <Link
+                href={`/${locale}/lab`}
+                onClick={() => setOpen(false)}
+                className="py-4 font-display text-2xl uppercase tracking-tight text-signal"
+              >
+                {dict.nav.lab}
+              </Link>
             </div>
           </motion.nav>
         )}

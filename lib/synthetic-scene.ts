@@ -13,6 +13,8 @@
  * on a 2D context than in a shader.
  */
 
+import type { Box } from "./iou";
+
 export type SensorMode = "eo" | "ir";
 
 export type SceneParams = {
@@ -33,14 +35,8 @@ export type SceneParams = {
   targets: number;
 };
 
-export type Target = {
-  /** Normalised 0..1, top-left origin. */
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  label: string;
-};
+/** A box in normalised 0..1 coordinates, top-left origin, plus its class. */
+export type Target = Box & { label: string };
 
 export const DEFAULT_PARAMS: SceneParams = {
   seed: 1,
@@ -271,18 +267,4 @@ export function renderScene(
   applySensorArtifacts(ctx, w, h, params, rng);
 
   return targets;
-}
-
-/** Intersection over union, the metric behind mAP@50. */
-export function iou(a: Target, b: Target) {
-  const x1 = Math.max(a.x, b.x);
-  const y1 = Math.max(a.y, b.y);
-  const x2 = Math.min(a.x + a.w, b.x + b.w);
-  const y2 = Math.min(a.y + a.h, b.y + b.h);
-
-  const overlap = Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
-  if (overlap <= 0) return 0;
-
-  const union = a.w * a.h + b.w * b.h - overlap;
-  return union <= 0 ? 0 : overlap / union;
 }

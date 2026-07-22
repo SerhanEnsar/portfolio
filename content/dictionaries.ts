@@ -14,6 +14,7 @@ export const dictionaries = {
       work: "Work",
       roles: "Roles",
       contact: "Contact",
+      lab: "Lab",
       menu: "Menu",
       close: "Close",
     },
@@ -100,6 +101,31 @@ export const dictionaries = {
         "A detection counts at IoU ≥ 0.50. That threshold is what the 50 in mAP@50 means — the 0.655 on this page is scored the same way, across 116K images.",
       skip: "Skip",
     },
+    lab: {
+      title: "Lab",
+      lead: "Instruments, not screenshots. Everything here runs in your browser — no server does any of the work, and nothing loads until you switch it on.",
+      detector: {
+        eyebrow: "Instrument 01",
+        title: "Live detection",
+        activate: "Activate sensor",
+        useFile: "Use a photo or clip",
+        loading: "Loading model…",
+        stop: "Stop sensor",
+        denied:
+          "No camera available here. Pick a photo or a clip instead — it runs on exactly the same code path.",
+        unsupported:
+          "This browser can't run the detector: it needs Web Workers and OffscreenCanvas.",
+        failed: "The detector stopped:",
+        statInference: "Inference",
+        statFps: "Frames / s",
+        statObjects: "Tracks",
+        statBackend: "Backend",
+        privacy:
+          "Frames never leave this device. No upload, no recording, no server.",
+        model:
+          "{model} ({licence}) at {size}×{size}, executing on WebAssembly in a worker so the page never stalls. The class list and input size live in one config file, so my own trained weights can replace it without touching anything else.",
+      },
+    },
     console: {
       open: "Open console",
       title: "Console",
@@ -123,6 +149,7 @@ export const dictionaries = {
       work: "Projeler",
       roles: "Görevler",
       contact: "İletişim",
+      lab: "Laboratuvar",
       menu: "Menü",
       close: "Kapat",
     },
@@ -207,6 +234,31 @@ export const dictionaries = {
         "Bir tespit IoU ≥ 0.50'de sayılır. mAP@50'deki 50 tam olarak bu eşik — bu sayfadaki 0.655 de 116 bin görüntüde aynı şekilde hesaplandı.",
       skip: "Geç",
     },
+    lab: {
+      title: "Laboratuvar",
+      lead: "Ekran görüntüsü değil, çalışan aletler. Buradaki her şey senin tarayıcında koşuyor — hiçbir işi sunucu yapmıyor ve sen açmadan hiçbir şey inmiyor.",
+      detector: {
+        eyebrow: "Alet 01",
+        title: "Canlı tespit",
+        activate: "Sensörü etkinleştir",
+        useFile: "Fotoğraf ya da klip kullan",
+        loading: "Model yükleniyor…",
+        stop: "Sensörü durdur",
+        denied:
+          "Burada kamera yok. Bunun yerine bir fotoğraf ya da klip seç — tam olarak aynı kod yolundan geçiyor.",
+        unsupported:
+          "Bu tarayıcı dedektörü çalıştıramıyor: Web Worker ve OffscreenCanvas gerekiyor.",
+        failed: "Dedektör durdu:",
+        statInference: "Çıkarım",
+        statFps: "Kare / sn",
+        statObjects: "İz",
+        statBackend: "Arka uç",
+        privacy:
+          "Kareler bu cihazdan hiç çıkmıyor. Yükleme yok, kayıt yok, sunucu yok.",
+        model:
+          "{model} ({licence}), {size}×{size} girdiyle ve bir worker içinde WebAssembly üzerinde koşuyor; böylece sayfa hiç takılmıyor. Sınıf listesi ve girdi boyutu tek bir yapılandırma dosyasında, yani kendi eğittiğim ağırlıklar başka hiçbir yere dokunmadan yerine geçebiliyor.",
+      },
+    },
     console: {
       open: "Konsolu aç",
       title: "Konsol",
@@ -226,6 +278,17 @@ export const dictionaries = {
 } as const;
 
 export type Dictionary = (typeof dictionaries)[Locale];
+
+/**
+ * Substitutes `{placeholder}` tokens in a dictionary string.
+ * Dictionary values have to stay serialisable to cross the server/client
+ * boundary, so interpolation happens here rather than in the strings.
+ */
+export function fill(template: string, values: Record<string, string | number>) {
+  return template.replace(/\{(\w+)\}/g, (match, key) =>
+    key in values ? String(values[key]) : match,
+  );
+}
 
 /** Renders the team-size label for a project. */
 export function teamLabel(dict: Dictionary, size: number) {
