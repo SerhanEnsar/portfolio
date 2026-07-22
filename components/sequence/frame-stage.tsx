@@ -11,6 +11,17 @@ import { useSceneActive, useSequenceProgress } from "./pinned-scene";
 const MAX_DPR = 2;
 
 /**
+ * The scrub does not jump straight to the scrolled-to frame; it eases there.
+ * `SMOOTH_TAU` is the time constant of that ease (smaller = snappier), and
+ * `MAX_FPS` is a hard ceiling on how fast frames may advance however violently
+ * the wheel is thrown — a fast flick then plays through as a smooth run rather
+ * than a blur of skipped frames. `SNAP` ends the loop once close enough.
+ */
+const SMOOTH_TAU = 0.08;
+const MAX_FPS = 110;
+const SNAP = 0.25;
+
+/**
  * Stage that scrubs a decoded frame sequence against scroll position.
  *
  * Frames are drawn to a canvas rather than swapped as <img> so there is no
@@ -31,7 +42,12 @@ export function FrameStage({ id }: { id: SequenceId }) {
   }, [frames]);
 
   const lastFrame = useRef(0);
-  const pending = useRef<number | null>(null);
+  // Fractional frame the scrub is easing from, the frame it is easing toward,
+  // the running rAF id, and the timestamp of the previous tick.
+  const current = useRef(0);
+  const target = useRef(0);
+  const raf = useRef<number | null>(null);
+  const lastTs = useRef(0);
 
   function draw(index: number) {
     const canvas = canvasRef.current;
@@ -78,17 +94,40 @@ export function FrameStage({ id }: { id: SequenceId }) {
     return () => window.removeEventListener("resize", resize);
   }, [ready]);
 
-  useMotionValueEvent(progress, "change", (value) => {
-    const index = Math.min(total - 1, Math.max(0, Math.round(value * (total - 1))));
-    if (index === lastFrame.current) return;
-    lastFrame.current = index;
+  // Eased scrub loop: ease `current` toward `target`, capped so a hard flick
+  // plays through smoothly rather than snapping. Runs only while there is
+  // ground to cover, then parks itself until the next scroll.
+  function step(ts: number) {
+    const dt = lastTs.current ? Math.min((ts - lastTs.current) / 1000, 0.05) : 0.016;
+    lastTs.current = ts;
 
-    // One draw per animation frame, no matter how fast the wheel spins.
-    if (pending.current !== null) return;
-    pending.current = requestAnimationFrame(() => {
-      pending.current = null;
-      draw(lastFrame.current);
-    });
+    const delta = target.current - current.current;
+    const eased = delta * (1 - Math.exp(-dt / SMOOTH_TAU));
+    const cap = MAX_FPS * dt;
+    current.current += Math.sign(eased) * Math.min(Math.abs(eased), cap);
+
+    if (Math.abs(target.current - current.current) < SNAP) current.current = target.current;
+
+    const index = Math.min(total - 1, Math.max(0, Math.round(current.current)));
+    if (index !== lastFrame.current) {
+      lastFrame.current = index;
+      draw(index);
+    }
+
+    if (current.current !== target.current) {
+      raf.current = requestAnimationFrame(step);
+    } else {
+      raf.current = null;
+      lastTs.current = 0;
+    }
+  }
+
+  useMotionValueEvent(progress, "change", (value) => {
+    target.current = Math.min(total - 1, Math.max(0, value * (total - 1)));
+    if (raf.current === null && target.current !== current.current) {
+      lastTs.current = 0;
+      raf.current = requestAnimationFrame(step);
+    }
   });
 
   useEffect(() => {
@@ -97,7 +136,7 @@ export function FrameStage({ id }: { id: SequenceId }) {
 
   useEffect(
     () => () => {
-      if (pending.current !== null) cancelAnimationFrame(pending.current);
+      if (raf.current !== null) cancelAnimationFrame(raf.current);
     },
     [],
   );

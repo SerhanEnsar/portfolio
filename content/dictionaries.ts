@@ -190,6 +190,8 @@ export const dictionaries = {
       switchLanguage: "Switch language",
       sequenceLoading: "Loading scene",
       skipToContent: "Skip to content",
+      rotate: "Turn your phone sideways for the full scene",
+      dismiss: "Dismiss",
     },
   },
   tr: {
@@ -372,6 +374,8 @@ export const dictionaries = {
       switchLanguage: "Dili değiştir",
       sequenceLoading: "Sahne yükleniyor",
       skipToContent: "İçeriğe geç",
+      rotate: "Sahnenin tamamı için telefonu yatay çevir",
+      dismiss: "Kapat",
     },
   },
 } as const;

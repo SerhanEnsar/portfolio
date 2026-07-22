@@ -11,6 +11,7 @@ import { Reticle } from "@/components/chrome/reticle";
 import { MissionHud } from "@/components/chrome/mission-hud";
 import { BootSequence } from "@/components/chrome/boot-sequence";
 import { CommandConsole } from "@/components/console/command-console";
+import { OrientationHint } from "@/components/chrome/orientation-hint";
 import { MotionProvider } from "@/components/chrome/motion-provider";
 import { notFound } from "next/navigation";
 
@@ -103,6 +104,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Reticle />
           <CommandConsole locale={lang} dict={dict} />
           <MissionHud dict={dict} />
+          <OrientationHint dict={dict} />
         </MotionProvider>
       </body>
     </html>

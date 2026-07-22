@@ -83,17 +83,13 @@ export const commands: Command[] = [
   {
     name: "open",
     args: "<page>",
-    summary: { en: "go to lab, sim, cv or a project", tr: "lab, sim, cv veya bir projeye git" },
+    summary: { en: "go to lab, sim or a project", tr: "lab, sim veya bir projeye git" },
     run: (args, { locale, navigate, dict }) => {
       const target = args[0];
       if (!target) return { tone: "error", lines: [fill(dict.console.unknown, { cmd: "open" })] };
 
       if (target === "lab" || target === "sim") {
         navigate(`/${locale}/${target}`);
-        return;
-      }
-      if (target === "cv") {
-        navigate(profile.cvPath);
         return;
       }
       if (getProject(target)) {

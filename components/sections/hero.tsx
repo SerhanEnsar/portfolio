@@ -60,7 +60,11 @@ function HeroCopy({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             {dict.hero.status}
           </motion.p>
 
-          <h1 className="font-display text-[clamp(3.2rem,11vw,9rem)] font-extrabold leading-[0.86] tracking-[-0.02em] text-bone">
+          {/* Turkish caps carry diacritics — the Ü umlaut and Ş cedilla need
+              vertical room the base Latin caps do not, so the line box is tall
+              enough to hold them instead of letting the next line's dots ride
+              up into the line above. */}
+          <h1 className="font-display text-[clamp(3.2rem,11vw,9rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-bone">
             {profile.nameLines.map((line, i) => (
               <motion.span
                 key={line}
@@ -97,9 +101,11 @@ function HeroCopy({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </motion.div>
 
+      {/* Centred on phones so it clears the fixed console button in the
+          bottom-left corner; back to the left rail from md up. */}
       <motion.p
         style={{ opacity }}
-        className="absolute bottom-10 left-5 font-mono text-[10px] uppercase tracking-[0.3em] text-dim md:left-10"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-dim md:left-10 md:translate-x-0"
       >
         {dict.hero.scroll} ↓
       </motion.p>

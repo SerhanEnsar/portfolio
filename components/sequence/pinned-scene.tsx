@@ -19,8 +19,8 @@ import { motionValue, useScroll, type MotionValue } from "framer-motion";
  * only thing that differs between scenes, so it is passed in.
  */
 
-const SequenceProgress = createContext<MotionValue<number>>(motionValue(0));
-const SceneActive = createContext(false);
+export const SequenceProgress = createContext<MotionValue<number>>(motionValue(0));
+export const SceneActive = createContext(false);
 
 /** Scrub position of the enclosing scene, 0 → 1. */
 export function useSequenceProgress() {

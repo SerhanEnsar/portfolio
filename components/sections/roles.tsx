@@ -1,15 +1,17 @@
 // Copyright (c) 2026 Serhan Ensar Büdün. All rights reserved.
 import { SectionMark } from "@/components/ui/marks";
+import { SceneBackdrop } from "@/components/sequence/scene-backdrop";
 import { roles } from "@/content/site";
 import type { Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 
 export function Roles({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section
-      id="roles"
-      data-objective="section:roles"
-      className="relative border-t border-line bg-surface py-28 md:py-40"
+    <SceneBackdrop
+      id="terrain"
+      anchor="roles"
+      objective="section:roles"
+      className="border-t border-line py-28 md:py-40"
     >
       <div className="mx-auto grid max-w-[1400px] gap-12 px-5 md:grid-cols-12 md:px-10">
         <div className="md:col-span-4">
@@ -49,6 +51,6 @@ export function Roles({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           ))}
         </ol>
       </div>
-    </section>
+    </SceneBackdrop>
   );
 }
