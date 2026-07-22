@@ -8,7 +8,14 @@
       "Bash(npm install *)",
       "Bash(node *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(node -p \"require\\('/Users/serhanensar/Proje/Portfolio/node_modules/next/package.json'\\).version\")",
+      "Bash(env)",
+      "Read(//Users/serhanensar/.claude/**)",
+      "Bash(higgsfield account *)",
+      "Bash(grep -nE \"^#{2,3} |breaking|removed|deprecat\" 01-app/01-getting-started/18-upgrading.md)",
+      "Bash(grep -nE \"^#{2,3} |generateStaticParams|middleware|\\\\[lang\\\\]|\\\\[locale\\\\]\" 01-app/02-guides/internationalization.md)",
+      "Bash(grep -nE \"^#{2,3} |serverExternalPackages|webpack|turbopack|wasm\" 01-app/02-guides/package-bundling.md)"
     ]
   }
 }

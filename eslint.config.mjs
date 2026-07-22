@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored onnxruntime runtime, copied in by scripts/sync-ort.mjs.
+    "public/ort/**",
   ]),
 ]);
 

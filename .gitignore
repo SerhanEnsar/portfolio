@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# onnxruntime runtime — synced from node_modules by scripts/sync-ort.mjs
+/public/ort/
