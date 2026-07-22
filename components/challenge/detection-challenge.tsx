@@ -239,6 +239,7 @@ export function DetectionChallenge({ dict }: { dict: Dictionary }) {
             <AnimatePresence>
               {guess && truth && (
                 <motion.div
+                  key="verdict"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   style={asPercent(truth)}

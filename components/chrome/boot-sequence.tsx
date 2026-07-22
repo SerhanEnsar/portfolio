@@ -92,6 +92,7 @@ export function BootSequence({ dict }: { dict: Dictionary }) {
     <AnimatePresence>
       {active && (
         <motion.div
+          key="boot"
           // Decorative and transient: a screen reader should get the page, not this.
           aria-hidden="true"
           initial={{ opacity: 1 }}

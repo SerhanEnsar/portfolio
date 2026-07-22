@@ -150,6 +150,7 @@ export function CommandConsole({ locale, dict }: { locale: Locale; dict: Diction
       <AnimatePresence>
         {open && (
           <motion.div
+            key="console"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
