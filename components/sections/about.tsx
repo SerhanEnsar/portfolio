@@ -6,7 +6,11 @@ import type { Dictionary } from "@/content/dictionaries";
 
 export function About({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section id="about" className="relative border-t border-line bg-void py-28 md:py-40">
+    <section
+      id="about"
+      data-objective="section:about"
+      className="relative border-t border-line bg-void py-28 md:py-40"
+    >
       <div className="mx-auto grid max-w-[1400px] gap-12 px-5 md:grid-cols-12 md:px-10">
         <div className="md:col-span-4">
           <SectionMark index="01" label={dict.sections.about} />

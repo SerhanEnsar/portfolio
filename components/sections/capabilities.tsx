@@ -11,6 +11,7 @@ export function Capabilities({ locale, dict }: { locale: Locale; dict: Dictionar
   return (
     <section
       id="capabilities"
+      data-objective="section:capabilities"
       className="relative border-t border-line bg-surface py-28 md:py-40"
     >
       <div className="mx-auto grid max-w-[1400px] gap-12 px-5 md:grid-cols-12 md:px-10">

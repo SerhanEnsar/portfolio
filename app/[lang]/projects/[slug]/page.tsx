@@ -7,6 +7,7 @@ import { locales, isLocale, type Locale } from "@/content/locale";
 import { getDictionary, teamLabel } from "@/content/dictionaries";
 import { projects, getProject } from "@/content/projects";
 import { StatusDot, Readout } from "@/components/ui/marks";
+import { briefObjective } from "@/lib/objectives";
 import { ScrollSequence } from "@/components/sequence/scroll-sequence";
 
 export function generateStaticParams() {
@@ -48,7 +49,7 @@ export default async function ProjectPage({
   const live = project.status === "active";
 
   return (
-    <article>
+    <article data-objective={briefObjective(project.slug)}>
       {/* Projects with a scene of their own open on it; the rest open on
           type alone rather than borrowing an unrelated image. */}
       {project.sequence ? (

@@ -8,7 +8,11 @@ import type { Dictionary } from "@/content/dictionaries";
 
 export function Work({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section id="work" className="relative border-t border-line bg-void py-28 md:py-40">
+    <section
+      id="work"
+      data-objective="section:work"
+      className="relative border-t border-line bg-void py-28 md:py-40"
+    >
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">

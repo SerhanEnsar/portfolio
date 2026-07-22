@@ -7,6 +7,10 @@ import { getDictionary } from "@/content/dictionaries";
 import { profile } from "@/content/site";
 import { SiteHeader } from "@/components/chrome/site-header";
 import { SiteFooter } from "@/components/chrome/site-footer";
+import { Reticle } from "@/components/chrome/reticle";
+import { MissionHud } from "@/components/chrome/mission-hud";
+import { BootSequence } from "@/components/chrome/boot-sequence";
+import { CommandConsole } from "@/components/console/command-console";
 import { notFound } from "next/navigation";
 
 /* latin-ext carries ğ ş İ ı — without it the Turkish copy renders in fallback. */
@@ -76,11 +80,17 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
       <body className="atmosphere">
+        <BootSequence dict={dict} />
         <SiteHeader locale={lang} dict={dict} />
         <main id="content" className="relative z-10">
           {children}
         </main>
         <SiteFooter locale={lang} dict={dict} />
+
+        {/* Instrument layer — sits above the page, below the boot overlay. */}
+        <Reticle />
+        <CommandConsole locale={lang} dict={dict} />
+        <MissionHud dict={dict} />
       </body>
     </html>
   );

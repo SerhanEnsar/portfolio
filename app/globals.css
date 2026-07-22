@@ -15,6 +15,8 @@
   --color-signal: #ffb020;
   --color-ice: #8fc5dc;
   --color-lock: #3ddc84;
+  /* Failure only — never used decoratively, so it stays legible as a warning. */
+  --color-alert: #ff5c5c;
 
   --font-display: var(--font-saira-condensed), ui-sans-serif, system-ui;
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui;
