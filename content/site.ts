@@ -151,12 +151,12 @@ export const roles: Role[] = [
     period: { en: "2025 — 2026", tr: "2025 — 2026" },
     points: {
       en: [
-        "LAÇİN and TUYGUN — aerial AI systems, YOLOv11 detection, custom data pipelines",
+        "LAÇİN and TUYGUN — aerial AI systems: airborne detection and GPS-denied visual odometry",
         "EGE ODBARS — autonomous UGV, the ODBARS NEXUS ground station, synthetic dataset generation",
         "EGENODE — logistics robot, Deneyap firmware, RFID with IMU and a 4-DOF arm",
       ],
       tr: [
-        "LAÇİN ve TUYGUN — havadan yapay zekâ sistemleri, YOLOv11 tespiti, özel veri hatları",
+        "LAÇİN ve TUYGUN — havadan yapay zekâ sistemleri: havadan tespit ve GPS'siz görsel odometri",
         "EGE ODBARS — otonom İKA, ODBARS NEXUS yer istasyonu, sentetik veri üretimi",
         "EGENODE — lojistik robotu, Deneyap firmware'i, IMU ve 4 eksenli kolla RFID",
       ],
