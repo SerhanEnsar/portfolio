@@ -16,8 +16,9 @@ import { useSceneActive, useSequenceProgress } from "./pinned-scene";
  *
  * Twelve depth slices, each a jittered hash grid scaled by its distance.
  * Points near a cell centre glow; the faint cell edges give the field its
- * lattice reading. Ice blue by default, with occasional amber nodes — the
- * same two roles the rest of the site uses for telemetry and detection.
+ * lattice reading. Warm bone by default with amber nodes — the page's own
+ * amber-on-near-black language — and only a rare ice-blue spark, so the
+ * field sits with the rest of the site instead of reading cold against it.
  */
 const FRAGMENT = `#version 300 es
 precision highp float;
@@ -66,8 +67,11 @@ void main() {
     float d = length(f - jitter);
     float glow = 0.016 / (d + 0.014);
 
-    // A few nodes read as detections rather than telemetry.
-    vec3 tint = h > 0.94 ? vec3(1.00, 0.69, 0.13) : vec3(0.56, 0.77, 0.86);
+    // Warm bone field, amber nodes as the accent, and a rare ice spark for
+    // depth — the same warm-on-black balance the rest of the page holds.
+    vec3 tint = vec3(0.82, 0.79, 0.72);
+    if (h > 0.90) tint = vec3(1.00, 0.69, 0.13);
+    else if (h < 0.05) tint = vec3(0.56, 0.77, 0.86);
 
     col += tint * glow * fade * 0.55;
 

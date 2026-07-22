@@ -3,16 +3,18 @@
 
 import { motion } from "framer-motion";
 import { SectionMark } from "@/components/ui/marks";
+import { SceneBackdrop } from "@/components/sequence/scene-backdrop";
 import { skillGroups } from "@/content/site";
 import type { Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 
 export function Capabilities({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section
-      id="capabilities"
-      data-objective="section:capabilities"
-      className="relative border-t border-line bg-surface py-28 md:py-40"
+    <SceneBackdrop
+      id="logistics"
+      anchor="capabilities"
+      objective="section:capabilities"
+      className="border-t border-line py-28 md:py-40"
     >
       <div className="mx-auto grid max-w-[1400px] gap-12 px-5 md:grid-cols-12 md:px-10">
         <div className="md:col-span-4">
@@ -70,6 +72,6 @@ export function Capabilities({ locale, dict }: { locale: Locale; dict: Dictionar
           </ul>
         </div>
       </div>
-    </section>
+    </SceneBackdrop>
   );
 }

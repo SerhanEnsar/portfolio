@@ -75,10 +75,10 @@ export function SceneBackdrop({
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
               <FrameStage id={id} />
-              {/* Heavier than a pinned scene's scrim: the picture is only ever
-                  atmosphere here, and the words on top must always read. */}
-              <div className="absolute inset-0 bg-void/82" />
-              <div className="absolute inset-0 bg-gradient-to-b from-void via-void/70 to-void" />
+              {/* Enough to seat the copy, no more — the scene should be
+                  clearly present behind the words, not buried under them. */}
+              <div className="absolute inset-0 bg-void/58" />
+              <div className="absolute inset-0 bg-gradient-to-b from-void via-void/40 to-void" />
             </div>
           </div>
           {children}

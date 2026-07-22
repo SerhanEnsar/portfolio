@@ -2,16 +2,18 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SectionMark, StatusDot } from "@/components/ui/marks";
+import { SceneBackdrop } from "@/components/sequence/scene-backdrop";
 import { projects, activeCount, completeCount } from "@/content/projects";
 import type { Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 
 export function Work({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section
-      id="work"
-      data-objective="section:work"
-      className="relative border-t border-line bg-void py-28 md:py-40"
+    <SceneBackdrop
+      id="thermal"
+      anchor="work"
+      objective="section:work"
+      className="border-t border-line py-28 md:py-40"
     >
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="grid gap-12 md:grid-cols-12">
@@ -73,6 +75,6 @@ export function Work({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </ul>
         </div>
       </div>
-    </section>
+    </SceneBackdrop>
   );
 }
