@@ -140,7 +140,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
                   key={id}
                   href={href(id)}
                   onClick={() => setOpen(false)}
-                  className="border-b border-line/60 py-4 font-display text-2xl uppercase tracking-tight text-bone last:border-0"
+                  className="border-b border-line/60 py-4 font-display text-2xl font-bold uppercase tracking-tight text-bone last:border-0"
                 >
                   {dict.nav[id]}
                 </a>
@@ -150,7 +150,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
                   key={id}
                   href={`/${locale}/${id}`}
                   onClick={() => setOpen(false)}
-                  className="border-b border-line/60 py-4 font-display text-2xl uppercase tracking-tight text-signal last:border-0"
+                  className="border-b border-line/60 py-4 font-display text-2xl font-bold uppercase tracking-tight text-signal last:border-0"
                 >
                   {dict.nav[id]}
                 </Link>

@@ -189,6 +189,7 @@ export const dictionaries = {
     a11y: {
       switchLanguage: "Switch language",
       sequenceLoading: "Loading scene",
+      skipToContent: "Skip to content",
     },
   },
   tr: {
@@ -370,6 +371,7 @@ export const dictionaries = {
     a11y: {
       switchLanguage: "Dili değiştir",
       sequenceLoading: "Sahne yükleniyor",
+      skipToContent: "İçeriğe geç",
     },
   },
 } as const;

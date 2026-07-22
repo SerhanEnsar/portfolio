@@ -87,6 +87,32 @@ export function CommandConsole({ locale, dict }: { locale: Locale; dict: Diction
     [value, locale, dict, router],
   );
 
+  /**
+   * Keeps Tab inside the dialog.
+   *
+   * `aria-modal` is a promise to assistive technology that the rest of the
+   * page is unreachable; without this the very next Tab lands on the page
+   * behind, and the promise is a lie. Today the console holds exactly one
+   * focusable element, so this almost always just swallows the key — the
+   * cycling branch is here so it stays correct when it holds two.
+   */
+  const trapFocus = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key !== "Tab") return;
+
+    const focusable = event.currentTarget.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), textarea, select, [tabindex]:not([tabindex="-1"])',
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const edge = event.shiftKey ? first : last;
+    if (document.activeElement !== edge && focusable.length > 1) return;
+
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+  };
+
   /** Up/down walk previously entered commands, as a shell would. */
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
@@ -137,6 +163,7 @@ export function CommandConsole({ locale, dict }: { locale: Locale; dict: Diction
               role="dialog"
               aria-modal="true"
               aria-label={dict.console.title}
+              onKeyDown={trapFocus}
               initial={{ y: -12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -8, opacity: 0 }}
@@ -152,9 +179,15 @@ export function CommandConsole({ locale, dict }: { locale: Locale; dict: Diction
                 </span>
               </div>
 
+              {/* Focusable on purpose: it scrolls, and the focus trap below
+                  only cycles what it can find — an unlisted scroll region
+                  would be one a keyboard could never reach. */}
               <div
                 ref={logRef}
+                tabIndex={0}
+                role="log"
                 aria-live="polite"
+                aria-label={dict.console.title}
                 className="max-h-[46vh] overflow-y-auto px-4 py-3 font-mono text-[13px] leading-relaxed"
               >
                 {history.map((entry, i) => (

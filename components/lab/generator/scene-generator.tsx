@@ -167,6 +167,7 @@ export function SceneGenerator({ dict }: { dict: Dictionary }) {
         <div className="relative aspect-video w-full bg-void">
           <canvas
             ref={sceneRef}
+            role="img"
             aria-label={copy.title}
             className="absolute inset-0 h-full w-full"
           />

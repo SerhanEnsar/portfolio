@@ -247,6 +247,10 @@ export function RoverSim({ dict }: { dict: Dictionary }) {
       <div className="relative aspect-[5/6] max-h-[66vh] w-full overflow-hidden bg-void sm:aspect-[16/10] lg:aspect-[16/9]">
         <canvas
           ref={canvasRef}
+          // Canvas has no implicit role, so a bare aria-label is liable to be
+          // dropped. The live text alternative is the readout list and the
+          // event log beside it, which is where the run state actually is.
+          role="img"
           aria-label={copy.simTitle}
           className="absolute inset-0 h-full w-full touch-none"
         />

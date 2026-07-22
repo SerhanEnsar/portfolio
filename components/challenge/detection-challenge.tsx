@@ -215,6 +215,7 @@ export function DetectionChallenge({ dict }: { dict: Dictionary }) {
           >
             <canvas
               ref={canvasRef}
+              role="img"
               aria-label={dict.challenge.prompt}
               className="absolute inset-0 h-full w-full"
             />
