@@ -32,6 +32,13 @@ const LiveDetector = dynamic(
     ),
   { ssr: false },
 );
+const VisualOdometry = dynamic(
+  () =>
+    import("@/components/odometry/visual-odometry").then(
+      (m) => m.VisualOdometry,
+    ),
+  { ssr: false },
+);
 const SceneGenerator = dynamic(
   () =>
     import("@/components/lab/generator/scene-generator").then(
@@ -46,7 +53,7 @@ const RoverSim = dynamic(
 
 const INSTRUMENTS: Record<string, ComponentType<InstrumentProps>[]> = {
   lacin: [DetectionChallenge, SceneGenerator],
-  tuygun: [LiveDetector],
+  tuygun: [LiveDetector, VisualOdometry],
   egenode: [RoverSim],
   "ege-odbars": [SceneGenerator],
 };

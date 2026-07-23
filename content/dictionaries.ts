@@ -110,6 +110,29 @@ export const dictionaries = {
         "A detection counts at IoU ≥ 0.50. That threshold is what the 50 in mAP@50 means — the 0.655 on this page is scored the same way, across 116K images.",
       skip: "Skip",
     },
+    vo: {
+      eyebrow: "Recover the path",
+      title: "Visual odometry",
+      intro:
+        "GPS is gone. The only fix left is the camera: a UAV flew one path and shot overlapping frames along it. Drag each new frame onto the last so the ground lines up — every registration rebuilds a little more of the route. This is TUYGUN's Task 2, by hand.",
+      start: "Start",
+      step: "Frame {n} / {total}",
+      drag: "Drag the floating frame so its ground matches the frame already laid down. The crosshairs meet when it is aligned; then lock it in.",
+      align: "Alignment",
+      lock: "Lock frame",
+      resultTitle: "{drift} m drift",
+      truth: "True path",
+      recovered: "Recovered",
+      grade: {
+        precise: "Locked on",
+        solid: "Solid track",
+        loose: "Drifting",
+        lost: "Lost the fix",
+      },
+      explain:
+        "Every small mis-registration carries forward, and the errors stack into the drift you see between the two paths. Closing that gap without GPS — frame against frame, scored against ground truth — is the whole of TUYGUN's visual-odometry task.",
+      again: "Fly it again",
+    },
     lab: {
       title: "Lab",
       lead: "Instruments, not screenshots. Everything here runs in your browser — no server does any of the work, and nothing loads until you switch it on.",
@@ -302,6 +325,29 @@ export const dictionaries = {
       explain:
         "Bir tespit IoU ≥ 0.50'de sayılır. mAP@50'deki 50 tam olarak bu eşik — bu sayfadaki 0.655 de 116 bin görüntüde aynı şekilde hesaplandı.",
       skip: "Geç",
+    },
+    vo: {
+      eyebrow: "Rotayı geri kazan",
+      title: "Görsel odometri",
+      intro:
+        "GPS yok. Elde kalan tek çözüm kamera: bir İHA tek bir rota uçup boyunca üst üste binen kareler çekti. Her yeni kareyi bir öncekiyle, zemin örtüşecek şekilde sürükle — her hizalama rotanın biraz daha fazlasını geri kurar. Bu, TUYGUN'un 2. görevi; elle.",
+      start: "Başla",
+      step: "Kare {n} / {total}",
+      drag: "Yüzen kareyi, zemini önceden yerleştirilen kareyle örtüşecek şekilde sürükle. Hizalanınca artılar üst üste gelir; sonra kilitle.",
+      align: "Hizalama",
+      lock: "Kareyi kilitle",
+      resultTitle: "{drift} m sapma",
+      truth: "Gerçek rota",
+      recovered: "Kurtarılan",
+      grade: {
+        precise: "Kilitlendi",
+        solid: "Sağlam iz",
+        loose: "Kayıyor",
+        lost: "İz kayboldu",
+      },
+      explain:
+        "Her küçük hizalama hatası ileriye taşınır ve hatalar birikerek iki rota arasında gördüğün sapmaya dönüşür. GPS olmadan bu farkı kapatmak — kareyi kareye, gerçek rotaya göre puanlayarak — TUYGUN'un görsel odometri görevinin tam kendisi.",
+      again: "Tekrar uç",
     },
     lab: {
       title: "Laboratuvar",

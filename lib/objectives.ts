@@ -19,6 +19,7 @@ export const INSTRUMENT_OBJECTIVES = [
   "instrument:challenge",
   "instrument:detector",
   "instrument:generator",
+  "instrument:odometry",
   "instrument:sim",
 ] as const;
 
