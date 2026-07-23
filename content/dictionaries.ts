@@ -30,6 +30,11 @@ export const dictionaries = {
       roles: "Roles",
       contact: "Contact",
     },
+    credentials: {
+      internship: "Internship",
+      pipeline: "The pipeline",
+      certifications: "Certifications",
+    },
     work: {
       active: "Active",
       complete: "Complete",
@@ -216,6 +221,11 @@ export const dictionaries = {
       work: "Projeler",
       roles: "Görevler",
       contact: "İletişim",
+    },
+    credentials: {
+      internship: "Staj",
+      pipeline: "Akış",
+      certifications: "Sertifikalar",
     },
     work: {
       active: "Devam ediyor",

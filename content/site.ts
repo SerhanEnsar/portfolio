@@ -178,3 +178,102 @@ export const roles: Role[] = [
     },
   },
 ];
+
+/**
+ * The internship is professional experience of a different kind from the
+ * competition teams, so it gets its own block rather than a timeline row —
+ * one thing built, described the way it was actually reasoned about.
+ */
+export const internship = {
+  org: "Boğaziçi Teknopark",
+  title: {
+    en: "Entrepreneurship Office · Summer Intern",
+    tr: "Girişimcilik Ofisi · Yaz Stajyeri",
+  } as L10n<string>,
+  period: {
+    en: "June 2026 — present · İstanbul",
+    tr: "Haziran 2026 — devam ediyor · İstanbul",
+  } as L10n<string>,
+  headline: {
+    en: "Turned manual startup research into an autonomous pipeline",
+    tr: "Elle yapılan girişim araştırmasını otonom bir hatta çevirdim",
+  } as L10n<string>,
+  body: {
+    en: "I was handed a recurring task: research startups across the Turkish and US markets — filter announcements by date range, back-analyse them, trace each founder's prior experience, and report it all. The obvious answer was to grind through it by hand in a spreadsheet. I built the pipeline that does it without me instead.",
+    tr: "Bana düzenli tekrar eden bir görev verildi: Türkiye ve Amerika pazarlarındaki girişimleri araştırmak — duyuruları tarih aralığına göre filtrelemek, geriye dönük analiz etmek, her kurucunun geçmiş deneyimini çıkarmak ve hepsini raporlamak. Kolay yol bunu bir tabloda elle didiklemekti. Ben bunun yerine, işi bensiz yapan hattı kurdum.",
+  } as L10n<string>,
+  /** The pipeline as its stages — read left to right, they are the flow. */
+  steps: {
+    en: [
+      "Scrape sources",
+      "Filter & summarise",
+      "Fill the gaps",
+      "Structure to JSON",
+      "Categorise",
+      "Auto-fill documents",
+    ],
+    tr: [
+      "Kaynakları tara",
+      "Filtrele ve özetle",
+      "Eksikleri tamamla",
+      "JSON'a yapılandır",
+      "Kategorize et",
+      "Belgeleri doldur",
+    ],
+  } as L10n<string[]>,
+  note: {
+    en: "n8n orchestrates the flow; the ChatGPT (GPT-4o) API turns filtered text into clean, structured JSON. Before committing to it I benchmarked six language models on cost and rate limits and settled on the one that kept the run economical — by then it had already cleared the first 80 rows of a 440-row backlog on its own.",
+    tr: "Akışı n8n yönetiyor; ChatGPT (GPT-4o) API'si filtrelenen metni temiz ve yapılandırılmış JSON'a çeviriyor. Karar vermeden önce maliyet ve istek sınırları açısından altı dil modelini kıyasladım ve süreci ekonomik tutan modelde karar kıldım — o noktada model, 440 satırlık listenin ilk 80 satırını tek başına çoktan işlemişti.",
+  } as L10n<string>,
+  stack: ["n8n", "ChatGPT API", "GPT-4o", "Automation", "JSON"],
+} as const;
+
+export type Certificate = {
+  name: L10n<string>;
+  issuer: string;
+  detail: L10n<string>;
+  year: string;
+};
+
+/** Credentials, newest first. Each one is real and verifiable. */
+export const certificates: Certificate[] = [
+  {
+    name: { en: "IEEEXtreme 19.0", tr: "IEEEXtreme 19.0" },
+    issuer: "IEEE",
+    detail: {
+      en: "Global rank 1453 · Team Egelcarus",
+      tr: "Küresel sıralama 1453 · Team Egelcarus",
+    },
+    year: "2025",
+  },
+  {
+    name: { en: "Savunma Sanayii 101", tr: "Savunma Sanayii 101" },
+    issuer: "SSB × YÖK",
+    detail: {
+      en: "Defence-industry programme · grade BA",
+      tr: "Savunma sanayii programı · not BA",
+    },
+    year: "2026",
+  },
+  {
+    name: {
+      en: "Occupational Health & Safety",
+      tr: "İş Sağlığı ve Güvenliği",
+    },
+    issuer: "EGESEM · Ege University",
+    detail: {
+      en: "16-hour certified programme",
+      tr: "16 saatlik sertifika programı",
+    },
+    year: "2026",
+  },
+  {
+    name: { en: "Simulink Fundamentals", tr: "Temel Simulink Eğitimi" },
+    issuer: "FİGES · MathWorks",
+    detail: {
+      en: "MATLAB & Simulink training",
+      tr: "MATLAB ve Simulink eğitimi",
+    },
+    year: "2026",
+  },
+];

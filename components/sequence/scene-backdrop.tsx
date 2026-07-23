@@ -3,8 +3,9 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useScroll } from "framer-motion";
-import type { SequenceId } from "@/content/sequences";
+import { sequences, type SequenceId } from "@/content/sequences";
 import { FrameStage } from "./frame-stage";
+import { LatticeStage } from "./lattice-stage";
 import { SceneActive, SequenceProgress } from "./pinned-scene";
 
 /**
@@ -36,6 +37,10 @@ export function SceneBackdrop({
 }) {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(false);
+
+  // A shader field renders live on the GPU with no frames to fetch; a photoreal
+  // scene scrubs decoded WebP. The call site only names the scene.
+  const shader = sequences[id].kind === "shader";
 
   // Runs the full frame range across the span where the section is on screen,
   // from its top meeting the bottom of the viewport to its bottom leaving it.
@@ -74,10 +79,12 @@ export function SceneBackdrop({
               instead of only its first screen. */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
-              <FrameStage id={id} />
-              {/* Enough to seat the copy, no more — the scene should be
-                  clearly present behind the words, not buried under them. */}
-              <div className="absolute inset-0 bg-void/58" />
+              {shader ? <LatticeStage /> : <FrameStage id={id} />}
+              {/* Enough to seat the copy, no more — the scene should be clearly
+                  present behind the words, not buried under them. The shader
+                  field is already near-black, so it needs a lighter hand than
+                  a busy photoreal frame. */}
+              <div className={shader ? "absolute inset-0 bg-void/40" : "absolute inset-0 bg-void/58"} />
               <div className="absolute inset-0 bg-gradient-to-b from-void via-void/40 to-void" />
             </div>
           </div>

@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Serhan Ensar Büdün. All rights reserved.
 import { SectionMark } from "@/components/ui/marks";
 import { SceneBackdrop } from "@/components/sequence/scene-backdrop";
-import { roles } from "@/content/site";
+import { roles, certificates } from "@/content/site";
 import type { Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 
@@ -18,9 +18,10 @@ export function Roles({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           <SectionMark index="04" label={dict.sections.roles} />
         </div>
 
+        <div className="md:col-span-8">
         {/* Ordered because the order is real — this is a chronology, and the
             numbering tells the reader which came first. */}
-        <ol className="relative md:col-span-8">
+        <ol className="relative">
           {roles.map((role, i) => (
             <li key={role.org} className="relative border-l border-line pb-14 pl-8 last:pb-0">
               <span
@@ -50,6 +51,39 @@ export function Roles({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             </li>
           ))}
         </ol>
+
+        {/* Credentials — a low-weight strip, not another timeline. Each entry
+            is a real, verifiable certificate. */}
+        <div className="mt-16 border-t border-line pt-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-dim/70">
+            {dict.credentials.certifications}
+          </p>
+          <ul className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+            {certificates.map((cert) => (
+              <li key={cert.name[locale]} className="flex items-baseline gap-3">
+                <span
+                  className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-signal/70"
+                  aria-hidden="true"
+                />
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-bone">
+                    {cert.name[locale]}
+                    <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.14em] text-dim">
+                      {cert.year}
+                    </span>
+                  </p>
+                  <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-signal/70">
+                    {cert.issuer}
+                  </p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-dim">
+                    {cert.detail[locale]}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
       </div>
     </SceneBackdrop>
   );
