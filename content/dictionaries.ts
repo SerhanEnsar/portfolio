@@ -35,6 +35,9 @@ export const dictionaries = {
       pipeline: "The pipeline",
       certifications: "Certifications",
     },
+    capability: {
+      appliedIn: "Applied in",
+    },
     work: {
       active: "Active",
       complete: "Complete",
@@ -48,7 +51,7 @@ export const dictionaries = {
     project: {
       back: "All work",
       brief: "Brief",
-      contribution: "What I built",
+      contribution: "What he built",
       stack: "Stack",
       program: "Programme",
       role: "Role",
@@ -58,7 +61,7 @@ export const dictionaries = {
     },
     contact: {
       heading: "Let's build something",
-      body: "Open to work on robotics, computer vision and embedded systems. Deep in TEKNOFEST 2026 right now, but always reading messages.",
+      body: "Serhan is open to work on robotics, computer vision and embedded systems. Deep in TEKNOFEST 2026 right now, but always reading messages.",
       email: "Email",
       cv: "Download CV",
     },
@@ -90,7 +93,7 @@ export const dictionaries = {
       eyebrow: "Try it",
       title: "Can you beat the model?",
       intro:
-        "Drag a box around the vehicle. These frames are synthetic, so the correct box is known exactly — the same reason I generate training data rather than only collecting it.",
+        "Drag a box around the vehicle. These frames are synthetic, so the correct box is known exactly — the same reason Serhan generates training data rather than only collecting it.",
       start: "Start",
       round: "Round {n} of {total}",
       prompt: "Drag a box around the vehicle",
@@ -129,7 +132,7 @@ export const dictionaries = {
         privacy:
           "Frames never leave this device. No upload, no recording, no server.",
         model:
-          "{model} ({licence}) at {size}×{size}, executing on WebAssembly in a worker so the page never stalls. The class list and input size live in one config file, so my own trained weights can replace it without touching anything else.",
+          "{model} ({licence}) at {size}×{size}, executing on WebAssembly in a worker so the page never stalls. The class list and input size live in one config file, so his own trained weights can replace it without touching anything else.",
       },
       generator: {
         eyebrow: "Instrument 02",
@@ -227,6 +230,9 @@ export const dictionaries = {
       pipeline: "Akış",
       certifications: "Sertifikalar",
     },
+    capability: {
+      appliedIn: "Kullanıldığı projeler",
+    },
     work: {
       active: "Devam ediyor",
       complete: "Tamamlandı",
@@ -238,7 +244,7 @@ export const dictionaries = {
     project: {
       back: "Tüm projeler",
       brief: "Künye",
-      contribution: "Geliştirdiklerim",
+      contribution: "Geliştirdikleri",
       stack: "Teknolojiler",
       program: "Program",
       role: "Görev",
@@ -248,7 +254,7 @@ export const dictionaries = {
     },
     contact: {
       heading: "Birlikte bir şey kuralım",
-      body: "Robotik, görüntü işleme ve gömülü sistemler alanında çalışmaya açığım. Şu anda TEKNOFEST 2026'nın içindeyim ama mesajları hep okuyorum.",
+      body: "Serhan robotik, görüntü işleme ve gömülü sistemler alanında çalışmaya açık. Şu anda TEKNOFEST 2026'nın içinde ama mesajları hep okuyor.",
       email: "E-posta",
       cv: "CV indir",
     },
@@ -280,7 +286,7 @@ export const dictionaries = {
       eyebrow: "Dene",
       title: "Modeli yenebilir misin?",
       intro:
-        "Aracın etrafına bir kutu sürükle. Bu kareler sentetik, yani doğru kutu tam olarak biliniyor — eğitim verisini yalnızca toplamak yerine üretmemin sebebi de bu.",
+        "Aracın etrafına bir kutu sürükle. Bu kareler sentetik, yani doğru kutu tam olarak biliniyor — eğitim verisini yalnızca toplamak yerine üretmesinin sebebi de bu.",
       start: "Başla",
       round: "Tur {n} / {total}",
       prompt: "Aracın etrafına kutu sürükle",
@@ -319,7 +325,7 @@ export const dictionaries = {
         privacy:
           "Kareler bu cihazdan hiç çıkmıyor. Yükleme yok, kayıt yok, sunucu yok.",
         model:
-          "{model} ({licence}), {size}×{size} girdiyle ve bir worker içinde WebAssembly üzerinde koşuyor; böylece sayfa hiç takılmıyor. Sınıf listesi ve girdi boyutu tek bir yapılandırma dosyasında, yani kendi eğittiğim ağırlıklar başka hiçbir yere dokunmadan yerine geçebiliyor.",
+          "{model} ({licence}), {size}×{size} girdiyle ve bir worker içinde WebAssembly üzerinde koşuyor; böylece sayfa hiç takılmıyor. Sınıf listesi ve girdi boyutu tek bir yapılandırma dosyasında, yani kendi eğittiği ağırlıklar başka hiçbir yere dokunmadan yerine geçebiliyor.",
       },
       generator: {
         eyebrow: "Alet 02",

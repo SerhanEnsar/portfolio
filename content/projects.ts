@@ -47,8 +47,8 @@ export const projects: Project[] = [
       tr: "116 bin görüntüde mAP@50 = 0.655",
     },
     summary: {
-      en: "Leading a five-person team building a YOLOv11 aerial detection system. I own the training pipeline on a dataset fusing VisDrone, UAVDT, Stanford Drone, DOTAv2 and our own UAP/UAI labels, plus a custom augmentation stage that injects Gaussian blur and synthetic dead pixels so the model meets sensor failure before the flight line does.",
-      tr: "YOLOv11 tabanlı bir havadan tespit sistemi kuran beş kişilik ekibi yönetiyorum. VisDrone, UAVDT, Stanford Drone, DOTAv2 ve kendi UAP/UAI etiketlerimizi birleştiren veri kümesi üzerindeki eğitim hattı bana ait. Buna, modelin sensör arızasıyla uçuş hattında değil eğitimde tanışması için Gaussian bulanıklık ve sentetik ölü piksel enjekte eden özel bir augmentation katmanı ekledim.",
+      en: "Serhan captains a five-person team building a YOLOv11 aerial detection system. He owns the training pipeline on a dataset fusing VisDrone, UAVDT, Stanford Drone, DOTAv2 and the team's own UAP/UAI labels, plus a custom augmentation stage that injects Gaussian blur and synthetic dead pixels so the model meets sensor failure before the flight line does.",
+      tr: "Serhan, YOLOv11 tabanlı bir havadan tespit sistemi kuran beş kişilik ekibin kaptanı. VisDrone, UAVDT, Stanford Drone, DOTAv2 ve ekibin kendi UAP/UAI etiketlerini birleştiren veri kümesi üzerindeki eğitim hattı ona ait. Buna, modelin sensör arızasıyla uçuş hattında değil eğitimde tanışması için Gaussian bulanıklık ve sentetik ölü piksel enjekte eden özel bir augmentation katmanı ekledi.",
     },
     work: {
       en: [
@@ -90,8 +90,8 @@ export const projects: Project[] = [
       tr: "GPS kesildiğinde görsel odometri",
     },
     summary: {
-      en: "The second TEKNOFEST 2026 Aviation AI team I captain, five of us, running Task 2 of the category: holding a UAV's position when GPS is denied. I designed the visual-odometry pipeline that estimates the aircraft's 3D trajectory from the camera alone and tracks it frame by frame against ground truth, and I built the tooling the team's data flows through — LabelForge, a labelling and dataset-management interface written from scratch, and JSONtoYOLO, a converter that turns mixed label exports into YOLO training data in seconds. We cleared the Preliminary Design Report at 87.5 and completed the Online Competition Simulation round. Alongside the engineering I run the team: task planning, milestones and cross-team coordination.",
-      tr: "TEKNOFEST 2026 Havacılıkta Yapay Zekâ'da kaptanı olduğum ikinci takım — beş kişiyiz, kategorinin 2. görevini yürütüyoruz: GPS kesildiğinde İHA'nın konumunu koruması. Aracın 3B yörüngesini yalnızca kameradan kestiren ve gerçek rotaya karşı kare kare izleyen görsel odometri hattını ben tasarladım; ekibin verisinin aktığı araçları da ben geliştirdim — sıfırdan yazdığım etiketleme ve veri seti yönetim arayüzü LabelForge ve karışık etiket çıktılarını saniyeler içinde YOLO eğitim verisine çeviren JSONtoYOLO. Ön Tasarım Raporu'nu 87,5 ile geçip Çevrimiçi Yarışma Simülasyonu etabını tamamladık. Mühendisliğin yanında takımı da yönetiyorum: görev planı, kilometre taşları ve takımlar arası koordinasyon.",
+      en: "The second TEKNOFEST 2026 Aviation AI team Serhan captains — five of them, running Task 2 of the category: holding a UAV's position when GPS is denied. He designed the visual-odometry pipeline that estimates the aircraft's 3D trajectory from the camera alone and tracks it frame by frame against ground truth, and built the tooling the team's data flows through — LabelForge, a labelling and dataset-management interface written from scratch, and JSONtoYOLO, a converter that turns mixed label exports into YOLO training data in seconds. The team cleared the Preliminary Design Report at 87.5 and completed the Online Competition Simulation round. Alongside the engineering he runs the team: task planning, milestones and cross-team coordination.",
+      tr: "TEKNOFEST 2026 Havacılıkta Yapay Zekâ'da Serhan'ın kaptanı olduğu ikinci takım — beş kişiler, kategorinin 2. görevini yürütüyorlar: GPS kesildiğinde İHA'nın konumunu koruması. Aracın 3B yörüngesini yalnızca kameradan kestiren ve gerçek rotaya karşı kare kare izleyen görsel odometri hattını Serhan tasarladı; ekibin verisinin aktığı araçları da o geliştirdi — sıfırdan yazdığı etiketleme ve veri seti yönetim arayüzü LabelForge ve karışık etiket çıktılarını saniyeler içinde YOLO eğitim verisine çeviren JSONtoYOLO. Takım, Ön Tasarım Raporu'nu 87,5 ile geçip Çevrimiçi Yarışma Simülasyonu etabını tamamladı. Mühendisliğin yanında takımı da o yönetiyor: görev planı, kilometre taşları ve takımlar arası koordinasyon.",
     },
     work: {
       en: [
@@ -138,8 +138,8 @@ export const projects: Project[] = [
       tr: "Canlı yer istasyonlu 6×4 rocker-bogie platform",
     },
     summary: {
-      en: "Part of a thirteen-person multidisciplinary team building a 6×4 rocker-bogie UGV. I own the vehicle's software chain end to end: ODBARS NEXUS, the tactical ground control station; a dual-pipeline synthetic dataset generator that renders and labels its own training data; a built-in review tool for inspecting those labels before they reach the model; and the tracking stack that keeps detections stable while the vehicle itself is moving.",
-      tr: "6×4 rocker-bogie bir İKA geliştiren on üç kişilik disiplinlerarası ekibin parçasıyım. Aracın yazılım zincirini uçtan uca üstleniyorum: taktik yer kontrol istasyonu ODBARS NEXUS; kendi eğitim verisini render edip etiketleyen çift hatlı sentetik veri üreticisi; bu etiketleri modele gitmeden önce inceleten yerleşik bir kontrol aracı; ve araç hareket hâlindeyken tespitleri kararlı tutan takip yığını.",
+      en: "Serhan is part of a thirteen-person multidisciplinary team building a 6×4 rocker-bogie UGV, owning the vehicle's software chain end to end: ODBARS NEXUS, the tactical ground control station; a dual-pipeline synthetic dataset generator that renders and labels its own training data; a built-in review tool for inspecting those labels before they reach the model; and the tracking stack that keeps detections stable while the vehicle itself is moving.",
+      tr: "6×4 rocker-bogie bir İKA geliştiren on üç kişilik disiplinlerarası ekibin bir parçası olan Serhan, aracın yazılım zincirini uçtan uca üstleniyor: taktik yer kontrol istasyonu ODBARS NEXUS; kendi eğitim verisini render edip etiketleyen çift hatlı sentetik veri üreticisi; bu etiketleri modele gitmeden önce inceleten yerleşik bir kontrol aracı; ve araç hareket hâlindeyken tespitleri kararlı tutan takip yığını.",
     },
     work: {
       en: [
@@ -192,8 +192,8 @@ export const projects: Project[] = [
       tr: "Tek 240 MHz çift çekirdek üzerinde RFID, IMU ve 4 eksenli kol",
     },
     summary: {
-      en: "Embedded software and hardware-software optimisation lead on a five-person team. The firmware runs on a Deneyap Kart (ESP32, 240 MHz dual-core) and has to do two things at once: hold autonomous delivery alignment while still accepting manual RC control over iBUS.",
-      tr: "Beş kişilik ekipte gömülü yazılım ve donanım-yazılım optimizasyonu sorumlusuyum. Firmware, Deneyap Kart (ESP32, 240 MHz çift çekirdek) üzerinde çalışıyor ve aynı anda iki işi birden yapmak zorunda: otonom teslimat hizalamasını korurken iBUS üzerinden manuel RC kontrolünü de kabul etmek.",
+      en: "Serhan leads embedded software and hardware-software optimisation on a five-person team. The firmware runs on a Deneyap Kart (ESP32, 240 MHz dual-core) and has to do two things at once: hold autonomous delivery alignment while still accepting manual RC control over iBUS.",
+      tr: "Serhan, beş kişilik ekipte gömülü yazılım ve donanım-yazılım optimizasyonu sorumlusu. Firmware, Deneyap Kart (ESP32, 240 MHz çift çekirdek) üzerinde çalışıyor ve aynı anda iki işi birden yapmak zorunda: otonom teslimat hizalamasını korurken iBUS üzerinden manuel RC kontrolünü de kabul etmek.",
     },
     work: {
       en: [

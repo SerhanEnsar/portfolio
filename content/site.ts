@@ -52,16 +52,16 @@ export const metrics = [
 
 export const about: L10n<string[]> = {
   en: [
-    "I am a Computer Engineering student at Ege University in İzmir, working on AI-driven robotics, computer vision and embedded systems.",
-    "Right now I captain two TEKNOFEST 2026 teams — LAÇİN and TUYGUN — and lead embedded work on two more. Four competition projects running at once.",
-    "As Computer Society Chairperson at IEEE Ege University I lead six technical sub-teams and teach Arduino and embedded systems to other students.",
-    "I build end to end: Deneyap firmware at one end, React and Electron ground stations packaged as standalone executables at the other.",
+    "Serhan is a Computer Engineering student at Ege University in İzmir, working on AI-driven robotics, computer vision and embedded systems.",
+    "Right now he captains two TEKNOFEST 2026 teams — LAÇİN and TUYGUN — and leads embedded work on two more. Four competition projects running at once.",
+    "As Computer Society Chairperson at IEEE Ege University he leads six technical sub-teams and teaches Arduino and embedded systems to other students.",
+    "He builds end to end: Deneyap firmware at one end, React and Electron ground stations packaged as standalone executables at the other.",
   ],
   tr: [
-    "İzmir'de Ege Üniversitesi Bilgisayar Mühendisliği öğrencisiyim; yapay zekâ tabanlı robotik, görüntü işleme ve gömülü sistemler üzerine çalışıyorum.",
-    "Şu anda iki TEKNOFEST 2026 takımının — LAÇİN ve TUYGUN — kaptanıyım, iki takımda daha gömülü tarafı yürütüyorum. Aynı anda dört yarışma projesi.",
-    "IEEE Ege Üniversitesi'nde Computer Society Başkanı olarak altı teknik alt ekibi yönetiyor, diğer öğrencilere Arduino ve gömülü sistemler anlatıyorum.",
-    "Uçtan uca geliştiriyorum: bir uçta Deneyap firmware'i, diğer uçta bağımsız çalıştırılabilir hâlde paketlenmiş React ve Electron yer istasyonları.",
+    "Serhan, İzmir'de Ege Üniversitesi Bilgisayar Mühendisliği öğrencisi; yapay zekâ tabanlı robotik, görüntü işleme ve gömülü sistemler üzerine çalışıyor.",
+    "Şu anda iki TEKNOFEST 2026 takımının — LAÇİN ve TUYGUN — kaptanı, iki takımda daha gömülü tarafı yürütüyor. Aynı anda dört yarışma projesi.",
+    "IEEE Ege Üniversitesi'nde Computer Society Başkanı olarak altı teknik alt ekibi yönetiyor, diğer öğrencilere Arduino ve gömülü sistemler anlatıyor.",
+    "Uçtan uca geliştiriyor: bir uçta Deneyap firmware'i, diğer uçta bağımsız çalıştırılabilir hâlde paketlenmiş React ve Electron yer istasyonları.",
   ],
 };
 
@@ -72,6 +72,9 @@ export type SkillGroup = {
   /** Self-assessed depth, used for the bar width. Honest, not flattering. */
   depth: number;
   tools: string[];
+  /** Project codenames that demonstrate this capability — each links to its
+   *  brief, so a skill is never a claim without the work behind it. */
+  projects: string[];
 };
 
 export const skillGroups: SkillGroup[] = [
@@ -84,6 +87,7 @@ export const skillGroups: SkillGroup[] = [
     },
     depth: 88,
     tools: ["YOLOv8 / v11", "ByteTrack", "SAHI", "OpenCV", "Roboflow", "GMC"],
+    projects: ["LAÇİN", "TUYGUN", "EGE ODBARS"],
   },
   {
     id: "python",
@@ -94,6 +98,7 @@ export const skillGroups: SkillGroup[] = [
     },
     depth: 90,
     tools: ["Python", "FastAPI", "Flask", "CustomTkinter", "PyInstaller", "Blender bpy"],
+    projects: ["LAÇİN", "TUYGUN", "EGE ODBARS", "HomeAgent"],
   },
   {
     id: "embedded",
@@ -104,6 +109,7 @@ export const skillGroups: SkillGroup[] = [
     },
     depth: 85,
     tools: ["C++", "ESP32", "Deneyap", "Arduino", "Raspberry Pi", "STM32", "IMU", "RFID", "LoRa"],
+    projects: ["EGENODE", "HomeAgent", "TELEMETRY", "EGE ODBARS"],
   },
   {
     id: "interfaces",
@@ -114,6 +120,7 @@ export const skillGroups: SkillGroup[] = [
     },
     depth: 78,
     tools: ["React", "TypeScript", "Vite", "Electron", "Kotlin", "Jetpack Compose", "Nextion HMI"],
+    projects: ["EGE ODBARS", "HomeAgent", "TELEMETRY"],
   },
 ];
 
@@ -131,14 +138,14 @@ export const roles: Role[] = [
     period: { en: "Sept 2024 — present", tr: "Eylül 2024 — devam ediyor" },
     points: {
       en: [
-        "Lead the Computer Society committee and its six technical sub-teams",
+        "Leads the Computer Society committee and its six technical sub-teams",
         "Designed and taught a five-week Arduino and circuit design course in C++",
         "Coordinated branch events and represented the university at CSCAMP and the Ege Regional Meeting",
       ],
       tr: [
-        "Computer Society komitesini ve altı teknik alt ekibini yönetiyorum",
-        "C++ ile beş haftalık Arduino ve devre tasarımı eğitimini tasarlayıp verdim",
-        "Kol etkinliklerini koordine ettim; üniversiteyi CSCAMP ve Ege Bölgesel Toplantısı'nda temsil ettim",
+        "Computer Society komitesini ve altı teknik alt ekibini yönetiyor",
+        "C++ ile beş haftalık Arduino ve devre tasarımı eğitimini tasarlayıp verdi",
+        "Kol etkinliklerini koordine etti; üniversiteyi CSCAMP ve Ege Bölgesel Toplantısı'nda temsil etti",
       ],
     },
   },
@@ -196,11 +203,11 @@ export const internship = {
   } as L10n<string>,
   headline: {
     en: "Turned manual startup research into an autonomous pipeline",
-    tr: "Elle yapılan girişim araştırmasını otonom bir hatta çevirdim",
+    tr: "Elle yapılan girişim araştırmasını otonom bir hatta çevirdi",
   } as L10n<string>,
   body: {
-    en: "I was handed a recurring task: research startups across the Turkish and US markets — filter announcements by date range, back-analyse them, trace each founder's prior experience, and report it all. The obvious answer was to grind through it by hand in a spreadsheet. I built the pipeline that does it without me instead.",
-    tr: "Bana düzenli tekrar eden bir görev verildi: Türkiye ve Amerika pazarlarındaki girişimleri araştırmak — duyuruları tarih aralığına göre filtrelemek, geriye dönük analiz etmek, her kurucunun geçmiş deneyimini çıkarmak ve hepsini raporlamak. Kolay yol bunu bir tabloda elle didiklemekti. Ben bunun yerine, işi bensiz yapan hattı kurdum.",
+    en: "Serhan was handed a recurring task: research startups across the Turkish and US markets — filter announcements by date range, back-analyse them, trace each founder's prior experience, and report it all. The obvious answer was to grind through it by hand in a spreadsheet. He built the pipeline that does it without him instead.",
+    tr: "Serhan'a düzenli tekrar eden bir görev verildi: Türkiye ve Amerika pazarlarındaki girişimleri araştırmak — duyuruları tarih aralığına göre filtrelemek, geriye dönük analiz etmek, her kurucunun geçmiş deneyimini çıkarmak ve hepsini raporlamak. Kolay yol bunu bir tabloda elle didiklemekti. O bunun yerine, işi kendisi olmadan yapan hattı kurdu.",
   } as L10n<string>,
   /** The pipeline as its stages — read left to right, they are the flow. */
   steps: {
@@ -222,8 +229,8 @@ export const internship = {
     ],
   } as L10n<string[]>,
   note: {
-    en: "n8n orchestrates the flow; the ChatGPT (GPT-4o) API turns filtered text into clean, structured JSON. Before committing to it I benchmarked six language models on cost and rate limits and settled on the one that kept the run economical — by then it had already cleared the first 80 rows of a 440-row backlog on its own.",
-    tr: "Akışı n8n yönetiyor; ChatGPT (GPT-4o) API'si filtrelenen metni temiz ve yapılandırılmış JSON'a çeviriyor. Karar vermeden önce maliyet ve istek sınırları açısından altı dil modelini kıyasladım ve süreci ekonomik tutan modelde karar kıldım — o noktada model, 440 satırlık listenin ilk 80 satırını tek başına çoktan işlemişti.",
+    en: "n8n orchestrates the flow; the ChatGPT (GPT-4o) API turns filtered text into clean, structured JSON. Before committing to it he benchmarked six language models on cost and rate limits and settled on the one that kept the run economical — by then it had already cleared the first 80 rows of a 440-row backlog on its own.",
+    tr: "Akışı n8n yönetiyor; ChatGPT (GPT-4o) API'si filtrelenen metni temiz ve yapılandırılmış JSON'a çeviriyor. Karar vermeden önce maliyet ve istek sınırları açısından altı dil modelini kıyasladı ve süreci ekonomik tutan modelde karar kıldı — o noktada model, 440 satırlık listenin ilk 80 satırını tek başına çoktan işlemişti.",
   } as L10n<string>,
   stack: ["n8n", "ChatGPT API", "GPT-4o", "Automation", "JSON"],
 } as const;

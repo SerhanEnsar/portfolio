@@ -9,6 +9,10 @@ import { projects, getProject } from "@/content/projects";
 import { StatusDot, Readout } from "@/components/ui/marks";
 import { briefObjective } from "@/lib/objectives";
 import { ScrollSequence } from "@/components/sequence/scroll-sequence";
+import { ProjectInstrument } from "@/components/project/project-instrument";
+
+/** Projects whose page carries a live, playable instrument at the end. */
+const INSTRUMENT_SLUGS = new Set(["lacin", "tuygun", "ege-odbars"]);
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => projects.map((p) => ({ lang, slug: p.slug })));
@@ -120,6 +124,13 @@ export default async function ProjectPage({
                 ))}
               </ul>
             </section>
+
+            {/* The project's live proof — the challenge, detector, generator
+                or rover run that belongs to it, each mounted only in the
+                browser and found by opening the brief rather than the nav. */}
+            {INSTRUMENT_SLUGS.has(project.slug) && (
+              <ProjectInstrument slug={project.slug} dict={dict} />
+            )}
           </div>
         </div>
       </div>

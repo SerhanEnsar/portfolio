@@ -1,12 +1,18 @@
 // Copyright (c) 2026 Serhan Ensar Büdün. All rights reserved.
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionMark } from "@/components/ui/marks";
 import { SceneBackdrop } from "@/components/sequence/scene-backdrop";
 import { skillGroups } from "@/content/site";
+import { projects } from "@/content/projects";
 import type { Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
+
+/** Codename → slug, so each capability's project chips link to their brief. */
+const slugOf = (codename: string) =>
+  projects.find((p) => p.codename === codename)?.slug;
 
 export function Capabilities({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
@@ -67,6 +73,32 @@ export function Capabilities({ locale, dict }: { locale: Locale; dict: Dictionar
                     </li>
                   ))}
                 </ul>
+
+                {/* The work behind the claim — each codename links to its brief. */}
+                <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-dim/55">
+                    {dict.capability.appliedIn}
+                  </span>
+                  {group.projects.map((code) => {
+                    const slug = slugOf(code);
+                    return slug ? (
+                      <Link
+                        key={code}
+                        href={`/${locale}/projects/${slug}`}
+                        className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal/80 transition-colors hover:text-signal"
+                      >
+                        {code}
+                      </Link>
+                    ) : (
+                      <span
+                        key={code}
+                        className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal/80"
+                      >
+                        {code}
+                      </span>
+                    );
+                  })}
+                </div>
               </motion.li>
             ))}
           </ul>

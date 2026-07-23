@@ -13,9 +13,6 @@ import { cn } from "@/lib/utils";
 
 const SECTIONS = ["about", "capabilities", "work", "roles", "contact"] as const;
 
-/** Routes rather than sections — the parts of the site that run something. */
-const INSTRUMENTS = ["lab", "sim"] as const;
-
 export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -68,22 +65,6 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
             >
               {dict.nav[id]}
             </a>
-          ))}
-          {/* Routes, not anchors — and the only nav items that run code, so
-              they carry the signal colour the instruments use. */}
-          {INSTRUMENTS.map((id) => (
-            <Link
-              key={id}
-              href={`/${locale}/${id}`}
-              className={cn(
-                "font-mono text-[11px] uppercase tracking-[0.2em] transition-colors",
-                pathname.startsWith(`/${locale}/${id}`)
-                  ? "text-signal"
-                  : "text-dim hover:text-signal",
-              )}
-            >
-              {dict.nav[id]}
-            </Link>
           ))}
         </nav>
 
@@ -145,16 +126,6 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
                 >
                   {dict.nav[id]}
                 </a>
-              ))}
-              {INSTRUMENTS.map((id) => (
-                <Link
-                  key={id}
-                  href={`/${locale}/${id}`}
-                  onClick={() => setOpen(false)}
-                  className="border-b border-line/60 py-4 font-display text-2xl font-bold uppercase tracking-tight text-signal last:border-0"
-                >
-                  {dict.nav[id]}
-                </Link>
               ))}
             </div>
           </motion.nav>
