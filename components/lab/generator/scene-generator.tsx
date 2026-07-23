@@ -163,22 +163,22 @@ export function SceneGenerator({ dict }: { dict: Dictionary }) {
         </p>
       </header>
 
-      <div className="grid gap-px bg-line lg:grid-cols-[1.6fr_1fr]">
-        <div className="relative aspect-video w-full bg-void">
+      <div className="flex flex-col gap-px bg-line lg:flex-row">
+        <div className="relative aspect-video w-full min-w-0 bg-void lg:flex-1">
           <canvas
             ref={sceneRef}
             role="img"
             aria-label={copy.title}
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <canvas
             ref={truthRef}
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         </div>
 
-        <div className="space-y-5 bg-surface px-5 py-5">
+        <div className="space-y-5 bg-surface px-5 py-5 lg:w-72 lg:shrink-0">
           <div className="flex gap-px border border-line bg-line">
             {(["eo", "ir"] as const).map((mode) => (
               <button

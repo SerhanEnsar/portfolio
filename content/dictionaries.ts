@@ -156,12 +156,12 @@ export const dictionaries = {
       },
     },
     sim: {
-      title: "Rover mission",
-      lead: "EGE ODBARS carries parcels across ground that was not built for wheels. This is that run, at toy scale.",
+      title: "Delivery run",
+      lead: "EGENODE's job is a delivery: read each parcel's tag, pick it up and carry it to the address in one piece. This is that mission, at toy scale.",
       eyebrow: "Field exercise",
       simTitle: "Delivery run",
       intro:
-        "Collect four tagged parcels and get them to the depot. Watch the bay load: past 2.4 g the suspension is out of travel and the cargo takes the hit directly, so flat out costs more than it saves. Arrow keys or A / D to drive, and the same keys trim the chassis in the air; R rights the rover for five seconds of penalty.",
+        "Collect four tagged parcels and get them to the depot. Watch the bay load: past 2.4 g the chassis is out of give and the cargo takes the hit directly, so flat out costs more than it saves. Arrow keys or A / D to drive, and the same keys trim the chassis in the air; R rights the robot for five seconds of penalty.",
       controls: "← → drive · R recover",
       start: "Begin run",
       again: "Run it again",
@@ -181,7 +181,7 @@ export const dictionaries = {
         shock: "shock · {load} g",
         recovery: "recovery · +5 s",
       },
-      note: "Three suspension stations per side, each riding independently — the reason a rocker-bogie crosses a ridge that beaches a rigid axle, and the reason it filters out every bump narrower than its own wheelbase. The 2.4 g limit is not a difficulty setting: it is what three struts at full travel can carry, so crossing it means the hull is taking the load. Physics runs at a fixed 120 Hz regardless of your display, so the same crest throws you the same way on every machine.",
+      note: "EGENODE reads each parcel's RFID tag on pickup and has to hand it over intact — the whole difficulty is the middle part, carrying it without wrecking it. The 2.4 g limit is not a difficulty setting: past it the chassis stops absorbing and the parcel takes the load directly, so a hard landing costs integrity you cannot earn back. Physics runs at a fixed 120 Hz regardless of your display, so the same crest throws you the same way on every machine.",
     },
     console: {
       open: "Open console",
@@ -349,12 +349,12 @@ export const dictionaries = {
       },
     },
     sim: {
-      title: "Rover görevi",
-      lead: "EGE ODBARS, tekerlek için yapılmamış arazide kargo taşıyor. Bu da onun küçültülmüş hâli.",
+      title: "Teslimat turu",
+      lead: "EGENODE'un görevi bir teslimat: her kargonun etiketini oku, al ve adrese tek parça hâlinde ulaştır. Bu da o görevin küçültülmüş hâli.",
       eyebrow: "Saha tatbikatı",
       simTitle: "Teslimat turu",
       intro:
-        "Etiketli dört kargoyu topla ve depoya ulaştır. Yük göstergesini izle: 2,4 g'nin ötesinde süspansiyonun yolu biter ve darbeyi doğrudan kargo yer, yani sonuna kadar basmak kazandırdığından fazlasını götürür. Yön tuşları ya da A / D ile sür; havadayken aynı tuşlar gövdeyi dengeler. R roveri doğrultur, karşılığı beş saniye ceza.",
+        "Etiketli dört kargoyu topla ve depoya ulaştır. Yük göstergesini izle: 2,4 g'nin ötesinde gövdenin esnekliği biter ve darbeyi doğrudan kargo yer, yani sonuna kadar basmak kazandırdığından fazlasını götürür. Yön tuşları ya da A / D ile sür; havadayken aynı tuşlar gövdeyi dengeler. R robotu doğrultur, karşılığı beş saniye ceza.",
       controls: "← → sür · R doğrult",
       start: "Turu başlat",
       again: "Tekrar sür",
@@ -373,7 +373,7 @@ export const dictionaries = {
         shock: "darbe · {load} g",
         recovery: "doğrultma · +5 sn",
       },
-      note: "Her yanda bağımsız çalışan üç süspansiyon istasyonu — rocker-bogie'nin, sabit akslı bir aracın takılıp kalacağı sırtı aşabilmesinin sebebi bu; kendi dingil açıklığından dar her tümseği süzmesinin de. 2,4 g sınırı bir zorluk ayarı değil: yolunun sonuna gelmiş üç amortisörün taşıyabileceği yük tam olarak bu, dolayısıyla sınırı geçmek yükü gövdenin üstlenmesi demek. Fizik, ekranından bağımsız olarak sabit 120 Hz'de koşuyor; yani aynı sırt her makinede seni aynı şekilde savuruyor.",
+      note: "EGENODE her kargonun RFID etiketini alırken okuyor ve onu bütünlüğü bozulmadan teslim etmek zorunda — bütün zorluk ortadaki kısımda, yani onu hırpalamadan taşımakta. 2,4 g sınırı bir zorluk ayarı değil: sınırı geçince gövde soğurmayı bırakır ve yükü doğrudan kargo taşır, dolayısıyla sert bir iniş geri kazanamayacağın bütünlük götürür. Fizik, ekranından bağımsız olarak sabit 120 Hz'de koşuyor; yani aynı sırt her makinede seni aynı şekilde savuruyor.",
     },
     console: {
       open: "Konsolu aç",

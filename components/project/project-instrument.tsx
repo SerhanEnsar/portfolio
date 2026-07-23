@@ -14,7 +14,9 @@ type InstrumentProps = { dict: Dictionary };
  *
  * The synthetic scene generator sits under two projects: LAÇİN, whose training
  * data was composed rather than filmed, and EGE ODBARS, whose own dual-pipeline
- * generator does the same job — so it is referenced under both.
+ * generator does the same job — so it is referenced under both. The delivery
+ * run belongs to EGENODE, the Robolig robot that picks up parcels and carries
+ * them to an address; EGE ODBARS is an off-road course vehicle.
  */
 const DetectionChallenge = dynamic(
   () =>
@@ -45,7 +47,8 @@ const RoverSim = dynamic(
 const INSTRUMENTS: Record<string, ComponentType<InstrumentProps>[]> = {
   lacin: [DetectionChallenge, SceneGenerator],
   tuygun: [LiveDetector],
-  "ege-odbars": [RoverSim, SceneGenerator],
+  egenode: [RoverSim],
+  "ege-odbars": [SceneGenerator],
 };
 
 export function ProjectInstrument({

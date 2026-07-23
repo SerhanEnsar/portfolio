@@ -12,7 +12,7 @@ import { ScrollSequence } from "@/components/sequence/scroll-sequence";
 import { ProjectInstrument } from "@/components/project/project-instrument";
 
 /** Projects whose page carries a live, playable instrument at the end. */
-const INSTRUMENT_SLUGS = new Set(["lacin", "tuygun", "ege-odbars"]);
+const INSTRUMENT_SLUGS = new Set(["lacin", "tuygun", "egenode", "ege-odbars"]);
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => projects.map((p) => ({ lang, slug: p.slug })));

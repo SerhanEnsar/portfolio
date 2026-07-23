@@ -20,10 +20,10 @@ import { drawMission, routeProgress } from "./draw";
 /**
  * The delivery run, playable.
  *
- * EGE ODBARS's mission is not "drive somewhere" — it is read a tag, carry the
+ * EGENODE's mission is not "drive somewhere" — it is read a tag, carry the
  * parcel without wrecking it, and hand it over. That middle part is the part
- * that is hard to explain in a sentence and immediate the moment you land a
- * six-wheeler badly and watch the cargo readout drop.
+ * that is hard to explain in a sentence and immediate the moment you land
+ * badly and watch the cargo readout drop.
  *
  * The physics runs at a fixed 120 Hz regardless of the display, so the same
  * jump clears the same ridge on every machine.
