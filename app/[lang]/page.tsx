@@ -9,6 +9,7 @@ import { Work } from "@/components/sections/work";
 import { Roles } from "@/components/sections/roles";
 import { Internship } from "@/components/sections/internship";
 import { Contact } from "@/components/sections/contact";
+import { CinematicFooterTrigger } from "@/components/CinematicFooterTrigger";
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -24,6 +25,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <Work locale={lang} dict={dict} />
       <Roles locale={lang} dict={dict} />
       <Internship locale={lang} dict={dict} />
+      <CinematicFooterTrigger />
       <Contact dict={dict} />
     </>
   );

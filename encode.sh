@@ -1,0 +1,12 @@
+ffmpeg \
+  -i public/cinematic/sahne1.mp4 \
+  -i public/cinematic/sahne2.mp4 \
+  -i public/cinematic/sahne3.mp4 \
+  -i public/cinematic/sahne4.mp4 \
+  -i public/cinematic/sahne5.mp4 \
+  -i public/cinematic/sahne6.mp4 \
+  -i public/cinematic/sahne7.mp4 \
+  -filter_complex "[0:v]trim=start=2.3:end=8.04,setpts=PTS-STARTPTS[v0]; [0:a]atrim=start=2.3:end=8.04,asetpts=PTS-STARTPTS[a0]; [1:v]trim=start=0:end=8.04,setpts=PTS-STARTPTS[v1]; [1:a]atrim=start=0:end=8.04,asetpts=PTS-STARTPTS[a1]; [2:v]trim=start=0:end=8.04,setpts=PTS-STARTPTS[v2]; [2:a]atrim=start=0:end=8.04,asetpts=PTS-STARTPTS[a2]; [3:v]trim=start=0:end=8.04,setpts=PTS-STARTPTS[v3]; [3:a]atrim=start=0:end=8.04,asetpts=PTS-STARTPTS[a3]; [4:v]trim=start=0:end=8.04,setpts=PTS-STARTPTS[v4]; [4:a]atrim=start=0:end=8.04,asetpts=PTS-STARTPTS[a4]; [5:v]trim=start=0:end=8.04,setpts=PTS-STARTPTS[v5]; [5:a]atrim=start=0:end=8.04,asetpts=PTS-STARTPTS[a5]; [6:v]trim=start=0:end=8.04,setpts=PTS-STARTPTS[v6]; [6:a]atrim=start=0:end=8.04,asetpts=PTS-STARTPTS[a6]; [v0][v1][v2][v3][v4][v5][v6]concat=n=7:v=1:a=0[outv]; [a0][a1][a2][a3][a4][a5][a6]concat=n=7:v=0:a=1[outa]" \
+  -map "[outv]" -map "[outa]" \
+  -c:v libx264 -preset fast -crf 23 \
+  -c:a aac -b:a 128k -y public/cinematic/full_story.mp4

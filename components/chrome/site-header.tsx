@@ -10,6 +10,7 @@ import type { Locale } from "@/content/locale";
 import { locales } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 import { cn } from "@/lib/utils";
+import { useCinematicStore } from "@/lib/store/useCinematicStore";
 
 const SECTIONS = ["about", "capabilities", "work", "roles", "contact"] as const;
 
@@ -17,6 +18,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [lifted, setLifted] = useState(false);
+  const { openCinematic } = useCinematicStore();
 
   // The bar is transparent over the hero scene and only takes on a surface
   // once the reader has left it.
@@ -66,6 +68,12 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
               {dict.nav[id]}
             </a>
           ))}
+          <button
+            onClick={openCinematic}
+            className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal transition-colors hover:text-bone flex items-center gap-1"
+          >
+            🚀 Aya Yolculuk
+          </button>
         </nav>
 
         <div className="flex items-center gap-4">

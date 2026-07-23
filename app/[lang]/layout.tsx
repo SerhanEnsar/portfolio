@@ -13,6 +13,7 @@ import { BootSequence } from "@/components/chrome/boot-sequence";
 import { CommandConsole } from "@/components/console/command-console";
 import { OrientationHint } from "@/components/chrome/orientation-hint";
 import { MotionProvider } from "@/components/chrome/motion-provider";
+import { CinematicPlayer } from "@/components/CinematicPlayer";
 import { notFound } from "next/navigation";
 
 /* latin-ext carries ğ ş İ ı — without it the Turkish copy renders in fallback. */
@@ -105,6 +106,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <CommandConsole locale={lang} dict={dict} />
           <MissionHud dict={dict} />
           <OrientationHint dict={dict} />
+          <CinematicPlayer />
         </MotionProvider>
       </body>
     </html>
