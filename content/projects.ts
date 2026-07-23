@@ -333,6 +333,7 @@ export const projects: Project[] = [
       ],
     },
     stack: ["Electromechanics", "R&D", "Experimental Design"],
+    sequence: "motor",
   },
 ];
 

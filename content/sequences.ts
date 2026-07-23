@@ -19,6 +19,7 @@ export const sequenceIds = [
   "optics",
   "signal",
   "lattice",
+  "motor",
 ] as const;
 
 export type SequenceId = (typeof sequenceIds)[number];
@@ -129,6 +130,17 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
     motionPrompt:
       "One continuous forward push through the particle field, depth layers parallaxing past the camera. Constant speed, no rotation, no cuts.",
     posterAlt: "Abstract field of luminous particles connected by hairline links",
+  },
+  motor: {
+    id: "motor",
+    kind: "frames",
+    frames: manifest.sequences.motor.frames,
+    keyframePrompt:
+      "Cinematic technical cutaway of an electric motor, seen straight-on and centered. Laminated graphite-grey steel stator, tightly wound copper coils glowing only as a faint muted ember — desaturated warm amber, not bright gold. A rotor sits inside a barely-there magnetic field drawn as thin dim luminous lines. Fine engineering-schematic overlays sit over the surface like a quiet instrument readout. Heavily desaturated near-monochrome palette: matte graphite, gunmetal and bone-white steel dominate, the only colour a restrained amber ember. Very dark near-black background, low brightness, low contrast, matte industrial finish, subtle sensor grain. No text, no logos, no UI.",
+    motionPrompt:
+      "One continuous slow rotation of the motor around its fixed central axis, a single unbroken turn at constant speed. The amber ember pulses gently in sync; the field lines drift softly. No camera movement, no zoom, no cuts, no speed change.",
+    posterAlt:
+      "Technical cutaway of an electric motor with faintly glowing copper coils on a near-black ground",
   },
 };
 

@@ -77,6 +77,13 @@ const GRADES = {
   // between the points so it reads against the void.
   signal: "eq=brightness=-0.06:contrast=1.16:saturation=0.82",
   lattice: "",
+  // Generated render comes back warmer and more saturated than the page — pull
+  // it down, desaturate hard, and crush the background to near-black so the
+  // motor sits on the void with only the amber ember surviving the grade.
+  motor: [
+    "eq=brightness=-0.10:contrast=1.20:saturation=0.55",
+    "curves=all='0/0 0.28/0.12 0.6/0.55 1/0.94'",
+  ].join(","),
 };
 
 async function requireBinary(name) {

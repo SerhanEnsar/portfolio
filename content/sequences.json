@@ -27,6 +27,9 @@
     },
     "lattice": {
       "frames": 64
+    },
+    "motor": {
+      "frames": 64
     }
   }
 }
