@@ -15,6 +15,7 @@ import { OrientationHint } from "@/components/chrome/orientation-hint";
 import { MotionProvider } from "@/components/chrome/motion-provider";
 import { CinematicPlayer } from "@/components/CinematicPlayer";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/react";
 
 /* latin-ext carries ğ ş İ ı — without it the Turkish copy renders in fallback. */
 const display = Saira_Condensed({
@@ -108,6 +109,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <OrientationHint dict={dict} />
           <CinematicPlayer />
         </MotionProvider>
+        <Analytics />
       </body>
     </html>
   );
