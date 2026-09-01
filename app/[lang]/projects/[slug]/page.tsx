@@ -18,7 +18,13 @@ import {
 } from "@/components/project/project-meta";
 
 /** Projects whose page carries a live, playable instrument at the end. */
-const INSTRUMENT_SLUGS = new Set(["lacin", "tuygun", "egenode", "ege-odbars"]);
+const INSTRUMENT_SLUGS = new Set([
+  "lacin",
+  "tuygun",
+  "egenode",
+  "ege-odbars",
+  "homeagent",
+]);
 
 /**
  * Projects whose page carries a gallery, a narrative, or both — everything

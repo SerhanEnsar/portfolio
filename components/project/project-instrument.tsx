@@ -46,6 +46,10 @@ const SceneGenerator = dynamic(
     ),
   { ssr: false },
 );
+const HomeMesh = dynamic(
+  () => import("@/components/mesh/home-mesh").then((m) => m.HomeMesh),
+  { ssr: false },
+);
 const RoverSim = dynamic(
   () => import("@/components/sim/rover-sim").then((m) => m.RoverSim),
   { ssr: false },
@@ -56,6 +60,7 @@ const INSTRUMENTS: Record<string, ComponentType<InstrumentProps>[]> = {
   tuygun: [LiveDetector, VisualOdometry],
   egenode: [RoverSim],
   "ege-odbars": [SceneGenerator],
+  homeagent: [HomeMesh],
 };
 
 export function ProjectInstrument({
