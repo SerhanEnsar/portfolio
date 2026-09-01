@@ -92,6 +92,79 @@ opening a brief. The wiring:
 `INSTRUMENT_OBJECTIVES` in `lib/objectives.ts`, add it to the `ProjectInstrument`
 map and `INSTRUMENT_SLUGS`, and add its strings as a dict block in both locales.
 
+## A project page is full width
+
+The body used to be a 12-column grid: four columns of credentials down the left,
+eight for everything else. Four short lines left a tall empty column, and the
+instruments, galleries and narratives — the things worth room — were squeezed
+into two thirds of the page.
+
+The credentials now live in `components/project/project-meta.tsx`, floated
+opposite the title in the header and opened on hover. It is pure CSS (`group` +
+`group-hover` + `group-focus-within`), so there is no client component and a
+keyboard reaches it; the panel is inert until opened. Coarse pointers never get
+a hover, so `ProjectMetaInline` renders the same four values as a plain grid
+under `md`, and the floating one is `hidden md:block`.
+
+The body is a single full-width stack. Prose still gets a measure — the brief is
+`max-w-3xl`, the contribution list `max-w-4xl` — and only the wide things go
+wide. Keep that split when adding a section: text stays readable, canvases and
+shelves take the page.
+
+## Narratives sit beside the instruments
+
+`components/project/project-story.tsx` maps `slug → ComponentType[]` exactly the
+way `project-instrument.tsx` does, and the page renders `<ProjectStory>` when the
+slug is in `STORY_SLUGS` (declared in `app/[lang]/projects/[slug]/page.tsx`, not
+exported from the client module — a `Set` does not survive the client boundary
+as a `Set`).
+
+The distinction is deliberate: an **instrument** asks the visitor to do
+something; a **story** argues the decision the project turned on and plays
+whether or not it is touched. A project gets a story only when its point *is* a
+decision worth walking through — six frames instead of retraining, derived
+sessions instead of stored ones. Where the work speaks for itself, the shelf of
+shipped screens (`project-gallery.tsx`) stands alone; STETOSKOP is mounted that
+way.
+
+Stories run in one shell, `components/project/story/story-stage.tsx`: beats
+that auto-advance once the stage scrolls into view, a caption, and a rail that
+doubles as a scrubber. Under `prefers-reduced-motion` the stage renders its
+**final** beat and never advances — the conclusion is the readable state, so the
+arc is never a prerequisite for the point. Beat timing is pure (`lib/story.ts`);
+each story's own arithmetic is pure too (`lib/attendance.ts`,
+`lib/eye2s-data.ts`).
+
+Numbers in a story are measured, never invented. `lib/eye2s-data.ts` carries
+cosine similarities computed from the registry the Eye2S desktop app writes at
+`~/.eye2s/registry`, and `public/story/eye2s/` holds the actual crops that
+taught those objects — only the ones containing nothing but an object and a
+hand. Two scenes are captures rather than generated plates: `stetoskop` is the
+delivered site itself, scrolled in a browser below its hero (the instructor
+slider there carries named photographs of real people), and `unilate` is the
+app's interface **redrawn** — `scripts/unilate-scene.html` is the source. A 9:16
+phone screen cannot be dropped into a 16:9 plate without either floating in
+empty margins or being magnified past legibility; rebuilding the layout is what
+makes it fill the frame and stay crisp.
+
+That scene is also composed **twice**. `FrameStage` cover-fits every frame from
+its own dimensions, so nothing requires the two tiers to share an aspect ratio —
+and a phone only ever downloads the 900 tier. So `unilate` ships a 1600x900 wide
+tier and a 900x1600 portrait one, captured from the same source file at
+`?mode=tall`, and built in one pass:
+
+```bash
+npm run sequence unilate wide.mp4 -- --portrait tall.mp4
+```
+
+Use it for any scene whose content has to be *read*. A photographic plate does
+not need it — cropping a landscape is what cover-fit is for.
+
+**Adding a story:** build the component around `StoryStage`, add its token to
+`STORY_OBJECTIVES` in `lib/objectives.ts`, add it to the `ProjectStory` map and
+to `STORY_SLUGS` on the page, and add a `stories.<name>` block with one caption
+per beat in both locales.
+
 ## Progress, HUD, console
 
 `lib/progress.ts` persists seen "objectives" to `localStorage`. `lib/objectives.ts`

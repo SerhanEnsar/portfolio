@@ -2,7 +2,13 @@
 import type { L10n } from "./locale";
 import type { SequenceId } from "./sequences";
 
-export type ProjectStatus = "active" | "complete";
+export type ProjectStatus = "active" | "complete" | "delivered";
+
+/**
+ * Somewhere the finished thing can actually be looked at. `kind` picks the
+ * label, so a store listing and a live site do not both read "visit".
+ */
+export type ProjectLink = { href: string; kind: "site" };
 
 export type Project = {
   /** URL segment for /[lang]/projects/[slug] */
@@ -23,6 +29,8 @@ export type Project = {
   stack: string[];
   /** Scene that plays behind this project's detail page, if any. */
   sequence?: SequenceId;
+  /** Where the shipped work lives, when it is public. */
+  link?: ProjectLink;
 };
 
 export const projects: Project[] = [
@@ -34,7 +42,7 @@ export const projects: Project[] = [
       tr: "Havadan Yapay Zekâ ile Nesne Tespit Sistemi",
     },
     domain: { en: "AI · Aviation", tr: "Yapay Zekâ · Havacılık" },
-    status: "active",
+    status: "complete",
     years: "2025–2026",
     role: { en: "Team Captain", tr: "Takım Kaptanı" },
     teamSize: 5,
@@ -74,7 +82,7 @@ export const projects: Project[] = [
     codename: "TUYGUN",
     title: { en: "Aerial AI System", tr: "Havadan Yapay Zekâ Sistemi" },
     domain: { en: "AI · Aviation", tr: "Yapay Zekâ · Havacılık" },
-    status: "active",
+    status: "complete",
     years: "2025–2026",
     role: {
       en: "Team Captain · Systems Integration",
@@ -122,7 +130,7 @@ export const projects: Project[] = [
       tr: "Otonom İnsansız Kara Aracı",
     },
     domain: { en: "Robotics · UGV", tr: "Robotik · İKA" },
-    status: "active",
+    status: "complete",
     years: "2025–2026",
     role: {
       en: "Embedded Software & Computer Vision",
@@ -179,7 +187,7 @@ export const projects: Project[] = [
       tr: "Dinamik Lojistik Mobil Robotu",
     },
     domain: { en: "Embedded · Robotics", tr: "Gömülü Sistemler · Robotik" },
-    status: "active",
+    status: "complete",
     years: "2025–2026",
     role: {
       en: "Embedded Software & HW-SW Lead",
@@ -213,6 +221,156 @@ export const projects: Project[] = [
     },
     stack: ["C++", "ESP32", "Deneyap", "RFID", "IMU", "Arduino", "iBUS"],
     sequence: "logistics",
+  },
+  {
+    slug: "unilate",
+    codename: "UniLate",
+    title: {
+      en: "University Attendance & Grade Tracker",
+      tr: "Üniversite Devamsızlık ve Not Takip Uygulaması",
+    },
+    domain: { en: "Mobile · Product", tr: "Mobil · Ürün" },
+    status: "active",
+    years: "2026",
+    role: { en: "Solo Developer", tr: "Tek Geliştirici" },
+    teamSize: 1,
+    program: {
+      en: "Google Play — closed testing",
+      tr: "Google Play — kapalı test",
+    },
+    headline: {
+      en: "The first one shipped to a store, not a jury",
+      tr: "Jüriye değil, mağazaya çıkan ilk proje",
+    },
+    summary: {
+      en: "An Android app for tracking university attendance, schedule and grades — the first thing Serhan built for a store rather than a competition. It is local-first by design: everything lives in on-device SQLite with no account and no server, and sessions are derived from the schedule rather than stored, so a term stays internally consistent after every edit. The home-screen widget is a native Android module he wrote himself and wired into Expo, and he took the app the whole way through Play Console — his own signing key, app bundle, store listing and a published privacy policy.",
+      tr: "Üniversite devamsızlığını, ders programını ve notları takip eden bir Android uygulaması — Serhan'ın yarışma için değil, mağaza için yaptığı ilk iş. Tasarım gereği yerel-öncelikli: her şey cihazdaki SQLite'ta duruyor, hesap da sunucu da yok. Oturumlar saklanmıyor, programdan türetiliyor; böylece her düzenlemeden sonra dönem kendi içinde tutarlı kalıyor. Ana ekran widget'ı, kendi yazıp Expo'ya bağladığı yerel bir Android modülü. Uygulamayı Play Console sürecinin sonuna kadar da o götürdü — kendi imzalama anahtarı, app bundle, mağaza girişi ve yayımlanmış gizlilik politikası.",
+    },
+    work: {
+      en: [
+        "Expo SDK 57 and expo-router app in TypeScript, local-first on device SQLite — no account, no backend",
+        "Pure-TypeScript domain layer (attendance, grading, schedule, timeline) that never touches React or SQLite, unit-tested with Vitest",
+        "Sessions derived from the schedule instead of stored: one full recompute per change keeps the term consistent",
+        "unilate-widget — an Android home-screen widget written as a custom native Expo module with its own provider, drawing and config screen",
+        "Local notification scheduling on separate Android channels for reminders and the Pomodoro timer",
+        "Full Play Console path: own upload key, signed app bundle, generated icon, splash and screenshot sets, hosted privacy policy",
+        "Closed testing live — 12 testers on Google's 14-day requirement",
+      ],
+      tr: [
+        "TypeScript ile Expo SDK 57 ve expo-router uygulaması; hesapsız, sunucusuz, cihaz içi SQLite üzerinde yerel-öncelikli",
+        "React'i de SQLite'ı da görmeyen saf TypeScript alan katmanı (devamsızlık, notlandırma, program, geçmiş), Vitest ile birim testli",
+        "Oturumların saklanmak yerine programdan türetilmesi: her değişiklikte tam yeniden hesap, dönem tutarlı kalıyor",
+        "unilate-widget — kendi provider'ı, çizimi ve yapılandırma ekranıyla, yerel Expo modülü olarak yazılmış Android ana ekran widget'ı",
+        "Hatırlatıcılar ve pomodoro sayacı için ayrı Android kanallarında yerel bildirim zamanlaması",
+        "Uçtan uca Play Console süreci: kendi yükleme anahtarı, imzalı app bundle, üretilmiş ikon, açılış ekranı ve mağaza görselleri, yayımlanmış gizlilik politikası",
+        "Kapalı test yayında — Google'ın 14 günlük şartında 12 testçi",
+      ],
+    },
+    stack: [
+      "TypeScript",
+      "React Native",
+      "Expo",
+      "SQLite",
+      "Kotlin",
+      "Vitest",
+      "Play Console",
+    ],
+    sequence: "unilate",
+  },
+  {
+    slug: "stetoskop-akademi",
+    codename: "STETOSKOP",
+    title: {
+      en: "Stetoskop Akademi — Brand Website",
+      tr: "Stetoskop Akademi — Marka Sitesi",
+    },
+    domain: { en: "Web · Client work", tr: "Web · Müşteri işi" },
+    status: "delivered",
+    years: "2026",
+    role: { en: "Freelance Developer", tr: "Freelance Geliştirici" },
+    teamSize: 1,
+    program: { en: "Client project", tr: "Müşteri projesi" },
+    headline: {
+      en: "Five pages, zero dependencies",
+      tr: "Beş sayfa, sıfır bağımlılık",
+    },
+    summary: {
+      en: "A five-page site for a tutoring brand whose entire teaching staff are medical students who placed nationally in their own entrance exam — Serhan's first build delivered to a paying client rather than a competition. Plain HTML, CSS and vanilla JS: no framework, no build step, no CDN. PHP does exactly two jobs, sending the contact form and reading the content folders. Fonts are served from the site's own server instead of Google, because pulling them would send every visitor's IP abroad — a cross-border transfer the brand's KVKK notice would then have to declare. Copy, prices and the twenty-three instructors live in plain text files the client edits without opening any code.",
+      tr: "Kadrosunun tamamı, girdiği sınavda Türkiye derecesi yapmış tıp fakültesi öğrencilerinden oluşan bir özel ders markası için beş sayfalık site — Serhan'ın yarışmaya değil, ödeme yapan bir müşteriye teslim ettiği ilk iş. Saf HTML, CSS ve vanilla JS: çatı yok, derleme adımı yok, CDN yok. PHP yalnızca iki iş yapıyor: iletişim formunu göndermek ve içerik klasörlerini okumak. Yazı tipleri Google'dan değil sitenin kendi sunucusundan geliyor; aksi hâlde her ziyaretçinin IP'si yurt dışına gider ve markanın KVKK metninde beyan etmesi gereken bir aktarım doğardı. Metinler, fiyatlar ve yirmi üç eğitmen, müşterinin hiç kod açmadan düzenlediği düz metin dosyalarında duruyor.",
+    },
+    work: {
+      en: [
+        "Five real pages on real URLs — home, about, services, FAQ, contact — no JS routing, so every page is indexable and shareable",
+        "Plain HTML, CSS and vanilla JS: no framework, no build step, no node_modules, no third-party library or CDN",
+        "PHP kept to two jobs — SMTP delivery for the contact form, and reading the content and instructor folders into shared header/footer includes",
+        "Self-hosted fonts replacing Google Fonts, removing a cross-border transfer of visitor IPs that KVKK would require declaring",
+        "A content model non-developers can edit: copy and settings in one folder, each of the 23 instructors a .txt file plus a photo",
+        "cPanel and FTP deployment, with the HTTPS redirect in .htaccess switched on once the certificate issues",
+      ],
+      tr: [
+        "Gerçek URL'lerde beş gerçek sayfa — ana sayfa, hakkımızda, hizmetler, SSS, iletişim — JS yönlendirmesi yok, her sayfa indekslenebilir ve paylaşılabilir",
+        "Saf HTML, CSS ve vanilla JS: çatı yok, derleme adımı yok, node_modules yok, üçüncü parti kütüphane veya CDN yok",
+        "İki işle sınırlı PHP — iletişim formunun SMTP gönderimi ve içerik/eğitmen klasörlerinin ortak header/footer parçalarına okunması",
+        "Google Fonts yerine kendi sunucusundan sunulan yazı tipleri; KVKK'da beyan gerektirecek yurt dışı IP aktarımı böylece ortadan kalktı",
+        "Geliştirici olmayanın düzenleyebildiği içerik yapısı: metin ve ayarlar tek klasörde, 23 eğitmenin her biri bir .txt dosyası ve bir fotoğraf",
+        "cPanel ve FTP ile yayın; sertifika çıktığında .htaccess içindeki HTTPS yönlendirmesinin açılması",
+      ],
+    },
+    stack: ["HTML", "CSS", "JavaScript", "PHP", "SMTP", "cPanel"],
+    sequence: "stetoskop",
+    link: { href: "https://stetoskopakademi.com", kind: "site" },
+  },
+  {
+    slug: "eye2s",
+    codename: "Eye2S",
+    title: {
+      en: "Few-Shot AR Desktop Perception",
+      tr: "Az Örnekle Öğrenen AR Masaüstü Algı Sistemi",
+    },
+    domain: { en: "Computer Vision · AR", tr: "Görüntü İşleme · AR" },
+    status: "complete",
+    years: "2026",
+    role: { en: "Solo Developer", tr: "Tek Geliştirici" },
+    teamSize: 1,
+    program: { en: "Personal project", tr: "Kişisel proje" },
+    headline: {
+      en: "Learns a new object in six frames",
+      tr: "Yeni bir nesneyi altı karede öğreniyor",
+    },
+    summary: {
+      en: "A real-time augmented-reality perception system running on a MacBook's own camera. Where a detector normally has to be retrained to know a new object, Eye2S learns one from six frames held up to the lens: GrabCut isolates the object from the fingers holding it, and DINOv2 embeddings recognise it afterwards at instance level — not \"a pen\" but that particular pen. Hands are read as gestures rather than used to drive a cursor, and behaviour is attached to an object by dropping a Python file into a folder, hot-loaded without a restart.",
+      tr: "MacBook'un kendi kamerası üzerinde çalışan, gerçek zamanlı bir artırılmış gerçeklik algı sistemi. Bir dedektörün yeni bir nesneyi tanıması normalde yeniden eğitim isterken Eye2S, kameraya tutulan altı kareden öğreniyor: GrabCut cismi onu tutan parmaklardan ayırıyor, DINOv2 gömüleri sonrasında onu örnek düzeyinde tanıyor — \"bir kalem\" değil, o kalem. Eller imleç sürmüyor, jest olarak okunuyor; bir nesneye davranış bağlamak ise bir klasöre Python dosyası bırakmaktan ibaret, yeniden başlatmadan canlı yükleniyor.",
+    },
+    work: {
+      en: [
+        "Few-shot object learning: six frames, GrabCut segmentation to cut the object out of the hand holding it, a named identity added at runtime",
+        "Instance-level recognition on DINOv2 embeddings (fp16 on Apple MPS), with YOLOE visual-prompt detection so learned objects are found hands-free",
+        "MediaPipe hand tracking and learned gestures — recorded over four takes, matched by a representation invariant to speed, position and distance",
+        "Hot-reloading plugin system: drop a .py file in and it loads live; a faulty plugin is quarantined so the HUD never goes down with it",
+        "Code-free automation rules — on sight of an object, run a shell command, AppleScript, Shortcut, app or webhook",
+        "Identity arbitration so one physical object stays one detection: nested boxes merged, ties resolved by score, an unresolved label marked and excluded from automation",
+        "Threaded render loop with Kalman-extrapolated boxes to keep the overlay smooth while inference runs behind it",
+      ],
+      tr: [
+        "Az örnekle nesne öğrenme: altı kare, cismi onu tutan elden ayıran GrabCut segmentasyonu ve çalışma anında eklenen isimli bir kimlik",
+        "DINOv2 gömüleri üzerinde örnek düzeyinde tanıma (Apple MPS'te fp16); öğrenilmiş nesnelerin elsiz de bulunması için YOLOE görsel-istem tespiti",
+        "MediaPipe el takibi ve öğrenilen jestler — dört tekrarda kaydedilir, hızdan, konumdan ve uzaklıktan bağımsız bir temsille eşleştirilir",
+        "Canlı yüklenen eklenti sistemi: bir .py dosyası bırakmak yeterli; bozuk eklenti karantinaya alınır, HUD onunla birlikte düşmez",
+        "Kod yazmadan otomasyon kuralları — bir nesne görüldüğünde kabuk komutu, AppleScript, Kısayol, uygulama veya webhook çalıştırma",
+        "Bir cismin tek tespit olarak kalmasını sağlayan kimlik hakemliği: iç içe kutuların birleştirilmesi, berabere kalan etiketin skorla çözülmesi, çözülemezse işaretlenip otomasyondan çıkarılması",
+        "Çıkarım arkada koşarken kaplamanın akıcı kalması için Kalman ile ekstrapole edilen kutular ve ayrı iş parçacıklı render döngüsü",
+      ],
+    },
+    stack: [
+      "Python",
+      "PyTorch",
+      "DINOv2",
+      "YOLOE",
+      "MediaPipe",
+      "OpenCV",
+      "Apple MPS",
+    ],
+    sequence: "optics",
   },
   {
     slug: "homeagent",
@@ -337,9 +495,36 @@ export const projects: Project[] = [
   },
 ];
 
-export function getProject(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
+/**
+ * Folds a slug or codename to one comparable key: lowercase, accents stripped.
+ * Turkish "İ" lowercases to "i̇" (i + combining dot) in a locale-aware fold, so
+ * the NFD decomposition has to happen after `toLowerCase`, not before.
+ */
+function fold(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+}
+
+/**
+ * Resolves by slug *or* codename, ignoring case and accents — the console is a
+ * place people type "LAÇİN" and "Eye2S", not URL segments. The route uses the
+ * same lookup, so a codename in the address bar resolves too.
+ */
+export function getProject(query: string): Project | undefined {
+  const key = fold(query);
+  return projects.find((p) => fold(p.slug) === key || fold(p.codename) === key);
+}
+
+/** Status → the dictionary label for it, so no caller re-derives the mapping. */
+export function statusLabel(
+  status: ProjectStatus,
+  dict: { work: { active: string; complete: string; delivered: string } },
+): string {
+  return dict.work[status];
 }
 
 export const activeCount = projects.filter((p) => p.status === "active").length;
 export const completeCount = projects.filter((p) => p.status === "complete").length;
+export const deliveredCount = projects.filter((p) => p.status === "delivered").length;

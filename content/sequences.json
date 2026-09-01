@@ -30,6 +30,12 @@
     },
     "motor": {
       "frames": 64
+    },
+    "stetoskop": {
+      "frames": 72
+    },
+    "unilate": {
+      "frames": 72
     }
   }
 }

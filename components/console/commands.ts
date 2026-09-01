@@ -1,6 +1,6 @@
 // Copyright (c) 2026 Serhan Ensar Büdün. All rights reserved.
 
-import { projects, getProject } from "@/content/projects";
+import { projects, getProject, statusLabel } from "@/content/projects";
 import { profile } from "@/content/site";
 import { locales, type Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
@@ -48,10 +48,10 @@ export const commands: Command[] = [
   {
     name: "ls",
     summary: { en: "list projects", tr: "projeleri listele" },
-    run: (_args, { locale }) => ({
+    run: (_args, { locale, dict }) => ({
       lines: projects.map(
         (p) =>
-          `  ${p.slug.padEnd(14)}${p.codename.padEnd(12)}${p.status === "active" ? "active  " : "complete"}  ${p.title[locale]}`,
+          `  ${p.slug.padEnd(20)}${p.codename.padEnd(12)}${statusLabel(p.status, dict).padEnd(18)}${p.title[locale]}`,
       ),
     }),
   },
@@ -83,7 +83,10 @@ export const commands: Command[] = [
   {
     name: "open",
     args: "<page>",
-    summary: { en: "go to lab, sim or a project", tr: "lab, sim veya bir projeye git" },
+    summary: {
+      en: "go to lab, sim or a project",
+      tr: "lab, sim veya bir projeye git",
+    },
     run: (args, { locale, navigate, dict }) => {
       const target = args[0];
       if (!target) return { tone: "error", lines: [fill(dict.console.unknown, { cmd: "open" })] };
@@ -92,8 +95,11 @@ export const commands: Command[] = [
         navigate(`/${locale}/${target}`);
         return;
       }
-      if (getProject(target)) {
-        navigate(`/${locale}/projects/${target}`);
+      // Navigate by the resolved project's slug, never the raw input — the
+      // lookup accepts codenames, but only slugs are real URL segments.
+      const project = getProject(target);
+      if (project) {
+        navigate(`/${locale}/projects/${project.slug}`);
         return;
       }
       return { tone: "error", lines: [fill(dict.console.noSuchProject, { slug: target })] };

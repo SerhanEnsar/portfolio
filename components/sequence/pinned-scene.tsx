@@ -112,6 +112,15 @@ export function PinnedScene({
                       : "absolute inset-0 bg-gradient-to-r from-void/80 via-void/10 to-transparent"
                   }
                 />
+                {/* Portrait only. The left-weighted pass above assumes the copy
+                    sits in a column beside the scene; on a phone there is no
+                    beside — the stage is cropped to a tall sliver and the copy
+                    lands straight on top of it, so the overlay has to come from
+                    the bottom instead. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-void via-void/55 to-transparent md:hidden"
+                />
               </>
             )}
 

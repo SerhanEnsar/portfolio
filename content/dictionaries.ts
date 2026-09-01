@@ -21,7 +21,7 @@ export const dictionaries = {
     },
     hero: {
       scroll: "Scroll",
-      status: "Competing at TEKNOFEST 2026",
+      status: "4 TEKNOFEST teams · 2 as captain",
     },
     sections: {
       about: "About",
@@ -41,6 +41,8 @@ export const dictionaries = {
     work: {
       active: "Active",
       complete: "Complete",
+      delivered: "Delivered · Sold",
+      deliveredShort: "Sold",
       countLabel: "projects",
       open: "Open brief",
       /* {n} is substituted at render — dictionaries cross the server/client
@@ -58,10 +60,12 @@ export const dictionaries = {
       team: "Team",
       period: "Period",
       next: "Next project",
+      credentials: "Details",
+      visit: { site: "Visit the site" },
     },
     contact: {
       heading: "Let's build something",
-      body: "Serhan is open to work on robotics, computer vision and embedded systems. Deep in TEKNOFEST 2026 right now, but always reading messages.",
+      body: "Serhan is open to work on robotics, computer vision and embedded systems. Four TEKNOFEST campaigns are behind him and the work has moved to products that ship — he is always reading messages.",
       email: "Email",
       cv: "Download CV",
     },
@@ -206,6 +210,91 @@ export const dictionaries = {
       },
       note: "EGENODE reads each parcel's RFID tag on pickup and has to hand it over intact — the whole difficulty is the middle part, carrying it without wrecking it. The 2.4 g limit is not a difficulty setting: past it the chassis stops absorbing and the parcel takes the load directly, so a hard landing costs integrity you cannot earn back. Physics runs at a fixed 120 Hz regardless of your display, so the same crest throws you the same way on every machine.",
     },
+    story: {
+      play: "Play",
+      pause: "Pause",
+      previous: "Previous beat",
+      next: "Next beat",
+      replay: "Play again",
+    },
+    gallery: {
+      unilate: {
+        eyebrow: "Shipped screens",
+        theme: "Theme",
+        light: "Light",
+        dark: "Dark",
+        screens: {
+          "01-bugun": "Today",
+          "02-dersler": "Courses",
+          "03-program": "Schedule",
+          "04-takvim": "Calendar",
+          "05-notlar": "Grades",
+          "06-gecmis": "History",
+        },
+      },
+      stetoskop: {
+        eyebrow: "The delivered site",
+        pages: {
+          fark: "What sets it apart",
+          hizmetler: "Services",
+          sss: "FAQ",
+          iletisim: "Contact",
+        },
+      },
+    },
+    stories: {
+      eye2s: {
+        eyebrow: "How it learns",
+        title: "Six frames, one identity",
+        embedder: "Embedder",
+        worst: "Worst pair",
+        threshold: "Its own consistency, used as the bar",
+        frameCount: "{n} frames — the whole cost of teaching it",
+        tighter:
+          "Two identities at {pair}, closer than earbuds is to its own six frames at {self}",
+        automation: "Run the rule",
+        held: "Held — the label is not resolved",
+        beats: {
+          hold:
+            "An object goes up in front of the camera. Nothing in the model knows what it is: it is not a COCO class, and no amount of retraining is about to happen while someone stands there holding it.",
+          cut:
+            "The hand is not the object. GrabCut cuts the thing being held out of the fingers holding it, so what gets learned is the object and not a grip.",
+          capture:
+            "Six frames, taken from a few angles. That is the entire cost of teaching Eye2S something new — no dataset, no labelling pass, no training run.",
+          embed:
+            "The six frames become one 768-dimensional prototype from DINOv2. How tightly they agree with each other becomes the object's own threshold: earbuds holds together at 0.657, so 0.657 is the bar a candidate has to clear to be called earbuds.",
+          match:
+            "Now recognition is a comparison, not a classification. A phone lands at 0.449 and is nowhere near the bar. The right object clears it, and is named — not \"a pair of earbuds\" but this one.",
+          twin:
+            "Then the hard case, and it was in the real registry all along: the earbuds and the case they live in. Their prototypes sit at 0.903 — the two objects are more like each other than earbuds is like its own six frames.",
+          refuse:
+            "So the system does not guess. A candidate matching both is shown with the label marked uncertain, and the automation bound to that object is held back. Refusing to fire is the feature — a rule that runs on the wrong object is worse than one that waits.",
+        },
+      },
+      unilate: {
+        eyebrow: "The rule behind it",
+        title: "A term that recomputes itself",
+        meta: "{weeks} weeks · {hours} h/week · {limit}% ceiling",
+        missed: "Missed",
+        remaining: "Remaining",
+        state: "State",
+        states: { safe: "Clear", warning: "At the edge", failed: "Lost" },
+        beats: {
+          schedule:
+            "A course is entered once: fourteen weeks, three hours each, the usual thirty-percent attendance ceiling. This is the only thing the app stores.",
+          derive:
+            "There is no sessions table. Each taught week is derived from the schedule the moment it is needed — which is why the numbers under it can never disagree with the schedule above them.",
+          miss:
+            "A week is missed. Three hours come off a budget of twelve point six, and the whole term is recomputed rather than a running total nudged.",
+          accumulate:
+            "Weeks accumulate. Because every change triggers a full recompute, correcting a mark from six weeks ago is the same operation as adding today's — there is no stale total to repair.",
+          edge:
+            "Four absences in, and the remaining budget is under one session. The state changes on its own; nothing had to be flagged by hand.",
+          over:
+            "The fifth absence takes it past the ceiling. This is the number the app exists to show before it happens, and it costs one derivation to know.",
+        },
+      },
+    },
     console: {
       open: "Open console",
       title: "Console",
@@ -239,7 +328,7 @@ export const dictionaries = {
     },
     hero: {
       scroll: "Kaydır",
-      status: "TEKNOFEST 2026'da yarışıyor",
+      status: "4 TEKNOFEST takımı · 2 kaptanlık",
     },
     sections: {
       about: "Hakkımda",
@@ -259,6 +348,8 @@ export const dictionaries = {
     work: {
       active: "Devam ediyor",
       complete: "Tamamlandı",
+      delivered: "Teslim edildi · Satıldı",
+      deliveredShort: "Satıldı",
       countLabel: "proje",
       open: "Künyeyi aç",
       team: "{n} kişilik ekip",
@@ -274,10 +365,12 @@ export const dictionaries = {
       team: "Ekip",
       period: "Dönem",
       next: "Sonraki proje",
+      credentials: "Bilgi",
+      visit: { site: "Siteyi incele" },
     },
     contact: {
       heading: "Birlikte bir şey kuralım",
-      body: "Serhan robotik, görüntü işleme ve gömülü sistemler alanında çalışmaya açık. Şu anda TEKNOFEST 2026'nın içinde ama mesajları hep okuyor.",
+      body: "Serhan robotik, görüntü işleme ve gömülü sistemler alanında çalışmaya açık. Dört TEKNOFEST dönemi geride kaldı, iş artık yayına çıkan ürünlerde — mesajları hep okuyor.",
       email: "E-posta",
       cv: "CV indir",
     },
@@ -420,6 +513,91 @@ export const dictionaries = {
         recovery: "doğrultma · +5 sn",
       },
       note: "EGENODE her kargonun RFID etiketini alırken okuyor ve onu bütünlüğü bozulmadan teslim etmek zorunda — bütün zorluk ortadaki kısımda, yani onu hırpalamadan taşımakta. 2,4 g sınırı bir zorluk ayarı değil: sınırı geçince gövde soğurmayı bırakır ve yükü doğrudan kargo taşır, dolayısıyla sert bir iniş geri kazanamayacağın bütünlük götürür. Fizik, ekranından bağımsız olarak sabit 120 Hz'de koşuyor; yani aynı sırt her makinede seni aynı şekilde savuruyor.",
+    },
+    story: {
+      play: "Oynat",
+      pause: "Duraklat",
+      previous: "Önceki adım",
+      next: "Sonraki adım",
+      replay: "Baştan oynat",
+    },
+    gallery: {
+      unilate: {
+        eyebrow: "Yayına çıkan ekranlar",
+        theme: "Tema",
+        light: "Açık",
+        dark: "Koyu",
+        screens: {
+          "01-bugun": "Bugün",
+          "02-dersler": "Dersler",
+          "03-program": "Program",
+          "04-takvim": "Takvim",
+          "05-notlar": "Notlar",
+          "06-gecmis": "Geçmiş",
+        },
+      },
+      stetoskop: {
+        eyebrow: "Teslim edilen site",
+        pages: {
+          fark: "Farkımız",
+          hizmetler: "Hizmetler",
+          sss: "SSS",
+          iletisim: "İletişim",
+        },
+      },
+    },
+    stories: {
+      eye2s: {
+        eyebrow: "Nasıl öğreniyor",
+        title: "Altı kare, bir kimlik",
+        embedder: "Gömücü",
+        worst: "En kötü çift",
+        threshold: "Kendi tutarlılığı, eşik olarak kullanılıyor",
+        frameCount: "{n} kare — öğretmenin tüm maliyeti",
+        tighter:
+          "İki kimlik {pair} benzerlikte; earbuds'ın kendi altı karesine benzerliği ise {self}",
+        automation: "Kuralı çalıştır",
+        held: "Bekletildi — etiket çözülemedi",
+        beats: {
+          hold:
+            "Kameranın önüne bir nesne kalkıyor. Modelin onun ne olduğuna dair hiçbir bilgisi yok: COCO sınıflarından biri değil ve biri onu elinde tutarken yeniden eğitim yapılacak hâli de yok.",
+          cut:
+            "El, nesnenin kendisi değil. GrabCut tutulan cismi onu tutan parmaklardan kesip ayırıyor; böylece öğrenilen şey nesne oluyor, tutuş biçimi değil.",
+          capture:
+            "Birkaç açıdan altı kare. Eye2S'e yeni bir şey öğretmenin tüm maliyeti bu — veri seti yok, etiketleme turu yok, eğitim koşusu yok.",
+          embed:
+            "Altı kare, DINOv2'den gelen tek bir 768 boyutlu prototipe dönüşüyor. Birbirleriyle ne kadar sıkı uyuştukları nesnenin kendi eşiği oluyor: earbuds 0.657'de duruyor, dolayısıyla earbuds denebilmesi için bir adayın aşması gereken çıta da 0.657.",
+          match:
+            "Artık tanıma bir sınıflandırma değil, bir karşılaştırma. Telefon 0.449'da kalıyor, çıtanın yanından bile geçmiyor. Doğru nesne çıtayı aşıyor ve adlandırılıyor — \"bir kulaklık\" değil, bu kulaklık.",
+          twin:
+            "Sonra zor vaka geliyor, üstelik gerçek kayıtta baştan beri duruyordu: kulaklık ve içinde yaşadığı kutu. Prototipleri 0.903'te — iki nesne, earbuds'ın kendi altı karesine benzediğinden daha çok birbirine benziyor.",
+          refuse:
+            "Bu yüzden sistem tahmin yürütmüyor. İkisine birden uyan bir aday, etiketi kararsız işaretlenerek gösteriliyor ve o nesneye bağlı otomasyon bekletiliyor. Çalışmayı reddetmek özelliğin kendisi — yanlış nesnede tetiklenen bir kural, bekleyen bir kuraldan kötüdür.",
+        },
+      },
+      unilate: {
+        eyebrow: "Arkasındaki kural",
+        title: "Kendini yeniden hesaplayan dönem",
+        meta: "{weeks} hafta · haftada {hours} saat · %{limit} sınır",
+        missed: "Devamsızlık",
+        remaining: "Kalan hak",
+        state: "Durum",
+        states: { safe: "Temiz", warning: "Sınırda", failed: "Kaldı" },
+        beats: {
+          schedule:
+            "Ders bir kez giriliyor: on dört hafta, haftada üç saat, alışılmış yüzde otuzluk devamsızlık sınırı. Uygulamanın sakladığı tek şey bu.",
+          derive:
+            "Oturum tablosu yok. İşlenen her hafta, ihtiyaç duyulduğu anda programdan türetiliyor — altındaki sayıların üstündeki programla çelişebilmesinin imkânsız olmasının nedeni de bu.",
+          miss:
+            "Bir hafta kaçırılıyor. On iki virgül altılık haktan üç saat düşüyor ve yürüyen bir toplam dürtülmek yerine dönemin tamamı yeniden hesaplanıyor.",
+          accumulate:
+            "Haftalar birikiyor. Her değişiklik tam yeniden hesap tetiklediği için, altı hafta önceki bir işareti düzeltmek bugünkünü eklemekle aynı işlem — onarılacak bayat bir toplam yok.",
+          edge:
+            "Dördüncü devamsızlıktan sonra kalan hak bir dersin altına düşüyor. Durum kendiliğinden değişiyor; elle işaretlenmesi gereken bir şey olmadı.",
+          over:
+            "Beşinci devamsızlık sınırı aşıyor. Uygulamanın var olma sebebi tam da bu sayıyı olmadan önce göstermek ve bunu bilmenin maliyeti tek bir türetme.",
+        },
+      },
     },
     console: {
       open: "Konsolu aç",

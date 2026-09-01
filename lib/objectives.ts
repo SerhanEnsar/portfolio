@@ -23,6 +23,12 @@ export const INSTRUMENT_OBJECTIVES = [
   "instrument:sim",
 ] as const;
 
+/** Narratives, one per project that carries one — see `ProjectStory`. */
+export const STORY_OBJECTIVES = [
+  "story:eye2s",
+  "story:unilate",
+] as const;
+
 export const briefObjective = (slug: string) => `brief:${slug}`;
 
 /** Every objective that counts toward completion. */
@@ -31,5 +37,6 @@ export function allObjectives(): string[] {
     ...SECTION_OBJECTIVES,
     ...projects.map((p) => briefObjective(p.slug)),
     ...INSTRUMENT_OBJECTIVES,
+    ...STORY_OBJECTIVES,
   ];
 }

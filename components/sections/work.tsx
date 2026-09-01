@@ -3,7 +3,13 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SectionMark, StatusDot } from "@/components/ui/marks";
 import { SceneBackdrop } from "@/components/sequence/scene-backdrop";
-import { projects, activeCount, completeCount } from "@/content/projects";
+import {
+  projects,
+  activeCount,
+  completeCount,
+  deliveredCount,
+  statusLabel,
+} from "@/content/projects";
 import type { Locale } from "@/content/locale";
 import type { Dictionary } from "@/content/dictionaries";
 
@@ -20,7 +26,8 @@ export function Work({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           <div className="md:col-span-4">
             <SectionMark index="03" label={dict.sections.work} />
             <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-dim">
-              {activeCount} {dict.work.active} · {completeCount} {dict.work.complete}
+              {activeCount} {dict.work.active} · {completeCount} {dict.work.complete} ·{" "}
+              {deliveredCount} {dict.work.deliveredShort}
             </p>
           </div>
 
@@ -40,9 +47,7 @@ export function Work({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                       </h3>
                       <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-dim">
                         <StatusDot live={project.status === "active"} />
-                        {project.status === "active"
-                          ? dict.work.active
-                          : dict.work.complete}
+                        {statusLabel(project.status, dict)}
                       </span>
                     </div>
 

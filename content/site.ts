@@ -86,8 +86,8 @@ export const skillGroups: SkillGroup[] = [
       tr: "Ham etiketten yayına alınmış modele kadar tespit ve takip hatları",
     },
     depth: 88,
-    tools: ["YOLOv8 / v11", "ByteTrack", "SAHI", "OpenCV", "Roboflow", "GMC"],
-    projects: ["LAÇİN", "TUYGUN", "EGE ODBARS"],
+    tools: ["YOLOv8 / v11", "YOLOE", "ByteTrack", "SAHI", "OpenCV", "DINOv2", "GMC"],
+    projects: ["LAÇİN", "TUYGUN", "EGE ODBARS", "Eye2S"],
   },
   {
     id: "python",
@@ -97,8 +97,8 @@ export const skillGroups: SkillGroup[] = [
       tr: "Eğitim hatları, veri araçları, masaüstü arayüzler ve API katmanları",
     },
     depth: 90,
-    tools: ["Python", "FastAPI", "Flask", "CustomTkinter", "PyInstaller", "Blender bpy"],
-    projects: ["LAÇİN", "TUYGUN", "EGE ODBARS", "HomeAgent"],
+    tools: ["Python", "PyTorch", "FastAPI", "CustomTkinter", "PyInstaller", "Blender bpy"],
+    projects: ["LAÇİN", "TUYGUN", "EGE ODBARS", "HomeAgent", "Eye2S"],
   },
   {
     id: "embedded",
@@ -115,12 +115,12 @@ export const skillGroups: SkillGroup[] = [
     id: "interfaces",
     title: { en: "Interfaces", tr: "Arayüzler" },
     note: {
-      en: "Ground stations and dashboards that stay readable under load",
-      tr: "Yük altında okunabilir kalan yer istasyonları ve paneller",
+      en: "Ground stations, dashboards and shipped app interfaces that stay readable under load",
+      tr: "Yük altında okunabilir kalan yer istasyonları, paneller ve yayına çıkmış uygulama arayüzleri",
     },
     depth: 78,
-    tools: ["React", "TypeScript", "Vite", "Electron", "Kotlin", "Jetpack Compose", "Nextion HMI"],
-    projects: ["EGE ODBARS", "HomeAgent", "TELEMETRY"],
+    tools: ["React", "TypeScript", "React Native", "Expo", "Vite", "Electron", "Kotlin", "Jetpack Compose"],
+    projects: ["EGE ODBARS", "HomeAgent", "TELEMETRY", "UniLate", "STETOSKOP"],
   },
 ];
 

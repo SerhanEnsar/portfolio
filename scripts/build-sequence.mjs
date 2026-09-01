@@ -6,6 +6,13 @@
  *
  *   node scripts/build-sequence.mjs aerial ~/Downloads/aerial.mp4
  *   node scripts/build-sequence.mjs aerial --placeholder
+ *   node scripts/build-sequence.mjs unilate wide.mp4 --portrait tall.mp4
+ *
+ * The optional portrait clip builds the 900 tier — the only tier a phone ever
+ * downloads — at 1080x1920 instead of 16:9. Nothing in the runtime assumes the
+ * two tiers share an aspect ratio (`FrameStage` cover-fits each frame from its
+ * own dimensions), so a scene whose content has to be *read* rather than just
+ * felt can be composed twice: once for the page, once for the phone.
  *
  * The AI step happens outside this script — generate a still, animate it to a
  * short clip, then hand the clip here. `--placeholder` synthesises a neutral
@@ -76,6 +83,21 @@ const GRADES = {
   // The closing field is warm by design; keep it warm, only deepen the black
   // between the points so it reads against the void.
   signal: "eq=brightness=-0.06:contrast=1.16:saturation=0.82",
+  // A screen capture, not footage: it arrives clean and a touch brighter and
+  // bluer than the page. Deepen the navy toward the void and desaturate just
+  // enough that the site's gold sits beside the signal amber instead of
+  // fighting it — but keep it readable, since the whole point is that this is
+  // the real site.
+  // A screen capture, not footage: it arrives clean and already dark, so it
+  // needs seating in the palette rather than crushing. The headline over it is
+  // protected by the scene's own left-hand scrim, not by hiding the site.
+  stetoskop: [
+    "eq=brightness=-0.02:contrast=1.06:saturation=0.78",
+    "colorbalance=bs=-0.04:bm=-0.03",
+  ].join(","),
+  // A browser capture of the redrawn interface — clean, already dark and warm.
+  // Only a light seat into the palette; crushing it would defeat the point.
+  unilate: "eq=brightness=-0.02:contrast=1.04:saturation=0.86",
   lattice: "",
   // Generated render comes back warmer and more saturated than the page — pull
   // it down, desaturate hard, and crush the background to near-black so the
@@ -132,7 +154,7 @@ async function clipDuration(clip) {
   return duration;
 }
 
-async function extractFrames(clip, dir, count, grade = "") {
+async function extractFrames(clip, dir, count, grade = "", box = [1920, 1080]) {
   await mkdir(dir, { recursive: true });
   // Resample onto exactly `count` frames whatever the clip's own rate is, so
   // scroll position maps to a frame by plain index lookup with no drift.
@@ -150,8 +172,8 @@ async function extractFrames(clip, dir, count, grade = "") {
       // Cover, then centre-crop. Generators do not all return exactly 16:9 —
       // 1928x1076 is common — and scaling on width alone leaves a frame too
       // short to crop 1080 out of.
-      "scale=1920:1080:force_original_aspect_ratio=increase",
-      "crop=1920:1080",
+      `scale=${box[0]}:${box[1]}:force_original_aspect_ratio=increase`,
+      `crop=${box[0]}:${box[1]}`,
       ...(grade ? [grade] : []),
       "hqdn3d=4:3:6:4.5",
     ].join(","),
@@ -202,7 +224,9 @@ async function writePoster(sourceDir, target) {
   ]);
 }
 
-const [id, source] = process.argv.slice(2);
+const [id, source, ...rest] = process.argv.slice(2);
+const portraitFlag = rest.indexOf("--portrait");
+const portraitClip = portraitFlag === -1 ? null : rest[portraitFlag + 1];
 
 if (!id || !manifest.sequences[id]) {
   fail(
@@ -210,6 +234,8 @@ if (!id || !manifest.sequences[id]) {
   );
 }
 if (!source) fail("pass a source clip path, or --placeholder");
+if (portraitFlag !== -1 && !portraitClip) fail("--portrait needs a clip path");
+if (portraitClip && !existsSync(portraitClip)) fail(`no such clip: ${portraitClip}`);
 
 await requireBinary("ffmpeg");
 await requireBinary("cwebp");
@@ -237,16 +263,27 @@ const grade = source === "--placeholder" ? "" : (GRADES[id] ?? "");
 console.log(`  extracting frames${grade ? " (graded)" : ""}`);
 await extractFrames(clip, framesDir, frames, grade);
 
+// The portrait pass is its own extraction: same clip length, same frame
+// count, different box — so frame N lines up across both tiers.
+let tallDir = null;
+if (portraitClip) {
+  tallDir = path.join(work, "frames-tall");
+  console.log("  extracting portrait frames");
+  await extractFrames(portraitClip, tallDir, frames, grade, [1080, 1920]);
+}
+
 await mkdir(outRoot, { recursive: true });
 for (const tier of manifest.tiers) {
+  const from = tier === 900 && tallDir ? tallDir : framesDir;
   const { count, bytes } = await encodeTier(
-    framesDir,
+    from,
     path.join(outRoot, String(tier)),
     tier,
     TIER_QUALITY[tier],
   );
   console.log(
-    `  ${tier}w — ${count} frames, ${(bytes / 1048576).toFixed(1)} MB ` +
+    `  ${tier}w${from === tallDir ? " portrait" : ""} — ${count} frames, ` +
+      `${(bytes / 1048576).toFixed(1)} MB ` +
       `(${Math.round(bytes / count / 1024)} KB avg)`,
   );
 }
@@ -255,7 +292,7 @@ await writePoster(framesDir, path.join(outRoot, "poster.jpg"));
 await writeFile(
   path.join(outRoot, "manifest.json"),
   JSON.stringify(
-    { id, frames, tiers: manifest.tiers, generated: new Date().toISOString(), placeholder: source === "--placeholder" },
+    { id, frames, tiers: manifest.tiers, generated: new Date().toISOString(), placeholder: source === "--placeholder", portrait: Boolean(portraitClip) },
     null,
     2,
   ) + "\n",

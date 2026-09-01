@@ -20,6 +20,8 @@ export const sequenceIds = [
   "signal",
   "lattice",
   "motor",
+  "stetoskop",
+  "unilate",
 ] as const;
 
 export type SequenceId = (typeof sequenceIds)[number];
@@ -43,6 +45,12 @@ export type SequenceSpec = {
   motionPrompt: string;
   /** Shown while frames decode, and the permanent fallback on reduced motion. */
   posterAlt: string;
+  /**
+   * Overlay strength when this scene is used as a pinned header. Defaults to
+   * "heavy", which is right for photographic plates; a scene whose content is
+   * meant to be read needs "light" or it disappears behind the veil.
+   */
+  scrim?: "heavy" | "light" | false;
 };
 
 export const sequences: Record<SequenceId, SequenceSpec> = {
@@ -130,6 +138,42 @@ export const sequences: Record<SequenceId, SequenceSpec> = {
     motionPrompt:
       "One continuous forward push through the particle field, depth layers parallaxing past the camera. Constant speed, no rotation, no cuts.",
     posterAlt: "Abstract field of luminous particles connected by hairline links",
+  },
+  stetoskop: {
+    id: "stetoskop",
+    kind: "frames",
+    frames: manifest.sequences.stetoskop.frames,
+    // Not generated. These frames are the delivered site itself, captured
+    // scrolling in a browser — which is why the prompts below describe a
+    // capture rather than a shot. The pass starts below the hero: the
+    // instructor slider there carries named photographs of real people, and
+    // none of them belong on this site.
+    keyframePrompt:
+      "Screen capture of the delivered stetoskopakademi.com, 1600x900, dark navy ground with gold accents, starting below the hero.",
+    motionPrompt:
+      "One continuous scroll down the home page at a constant rate, from the services section through the comparison table, the testimonials and the FAQ to the closing call to action. No cuts, no easing, no pauses.",
+    posterAlt:
+      "The delivered Stetoskop Akademi site scrolling past its services and comparison sections",
+    scrim: "light",
+  },
+  unilate: {
+    id: "unilate",
+    kind: "frames",
+    frames: manifest.sequences.unilate.frames,
+    // Not a screenshot and not generated: UniLate's interface redrawn as a
+    // wide layout and captured scrolling in a browser. A 9:16 screen dropped
+    // into a 16:9 plate either floats in empty margins or has to be magnified
+    // until it is unreadable; rebuilding the screens with the blocks stretched
+    // across the horizontal axis is the only way the app fills the frame and
+    // stays crisp. The palette, type and content are the app's own, taken from
+    // its store screens.
+    keyframePrompt:
+      "UniLate's interface laid out for a wide screen: warm near-black ground, Fraunces headings, course cards stretched across the frame, amber accents.",
+    motionPrompt:
+      "One continuous scroll down through the app's screens in order — today, courses, timetable, calendar, grades, history — at a constant rate. No cuts, no zoom.",
+    posterAlt:
+      "UniLate's interface laid out wide, scrolling from the day view through the timetable",
+    scrim: "light",
   },
   motor: {
     id: "motor",
