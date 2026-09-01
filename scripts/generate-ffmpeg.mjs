@@ -1,5 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+import { readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 // ==========================================
 // AYARLAR: SAHNEYE ÖZEL KIRPMA (Saniye Cinsinden)
@@ -66,19 +69,19 @@ const command = `ffmpeg \\
   -c:a aac -b:a 128k -y public/cinematic/full_story.mp4`;
 
 // 1. FFmpeg bash scriptini oluştur
-fs.writeFileSync('encode.sh', command);
+writeFileSync(path.join(root, 'encode.sh'), command);
 console.log("✅ encode.sh başarıyla oluşturuldu.");
 
 // 2. CinematicPlayer.tsx içindeki zamanlamaları OTOMATİK güncelle
-const tsxPath = path.join(__dirname, 'components', 'CinematicPlayer.tsx');
-let tsxContent = fs.readFileSync(tsxPath, 'utf8');
+const tsxPath = path.join(root, 'components', 'CinematicPlayer.tsx');
+let tsxContent = readFileSync(tsxPath, 'utf8');
 
 const regex = /const sceneStartTimes = \[.*?\];/;
 const newArrayString = `const sceneStartTimes = [${sceneStartTimes.join(', ')}];`;
 
 if (regex.test(tsxContent)) {
   tsxContent = tsxContent.replace(regex, newArrayString);
-  fs.writeFileSync(tsxPath, tsxContent);
+  writeFileSync(tsxPath, tsxContent);
   console.log(`✅ CinematicPlayer.tsx güncellendi -> ${newArrayString}`);
 } else {
   console.log("⚠️ CinematicPlayer.tsx içinde sceneStartTimes dizisi bulunamadı!");

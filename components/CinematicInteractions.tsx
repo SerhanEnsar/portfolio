@@ -112,27 +112,36 @@ function InteractionScan({ onAdvance, lang }: InteractionProps) {
   const [isHolding, setIsHolding] = useState(false);
   const [success, setSuccess] = useState(false);
   const dict = t[lang as keyof typeof t];
-  
-  useEffect(() => {
-    if (success) return;
-    
-    let interval: NodeJS.Timeout;
-    if (isHolding && progress < 100) {
-      interval = setInterval(() => {
-        setProgress(p => p + 2);
-      }, 30);
-    } else if (!isHolding && progress < 100) {
-      setProgress(0); // Reset if let go early
-    }
-    return () => clearInterval(interval);
-  }, [isHolding, progress, success]);
+  const progressRef = useRef(0);
 
+  // The whole hold runs from one timer, so filling up, completing and firing
+  // `onAdvance` all happen in a callback rather than in an effect body.
   useEffect(() => {
-    if (progress >= 100 && !success) {
-      setSuccess(true);
-      setTimeout(onAdvance, 500);
+    if (!isHolding || success) return;
+
+    const interval = setInterval(() => {
+      const next = Math.min(100, progressRef.current + 2);
+      progressRef.current = next;
+      setProgress(next);
+
+      if (next >= 100) {
+        clearInterval(interval);
+        setSuccess(true);
+        setTimeout(onAdvance, 500);
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [isHolding, success, onAdvance]);
+
+  // Letting go early is a user action, not a state to react to.
+  const release = () => {
+    setIsHolding(false);
+    if (progressRef.current < 100) {
+      progressRef.current = 0;
+      setProgress(0);
     }
-  }, [progress, success, onAdvance]);
+  };
 
   return (
     <div className="flex flex-col items-center gap-10">
@@ -143,10 +152,10 @@ function InteractionScan({ onAdvance, lang }: InteractionProps) {
       <div 
         className="relative w-48 h-48 flex items-center justify-center cursor-pointer select-none"
         onMouseDown={() => setIsHolding(true)}
-        onMouseUp={() => setIsHolding(false)}
-        onMouseLeave={() => setIsHolding(false)}
+        onMouseUp={release}
+        onMouseLeave={release}
         onTouchStart={(e) => { e.preventDefault(); setIsHolding(true); }}
-        onTouchEnd={() => setIsHolding(false)}
+        onTouchEnd={release}
       >
         <svg className="absolute inset-0 w-full h-full -rotate-90">
           <circle cx="96" cy="96" r="80" className="stroke-emerald-950/40" strokeWidth="8" fill="none" />

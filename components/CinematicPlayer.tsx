@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCinematicStore } from '@/lib/store/useCinematicStore';
 import { Button } from '@/components/ui/button';
 import { X, Play } from 'lucide-react';
@@ -27,27 +27,23 @@ export function CinematicPlayer() {
     isWaitingForAction, 
     setWaitingForAction,
     isIdleLooping,
-    setIdleLooping
+    setIdleLooping,
+    isFinished,
+    setFinished
   } = useCinematicStore();
   
   const params = useParams();
   const lang = (params?.lang as string) === 'en' ? 'en' : 'tr';
   
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isFinished, setIsFinished] = useState(false);
 
-  // Initialize on open
+  // Rewind and play on open. The reset of waiting/idle/finished lives in the
+  // store's openCinematic, so nothing here has to set React state.
   useEffect(() => {
-    if (isOpen) {
-      setIsFinished(false);
-      setWaitingForAction(false);
-      setIdleLooping(true);
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(console.error);
-      }
-    }
-  }, [isOpen, setWaitingForAction, setIdleLooping]);
+    if (!isOpen || !videoRef.current) return;
+    videoRef.current.currentTime = 0;
+    videoRef.current.play().catch(console.error);
+  }, [isOpen]);
 
   // Handle scene transitions (auto-play when scene changes)
   useEffect(() => {
@@ -88,7 +84,7 @@ export function CinematicPlayer() {
             videoRef.current.pause();
             
             if (currentScene === 7) {
-              setIsFinished(true);
+              setFinished(true);
             } else {
               setWaitingForAction(true);
             }
@@ -100,7 +96,7 @@ export function CinematicPlayer() {
 
     rafId = requestAnimationFrame(checkVideoTime);
     return () => cancelAnimationFrame(rafId);
-  }, [isOpen, isIdleLooping, currentScene, isWaitingForAction, isFinished, setWaitingForAction]);
+  }, [isOpen, isIdleLooping, currentScene, isWaitingForAction, isFinished, setWaitingForAction, setFinished]);
 
   if (!isOpen) return null;
 

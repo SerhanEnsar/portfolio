@@ -5,11 +5,13 @@ interface CinematicState {
   currentScene: number;
   isWaitingForAction: boolean;
   isIdleLooping: boolean;
+  isFinished: boolean;
   openCinematic: () => void;
   closeCinematic: () => void;
   advanceScene: () => void;
   setWaitingForAction: (waiting: boolean) => void;
   setIdleLooping: (looping: boolean) => void;
+  setFinished: (finished: boolean) => void;
 }
 
 export const useCinematicStore = create<CinematicState>((set) => ({
@@ -17,6 +19,7 @@ export const useCinematicStore = create<CinematicState>((set) => ({
   currentScene: 1,
   isWaitingForAction: false,
   isIdleLooping: true,
+  isFinished: false,
 
   openCinematic: () =>
     set({
@@ -24,6 +27,7 @@ export const useCinematicStore = create<CinematicState>((set) => ({
       currentScene: 1,
       isWaitingForAction: false,
       isIdleLooping: true,
+      isFinished: false,
     }),
 
   closeCinematic: () =>
@@ -46,5 +50,10 @@ export const useCinematicStore = create<CinematicState>((set) => ({
   setIdleLooping: (looping) =>
     set({
       isIdleLooping: looping,
+    }),
+
+  setFinished: (finished) =>
+    set({
+      isFinished: finished,
     }),
 }));
