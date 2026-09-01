@@ -74,8 +74,8 @@ skip frame download entirely and keep the poster) — see README "Scenes".
 ## Interactive instruments live *inside* projects
 
 The playable pieces (detection challenge, live YOLO detector, synthetic scene
-generator, rover delivery sim, visual-odometry puzzle, HomeAgent mesh) are
-**not** top-nav
+generator, rover delivery sim, visual-odometry puzzle, HomeAgent mesh,
+telemetry dual-render) are **not** top-nav
 destinations — they are embedded in the project they belong to, discovered by
 opening a brief. The wiring:
 

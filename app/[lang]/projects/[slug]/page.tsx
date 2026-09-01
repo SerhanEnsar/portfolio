@@ -24,6 +24,7 @@ const INSTRUMENT_SLUGS = new Set([
   "egenode",
   "ege-odbars",
   "homeagent",
+  "telemetry",
 ]);
 
 /**
