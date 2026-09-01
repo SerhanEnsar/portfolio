@@ -297,9 +297,9 @@ export const dictionaries = {
     },
     mesh: {
       eyebrow: "One hub, five surfaces",
-      title: "Ask from anywhere, everything agrees",
+      title: "One request, everything updates",
       intro:
-        "Fire a request from any of the five clients. It crosses to the Pi, is authorised there, and — when the request arrives as a sentence rather than a button — goes to the model to be understood before anything is done. Whatever changes then travels back to every surface at once. They stay in agreement because none of them keeps its own copy: the hub holds the state and they all read it.",
+        "Send a request from any of the five clients. It goes to the Pi, the session is checked, the work is done, and the result goes back to all five at once. The clients don't keep their own copy — they all read the hub's. The Telegram one is a sentence rather than a button, so it goes through the model first.",
       idle: "Idle — pick a request",
       actions: {
         disk: "How much disk is left?",
@@ -332,9 +332,9 @@ export const dictionaries = {
     },
     telemetry: {
       eyebrow: "One packet, two screens",
-      title: "A second of a body, drawn twice",
+      title: "The same data, on two screens",
       intro:
-        "The watch samples once a second and posts JSON to the ESP32, which renders it in two places that have nothing in common: a browser dashboard and a 2.4\" Nextion TFT over serial. Change what the body is doing and watch both follow — the heart rate eases toward its new load rather than jumping, because a body takes most of a minute to catch up.",
+        "The watch takes a reading once a second and sends it to the ESP32 as JSON. The ESP32 draws that same reading in two places at once: a browser dashboard and a 2.4\" Nextion TFT. Pick a state below and start the stream.",
       activities: { rest: "Resting", walk: "Walking", sprint: "Sprinting" },
       start: "Stream",
       pause: "Hold",
@@ -350,7 +350,7 @@ export const dictionaries = {
       gyro: "Gyro X",
       packet: "What crosses the wire",
       note:
-        "The rate is the real one: at 1 Hz a waveform is coarse, and the TFT draws it coarse because that is all it was sent. These samples are generated — the real ones come off the watch's sensors — but the lag in the heart rate is modelled rather than random, which is the part that makes it read as a body.",
+        "The samples are generated for this page; the real ones come from the watch's sensors. The rate is real — one sample a second — which is why the trace is coarse. Heart rate climbs to its new level gradually, the way it does in life.",
     },
     console: {
       open: "Open console",
@@ -658,9 +658,9 @@ export const dictionaries = {
     },
     mesh: {
       eyebrow: "Tek merkez, beş yüzey",
-      title: "Nereden sorarsan sor, hepsi aynı şeyi söyler",
+      title: "Bir istek, hepsi güncelleniyor",
       intro:
-        "Beş istemciden herhangi biriyle bir istek başlat. İstek Pi'ye geçiyor, orada yetkilendiriliyor ve — istek bir düğme değil de bir cümle olarak geldiyse — bir şey yapılmadan önce anlaşılmak üzere modele gidiyor. Sonrasında değişen ne varsa aynı anda bütün yüzeylere geri gidiyor. Uyumlu kalmalarının sebebi hiçbirinin kendi kopyasını tutmaması: durumu merkez tutuyor, hepsi oradan okuyor.",
+        "Beş istemciden biriyle istek gönder. İstek Pi'ye gidiyor, oturum kontrol ediliyor, iş yapılıyor ve sonuç aynı anda beşine birden dönüyor. İstemciler veriyi kendileri tutmuyor, hepsi merkezdekini okuyor. Telegram'daki istek düğme değil cümle olduğu için önce modele uğruyor.",
       idle: "Beklemede — bir istek seç",
       actions: {
         disk: "Diskte ne kadar yer kaldı?",
@@ -693,9 +693,9 @@ export const dictionaries = {
     },
     telemetry: {
       eyebrow: "Tek paket, iki ekran",
-      title: "Bir bedenin bir saniyesi, iki kez çizilmiş",
+      title: "Aynı veri, iki ekranda",
       intro:
-        "Saat saniyede bir örnekleyip ESP32'ye JSON gönderiyor; ESP32 bunu birbiriyle hiç ilgisi olmayan iki yere çiziyor: tarayıcı paneli ve seri porttan sürülen 2,4\" Nextion TFT. Bedenin ne yaptığını değiştir, ikisinin de peşinden geldiğini gör — nabız yeni yüküne sıçrayarak değil süzülerek gidiyor, çünkü bir bedenin yetişmesi dakikanın çoğunu alır.",
+        "Saat saniyede bir ölçüm alıp ESP32'ye JSON olarak gönderiyor. ESP32 aynı ölçümü iki yere birden çiziyor: tarayıcı paneline ve 2,4\" Nextion TFT'ye. Aşağıdan bir durum seç ve akışı başlat.",
       activities: { rest: "Dinlenme", walk: "Yürüyüş", sprint: "Sprint" },
       start: "Akıt",
       pause: "Duraklat",
@@ -711,7 +711,7 @@ export const dictionaries = {
       gyro: "Jiro X",
       packet: "Telden geçen şey",
       note:
-        "Hız gerçek olanı: 1 Hz'te bir dalga formu kaba olur ve TFT onu kaba çiziyor, çünkü kendisine gönderilen bu. Buradaki örnekler üretilmiş — gerçekleri saatin sensörlerinden geliyor — ama nabzın gecikmesi rastgele değil modellenmiş; onu bir beden gibi okutan kısım da bu.",
+        "Veriler bu sayfa için üretiliyor; gerçekleri saatin sensörlerinden geliyor. Hız gerçek — saniyede bir örnek — iz bu yüzden kaba. Nabız yeni seviyesine, gerçekte olduğu gibi, yavaş yavaş çıkıyor.",
     },
     console: {
       open: "Konsolu aç",
