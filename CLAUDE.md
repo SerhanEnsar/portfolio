@@ -19,6 +19,7 @@ npm run build                            # prebuild syncs ORT wasm → public/or
 npm run lint                             # eslint — must be clean; CI-equivalent gate
 npm run sequence <id> <clip.mp4>         # build a scroll-scrub scene from a clip
 npm run sequence <id> -- --placeholder   # neutral stand-in scene, no asset needed
+npm run sequence <id> wide.mp4 -- --portrait tall.mp4   # see "Two compositions"
 ```
 
 There are no unit tests. The verification loop is: `npm run build` **and**
@@ -35,7 +36,15 @@ user-facing is hardcoded in a component.
 - `content/locale.ts` — `L10n<T> = { en: T; tr: T }`. Every visible string is `L10n`.
 - `content/dictionaries.ts` — interface/label strings (`Dictionary`), one tree per locale.
 - `content/site.ts` — profile, about, `skillGroups`, `roles`, `internship`, `certificates`.
-- `content/projects.ts` — the `Project[]`; each may carry an optional `sequence` id.
+- `content/projects.ts` — the `Project[]`. Beyond the copy: `status` is
+  `active | complete | delivered` (read it through `statusLabel`, never a
+  ternary — there are three call sites and a ternary silently mislabels the
+  third), an optional `sequence` id, and an optional `link` for work that is
+  publicly reachable.
+
+`getProject` resolves a **slug or a codename**, case- and accent-insensitively,
+so `open LAÇİN` and `open Eye2S` work in the console. Anything navigating from
+it must use the resolved `project.slug` — only slugs are real URL segments.
 
 Sections/pages are near-dumb components that take `{ locale, dict }` (and read
 the relevant content module) and render. When adding copy, add it to the content
@@ -66,10 +75,34 @@ Both expose `SequenceProgress` / `SceneActive` React contexts. Loading is
 deliberately conservative (only the hero eager-loads; reduced-motion / data-saver
 skip frame download entirely and keep the poster) — see README "Scenes".
 
+A `SequenceSpec` also carries an optional `scrim`. The default `heavy` pass
+veils the middle of the frame, which is right for a photographic plate and fatal
+for a scene meant to be *read* — those want `"light"`.
+
 **Adding a scene:** add `{ frames }` to `sequences.json`, add the id to
 `sequenceIds` + a `SequenceSpec` in `sequences.ts`, add a color `GRADES` entry in
 `build-sequence.mjs` (generated footage never arrives in-palette), run
 `npm run sequence <id> <clip.mp4>`, then set `sequence: "<id>"` on a project.
+
+### Two compositions for one scene
+
+`FrameStage` cover-fits every frame from its own dimensions, so **nothing
+requires the two tiers to share an aspect ratio** — and a phone only ever
+downloads the 900 tier. A scene whose content has to be read can therefore be
+composed twice, wide at 1600x900 and portrait at 900x1600, in one pass:
+
+```bash
+npm run sequence unilate wide.mp4 -- --portrait tall.mp4
+```
+
+A photographic plate does not need this; cropping a landscape is what cover-fit
+is for. Two scenes are captures rather than generated plates: `stetoskop` is the
+delivered client site scrolled in a browser, started below its hero because the
+instructor slider there carries named photographs of real people; `unilate` is
+the app's interface **redrawn** for a wide frame from
+`scripts/unilate-scene.html` (`?mode=tall` gives the portrait pass). A 9:16
+phone screen dropped into a 16:9 plate either floats in empty margins or is
+magnified past legibility — rebuilding the layout is the only way out.
 
 ## Interactive instruments live *inside* projects
 
@@ -140,31 +173,38 @@ Numbers in a story are measured, never invented. `lib/eye2s-data.ts` carries
 cosine similarities computed from the registry the Eye2S desktop app writes at
 `~/.eye2s/registry`, and `public/story/eye2s/` holds the actual crops that
 taught those objects — only the ones containing nothing but an object and a
-hand. Two scenes are captures rather than generated plates: `stetoskop` is the
-delivered site itself, scrolled in a browser below its hero (the instructor
-slider there carries named photographs of real people), and `unilate` is the
-app's interface **redrawn** — `scripts/unilate-scene.html` is the source. A 9:16
-phone screen cannot be dropped into a 16:9 plate without either floating in
-empty margins or being magnified past legibility; rebuilding the layout is what
-makes it fill the frame and stay crisp.
+hand. When a demo simplifies something the real system does properly, the page
+says so in its own copy rather than leaving the reader to assume it.
 
-That scene is also composed **twice**. `FrameStage` cover-fits every frame from
-its own dimensions, so nothing requires the two tiers to share an aspect ratio —
-and a phone only ever downloads the 900 tier. So `unilate` ships a 1600x900 wide
-tier and a 900x1600 portrait one, captured from the same source file at
-`?mode=tall`, and built in one pass:
-
-```bash
-npm run sequence unilate wide.mp4 -- --portrait tall.mp4
-```
-
-Use it for any scene whose content has to be *read*. A photographic plate does
-not need it — cropping a landscape is what cover-fit is for.
+Where the work speaks for itself a shelf of shipped screens stands alone:
+`components/project/project-gallery.tsx` exports `UnilateGallery` and
+`StetoskopGallery` over one shared `Shelf`, and both mount through the
+`ProjectStory` map like everything else on that side.
 
 **Adding a story:** build the component around `StoryStage`, add its token to
 `STORY_OBJECTIVES` in `lib/objectives.ts`, add it to the `ProjectStory` map and
 to `STORY_SLUGS` on the page, and add a `stories.<name>` block with one caption
 per beat in both locales.
+
+## The cinematic is a *second*, separate video system
+
+Easy to confuse with the scene engine; they share nothing. `components/Cinematic*`
+plus `lib/store/useCinematicStore.ts` (zustand) play a seven-clip story from
+`public/cinematic/sahne1..7.mp4` in a full-screen overlay, opened from the header
+button and `CinematicFooterTrigger`. Scenes do not auto-advance: each one ends on
+a gesture gate in `CinematicInteractions.tsx` — swipe up, hold to scan, rotate a
+dial — and only then does `advanceScene()` fire. The player preloads
+`sahne{n+1}` in a hidden `<video>` while `sahne{n}` plays.
+
+`scripts/generate-ffmpeg.mjs` regenerates `encode.sh` (which concatenates the
+clips into `full_story.mp4`) and rewrites the scene start times inside
+`CinematicPlayer.tsx`. Run it after retrimming, not by hand.
+
+Two things about it break the rules the rest of the site keeps, deliberately
+noted so nobody "fixes" one by accident or copies the pattern into new work:
+its copy is a hardcoded `t` object in `CinematicInteractions.tsx` rather than
+`content/dictionaries.ts`, and its Tailwind uses cyan/emerald rather than the
+palette below.
 
 ## Progress, HUD, console
 
@@ -177,9 +217,12 @@ modules the page renders from, so there is no second copy of the project list.
 
 ## Logic vs pixels
 
-`lib/` holds DOM-free, dependency-light modules (`rover.ts`, `vo.ts`,
-`synthetic-scene.ts`, `iou.ts`, `fill.ts`) that own geometry/scoring/rendering
-math; the components own the canvas and React state. Keep new game logic in
+`lib/` holds DOM-free, dependency-light modules — `rover.ts`, `vo.ts`,
+`synthetic-scene.ts`, `iou.ts`, `fill.ts` for the older instruments, and
+`homeagent.ts` (topology and run sequencing), `telemetry.ts` (signal model and
+display scales), `attendance.ts`, `eye2s-data.ts`, `story.ts` for the newer
+ones — that own geometry, scoring and simulation; the components own the canvas
+and React state. Keep new game logic in
 `lib/` and pixels in the component — it is the established split and keeps the
 math reasonable in isolation.
 
