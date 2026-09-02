@@ -58,6 +58,10 @@ const RoverSim = dynamic(
   () => import("@/components/sim/rover-sim").then((m) => m.RoverSim),
   { ssr: false },
 );
+const MotorBench = dynamic(
+  () => import("@/components/motor/motor-bench").then((m) => m.MotorBench),
+  { ssr: false },
+);
 
 const INSTRUMENTS: Record<string, ComponentType<InstrumentProps>[]> = {
   lacin: [DetectionChallenge, SceneGenerator],
@@ -66,6 +70,7 @@ const INSTRUMENTS: Record<string, ComponentType<InstrumentProps>[]> = {
   "ege-odbars": [SceneGenerator],
   homeagent: [HomeMesh],
   telemetry: [DualRender],
+  tubitak: [MotorBench],
 };
 
 export function ProjectInstrument({

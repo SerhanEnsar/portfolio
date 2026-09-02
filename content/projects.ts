@@ -33,7 +33,12 @@ export type Project = {
   link?: ProjectLink;
 };
 
-export const projects: Project[] = [
+/**
+ * The catalogue in the order it was written. Nothing reads this directly —
+ * `projects` below is the ordered view, and it is what every page, the console
+ * and `generateStaticParams` see.
+ */
+const catalogue: Project[] = [
   {
     slug: "lacin",
     codename: "LAÇİN",
@@ -494,6 +499,34 @@ export const projects: Project[] = [
     sequence: "motor",
   },
 ];
+
+/**
+ * The last year a project's `years` string names — "2025–2026" is a 2026
+ * project, not a 2025 one, because what matters for the shelf is when the work
+ * was last live.
+ */
+function latestYear(years: string): number {
+  const found = years.match(/\d{4}/g);
+  if (!found) return 0;
+  return Math.max(...found.map(Number));
+}
+
+/**
+ * The shelf order: anything still running first, then newest work down to
+ * oldest.
+ *
+ * `years` is only accurate to the year, and six projects share 2026 — so the
+ * sort is deliberately **stable**, and ties fall back to the order they are
+ * written in `catalogue` above. That order is a judgement about which work
+ * leads, and a coarse date is no reason to overwrite it. To move a project
+ * within its own year, move it in `catalogue`; a comparator cannot know what a
+ * year does not record.
+ */
+export const projects: Project[] = [...catalogue].sort((a, b) => {
+  const running = Number(b.status === "active") - Number(a.status === "active");
+  if (running !== 0) return running;
+  return latestYear(b.years) - latestYear(a.years);
+});
 
 /**
  * Folds a slug or codename to one comparable key: lowercase, accents stripped.

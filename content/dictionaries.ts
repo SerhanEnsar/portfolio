@@ -352,6 +352,52 @@ export const dictionaries = {
       note:
         "The samples are generated for this page; the real ones come from the watch's sensors. The rate is real — one sample a second — which is why the trace is coarse. Heart rate climbs to its new level gradually, the way it does in life.",
     },
+    motor: {
+      eyebrow: "Where the motor works best",
+      title: "Find the load it likes",
+      intro:
+        "A brushed DC motor turns fastest with nothing on the shaft and makes the most torque when it cannot turn at all — and at both of those ends it wastes nearly everything it draws. Somewhere between them it works at its best. Add load until you find that point.",
+      presets: {
+        baseline: "As built",
+        rewound: "More turns",
+        bearings: "Better bearings",
+      },
+      presetNotes: {
+        baseline:
+          "The motor as it came: 0.035 N·m per amp through a 1.2 Ω winding.",
+        rewound:
+          "More turns on the armature. Every amp makes more torque, but the longer, thinner wire has more resistance — the torque is paid for in copper.",
+        bearings:
+          "Same electrical machine, less drag. Nothing about the winding changed; only what the shaft has to fight before it reaches the load.",
+      },
+      pin: "Pin this curve",
+      unpin: "Clear the pinned curve",
+      pinned: "Pinned · {build} at {volts} V",
+      machine: "Armature, field, brushes",
+      chart: "Load sweep — efficiency, speed and current against load torque",
+      legend: { efficiency: "Efficiency", speed: "Speed", current: "Current" },
+      axisLoad: "Load torque",
+      noLoad: "No load",
+      stall: "Stall",
+      stalled: "Stalled",
+      peakMark: "Peak",
+      maxPowerMark: "Most power",
+      load: "Load torque",
+      voltage: "Supply",
+      efficiency: "Efficiency",
+      rpm: "Speed",
+      current: "Current",
+      torque: "Load",
+      input: "Drawn",
+      output: "Delivered",
+      losses: { useful: "Work", copper: "Heat in the winding", friction: "Friction" },
+      hunt:
+        "Drag the load. Watch the efficiency curve rise, top out, and fall away — park on the top and the bench will mark it.",
+      found:
+        "Best at {efficiency}% — {torque} mN·m, {rpm} rpm. The motor makes its most power somewhere else entirely: {power} W further right, where it is only {powerEfficiency}% efficient. Size a motor by power alone and it lands there.",
+      note:
+        "This bench runs on the standard steady-state equations for a brushed DC motor, not on measurements from the 2019 experiments — those numbers were never kept. What is carried over is the question the project asked and the way it asked it: change one thing, sweep the load again, compare.",
+    },
     console: {
       open: "Open console",
       title: "Console",
@@ -712,6 +758,52 @@ export const dictionaries = {
       packet: "Telden geçen şey",
       note:
         "Veriler bu sayfa için üretiliyor; gerçekleri saatin sensörlerinden geliyor. Hız gerçek — saniyede bir örnek — iz bu yüzden kaba. Nabız yeni seviyesine, gerçekte olduğu gibi, yavaş yavaş çıkıyor.",
+    },
+    motor: {
+      eyebrow: "Motor en iyi nerede çalışır",
+      title: "Sevdiği yükü bul",
+      intro:
+        "Fırçalı bir DC motor mil boştayken en hızlı döner, hiç dönemediğinde en çok torku üretir — ve bu iki uçta da çektiği enerjinin neredeyse tamamını harcar. En iyi çalıştığı yer ikisinin arasındadır. Yükü artır ve o noktayı bul.",
+      presets: {
+        baseline: "Kurulduğu hâli",
+        rewound: "Daha çok sarım",
+        bearings: "İyi rulman",
+      },
+      presetNotes: {
+        baseline:
+          "Motorun geldiği hâli: 1,2 Ω sargıdan amper başına 0,035 N·m.",
+        rewound:
+          "Rotorda daha çok sarım. Her amper daha çok tork üretiyor, ama uzayan ve incelen tel daha dirençli — tork bakırla ödeniyor.",
+        bearings:
+          "Elektriksel makine aynı, sürtünme daha az. Sargıda hiçbir şey değişmedi; değişen, milin yüke ulaşmadan önce yenmesi gereken direnç.",
+      },
+      pin: "Bu eğriyi sabitle",
+      unpin: "Sabit eğriyi kaldır",
+      pinned: "Sabit · {build}, {volts} V",
+      machine: "Rotor, alan, fırçalar",
+      chart: "Yük süpürmesi — yük torkuna karşı verim, devir ve akım",
+      legend: { efficiency: "Verim", speed: "Devir", current: "Akım" },
+      axisLoad: "Yük torku",
+      noLoad: "Boşta",
+      stall: "Durma",
+      stalled: "Durdu",
+      peakMark: "Tepe",
+      maxPowerMark: "En çok güç",
+      load: "Yük torku",
+      voltage: "Besleme",
+      efficiency: "Verim",
+      rpm: "Devir",
+      current: "Akım",
+      torque: "Yük",
+      input: "Çekilen",
+      output: "Verilen",
+      losses: { useful: "İş", copper: "Sargıdaki ısı", friction: "Sürtünme" },
+      hunt:
+        "Yükü gezdir. Verim eğrisi yükseliyor, tepe yapıyor ve düşüyor — tepeye park et, tezgâh orayı işaretlesin.",
+      found:
+        "En iyisi %{efficiency} — {torque} mN·m, {rpm} dev/dk. Motor en çok gücü bambaşka bir yerde üretiyor: daha sağda {power} W, ama orada verim yalnızca %{powerEfficiency}. Bir motoru yalnızca güce bakarak seçersen oraya düşersin.",
+      note:
+        "Bu tezgâh, fırçalı DC motorun standart kararlı hâl denklemleriyle çalışır; 2019 deneylerinin ölçümleriyle değil — o sayılar saklanmadı. Devralınan şey projenin sorduğu soru ve sorma biçimi: tek şeyi değiştir, yükü yeniden süpür, karşılaştır.",
     },
     console: {
       open: "Konsolu aç",

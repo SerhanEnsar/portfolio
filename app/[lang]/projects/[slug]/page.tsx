@@ -25,6 +25,7 @@ const INSTRUMENT_SLUGS = new Set([
   "ege-odbars",
   "homeagent",
   "telemetry",
+  "tubitak",
 ]);
 
 /**

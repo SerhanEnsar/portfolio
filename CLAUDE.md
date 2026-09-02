@@ -108,7 +108,7 @@ magnified past legibility — rebuilding the layout is the only way out.
 
 The playable pieces (detection challenge, live YOLO detector, synthetic scene
 generator, rover delivery sim, visual-odometry puzzle, HomeAgent mesh,
-telemetry dual-render) are **not** top-nav
+telemetry dual-render, motor bench) are **not** top-nav
 destinations — they are embedded in the project they belong to, discovered by
 opening a brief. The wiring:
 
@@ -121,6 +121,11 @@ opening a brief. The wiring:
   `record("instrument:<name>")` from `lib/progress.ts` on completion.
 - The standalone `/lab` and `/sim` routes still exist and are reachable via the
   console (`open lab|sim`) but are intentionally out of the nav.
+
+TÜBİTAK's bench is the one instrument with nothing behind it to measure: the
+2019 experiments left no numbers, so `lib/motor.ts` runs the textbook
+steady-state model instead and the panel's own copy says exactly that. A demo
+may model what was never recorded; it may not present the model as a record.
 
 **Adding a game:** build the component (record its own token), add the token to
 `INSTRUMENT_OBJECTIVES` in `lib/objectives.ts`, add it to the `ProjectInstrument`
@@ -220,8 +225,8 @@ modules the page renders from, so there is no second copy of the project list.
 `lib/` holds DOM-free, dependency-light modules — `rover.ts`, `vo.ts`,
 `synthetic-scene.ts`, `iou.ts`, `fill.ts` for the older instruments, and
 `homeagent.ts` (topology and run sequencing), `telemetry.ts` (signal model and
-display scales), `attendance.ts`, `eye2s-data.ts`, `story.ts` for the newer
-ones — that own geometry, scoring and simulation; the components own the canvas
+display scales), `motor.ts` (the DC machine's steady state), `attendance.ts`,
+`eye2s-data.ts`, `story.ts` for the newer ones — that own geometry, scoring and simulation; the components own the canvas
 and React state. Keep new game logic in
 `lib/` and pixels in the component — it is the established split and keeps the
 math reasonable in isolation.
