@@ -1,6 +1,7 @@
 // Copyright (c) 2026 Serhan Ensar Büdün. All rights reserved.
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -53,9 +54,24 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
         <Link
           href={`/${locale}`}
           onClick={() => setOpen(false)}
-          className="font-display text-lg font-bold uppercase tracking-[0.18em] text-bone"
+          className="group flex items-center gap-3"
         >
-          SEB<span className="text-signal">.</span>
+          {/* The photograph whole, at the ratio it was taken, in the one
+              round frame on a site built entirely from square corners. That is
+              a deliberate exception, not an oversight: a portrait is the one
+              thing here that is a person rather than an instrument. */}
+          <Image
+            src="/profile/mark.jpg"
+            alt=""
+            width={512}
+            height={512}
+            priority
+            sizes="32px"
+            className="h-8 w-8 rounded-full border border-line object-cover grayscale transition-colors group-hover:border-signal md:h-9 md:w-9"
+          />
+          <span className="font-display text-lg font-bold uppercase tracking-[0.18em] text-bone">
+            SEB<span className="text-signal">.</span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label={dict.nav.menu}>

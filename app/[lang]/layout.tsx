@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Saira_Condensed, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { locales, isLocale, type Locale } from "@/content/locale";
+import { siteUrl } from "@/lib/site-url";
 import { getDictionary } from "@/content/dictionaries";
 import { profile } from "@/content/site";
 import { SiteHeader } from "@/components/chrome/site-header";
@@ -50,12 +51,17 @@ export async function generateMetadata({
   const { lang } = await params;
   const locale: Locale = isLocale(lang) ? lang : "en";
 
+  // What the site is, not who he is: this line is the one a link preview and a
+  // search result show under the title, and both are describing a page.
   const description =
     locale === "tr"
-      ? "Bilgisayar mühendisliği öğrencisi. Havadan yapay zekâ, otonom kara araçları ve gömülü sistemler. TEKNOFEST 2026'da iki takımın kaptanı."
-      : "Computer engineering student building aerial AI, autonomous ground vehicles and embedded systems. Captain of two TEKNOFEST 2026 teams.";
+      ? "Serhan Ensar Büdün'ün portföy sitesi. Havacılıkta yapay zekâ, otonom kara araçları ve gömülü sistemler üzerine projeleri ve çalışmaları burada."
+      : "The portfolio of Serhan Ensar Büdün — projects and work in AI for aviation, autonomous ground vehicles and embedded systems.";
 
   return {
+    // Absolute URLs for the share cards; without this the images resolve
+    // relatively and no platform can fetch them.
+    metadataBase: new URL(siteUrl),
     title: {
       default: `${profile.name} — ${locale === "tr" ? "Portföy" : "Portfolio"}`,
       template: `%s · ${profile.name}`,
@@ -70,6 +76,12 @@ export async function generateMetadata({
       description,
       locale: locale === "tr" ? "tr_TR" : "en_US",
       type: "profile",
+      siteName: profile.name,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: profile.name,
+      description,
     },
   };
 }

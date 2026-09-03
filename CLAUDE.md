@@ -269,6 +269,45 @@ hook — do not commit or hand-edit `public/ort`). Class list and input size com
 from a single `model.config.ts` so swapping weights touches one file. No
 COOP/COEP headers (single-thread WASM by design).
 
+## Share cards, and the mark
+
+A link to this site turns into an image, and both are generated at build time
+by `next/og` (satori, not a browser):
+
+- `app/[lang]/opengraph-image.tsx` — the hero reduced: eyebrow, the two-line
+  name, the amber rule, and the portrait, which is the one thing the page never
+  shows and a share card needs.
+- `app/[lang]/projects/[slug]/opengraph-image.tsx` — the project header
+  reduced, over that project's own scene.
+
+`lib/og.ts` holds what they share. Three things satori will not forgive:
+**fonts must be bytes** (vendored under `assets/fonts/`, not `next/font`),
+**images must be inlined** as data URIs (there is no origin to fetch from mid
+build), and **absolutely-positioned boxes need explicit geometry** — the
+`inset` shorthand is ignored, so a scrim written with it renders as nothing at
+all. Text is pre-uppercased through `caps()` for the same reason the canvas
+overlays are: JavaScript's default fold spells "İ" as "I".
+
+The scene on a project card is `card.jpg`, written by
+`scripts/build-sequence.mjs` alongside the poster — a third of the way into the
+scene and sharp. The poster is deliberately blurred for the runtime and makes a
+poor card.
+
+`lib/site-url.ts` resolves the absolute origin the cards, canonicals,
+`app/sitemap.ts` and `app/robots.ts` all need: `NEXT_PUBLIC_SITE_URL` if set,
+else Vercel's production hostname, else localhost. Set it on the deployment
+when the custom domain is what should appear.
+
+The header carries the same photograph as a small round mark
+(`public/profile/mark.jpg`, the whole 1:1 frame). It is the **only** curve on
+a site otherwise built from square corners — a deliberate exception, because a
+portrait is the one thing here that is a person rather than an instrument.
+Leave it round.
+
+If the photograph is ever recropped, **rename the file**. The optimizer and
+every browser key their cache on the URL, so replacing the bytes under a stable
+name leaves visitors looking at the old picture with no way to know it.
+
 ## Design tokens
 
 Dark-only. Palette (Tailwind theme names): `void` `#080b0e`, `surface`, `signal`

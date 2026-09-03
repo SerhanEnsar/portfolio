@@ -122,6 +122,18 @@ not auto-advance — each ends on a gesture gate (swipe up, hold to scan, rotate
 dial). After retrimming clips, regenerate `encode.sh` and the scene start times
 with `node scripts/generate-ffmpeg.mjs` rather than editing either by hand.
 
+## Share cards
+
+Both the home page and every project generate an Open Graph image at build
+time, so a pasted link renders as a designed card rather than a bare URL. They
+are typeset in the site's own faces from `assets/fonts/`, and a project's card
+uses that project's scene — `card.jpg`, written by the sequence build next to
+the poster.
+
+The absolute origin comes from `NEXT_PUBLIC_SITE_URL`, falling back to Vercel's
+production hostname. Set it if the custom domain should be the one in the
+canonical links and the sitemap.
+
 ## CV
 
 Drop the PDF at `public/cv/serhan-ensar-budun-cv.pdf`. The download link renders

@@ -211,6 +211,25 @@ async function encodeTier(sourceDir, outDir, width, quality) {
   return { count: sources.length, bytes };
 }
 
+/**
+ * The frame the share card uses.
+ *
+ * A third of the way in rather than the first frame: a scene's opening is
+ * often still settling, and the card wants the shot the scene is *about*.
+ * Sharp, unlike the poster — a link preview is looked at, not decoded behind.
+ */
+async function writeCard(sourceDir, target) {
+  const sources = (await readdir(sourceDir)).filter((f) => f.endsWith(".png")).sort();
+  const pick = sources[Math.floor(sources.length / 3)] ?? sources[0];
+  await run("ffmpeg", [
+    "-y", "-hide_banner", "-loglevel", "error",
+    "-i", path.join(sourceDir, pick),
+    "-vf", "scale=1200:-2",
+    "-q:v", "4",
+    target,
+  ]);
+}
+
 async function writePoster(sourceDir, target) {
   const sources = (await readdir(sourceDir)).filter((f) => f.endsWith(".png")).sort();
   // First frame, blurred and dimmed — it stands in for the scene rather than
@@ -289,6 +308,7 @@ for (const tier of manifest.tiers) {
 }
 
 await writePoster(framesDir, path.join(outRoot, "poster.jpg"));
+await writeCard(framesDir, path.join(outRoot, "card.jpg"));
 await writeFile(
   path.join(outRoot, "manifest.json"),
   JSON.stringify(
