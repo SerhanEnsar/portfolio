@@ -12,11 +12,13 @@ type InstrumentProps = { dict: Dictionary };
  * brief, not advertised in the nav. Loaded per slug and only in the browser,
  * so a project page never ships an instrument meant for another.
  *
- * The synthetic scene generator sits under two projects: LAÇİN, whose training
- * data was composed rather than filmed, and EGE ODBARS, whose own dual-pipeline
- * generator does the same job — so it is referenced under both. The delivery
- * run belongs to EGENODE, the Robolig robot that picks up parcels and carries
- * them to an address; EGE ODBARS is an off-road course vehicle.
+ * Each project has its own. The scene generator belongs to LAÇİN, whose
+ * training data was composed rather than filmed; EGE ODBARS used to borrow it
+ * and now has the run down its own course, which is the thing only it can
+ * show. The delivery run belongs to EGENODE, the Robolig robot that carries
+ * parcels to an address; EGE ODBARS is an off-road course vehicle, and its
+ * two demos look at the same vehicle from different places — the rover sim
+ * from outside, in profile, and the course run from behind its camera.
  */
 const DetectionChallenge = dynamic(
   () =>
@@ -62,12 +64,16 @@ const MotorBench = dynamic(
   () => import("@/components/motor/motor-bench").then((m) => m.MotorBench),
   { ssr: false },
 );
+const OdbarsRun = dynamic(
+  () => import("@/components/course/odbars-run").then((m) => m.OdbarsRun),
+  { ssr: false },
+);
 
 const INSTRUMENTS: Record<string, ComponentType<InstrumentProps>[]> = {
   lacin: [DetectionChallenge, SceneGenerator],
   tuygun: [LiveDetector, VisualOdometry],
   egenode: [RoverSim],
-  "ege-odbars": [SceneGenerator],
+  "ege-odbars": [OdbarsRun],
   homeagent: [HomeMesh],
   telemetry: [DualRender],
   tubitak: [MotorBench],

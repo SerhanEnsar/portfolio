@@ -92,8 +92,11 @@ The playable pieces live *inside* the project they belong to, found by opening a
 brief rather than advertised in the nav — a detection challenge, the live YOLO
 detector, a synthetic scene generator, a rover delivery run, a visual-odometry
 puzzle, the HomeAgent mesh, the telemetry dual render, a DC motor bench where
-the visitor hunts for the load the machine runs best at. Each is client-only and
-maps from a slug in `components/project/project-instrument.tsx`.
+the visitor hunts for the load the machine runs best at, and a run down ODBARS'
+own course seen from behind its camera, where every station is a decision and
+one of them is whether the tracker gets its motion compensation. Each is
+client-only and maps from a slug in
+`components/project/project-instrument.tsx`.
 
 Beside them sit **stories**: an instrument asks the visitor to do something, a
 story argues the decision the project turned on and plays whether or not it is

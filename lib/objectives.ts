@@ -24,6 +24,7 @@ export const INSTRUMENT_OBJECTIVES = [
   "instrument:mesh",
   "instrument:telemetry",
   "instrument:motor",
+  "instrument:course",
 ] as const;
 
 /** Narratives, one per project that carries one — see `ProjectStory`. */

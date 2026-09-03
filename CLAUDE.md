@@ -108,19 +108,49 @@ magnified past legibility — rebuilding the layout is the only way out.
 
 The playable pieces (detection challenge, live YOLO detector, synthetic scene
 generator, rover delivery sim, visual-odometry puzzle, HomeAgent mesh,
-telemetry dual-render, motor bench) are **not** top-nav
+telemetry dual-render, motor bench, ODBARS course run) are **not** top-nav
 destinations — they are embedded in the project they belong to, discovered by
 opening a brief. The wiring:
 
 - `components/project/project-instrument.tsx` maps `slug → ComponentType[]`, each
   dynamically imported with `ssr: false`. A project page renders
   `<ProjectInstrument>` when its slug is in `INSTRUMENT_SLUGS`
-  (`app/[lang]/projects/[slug]/page.tsx`). One instrument can appear under two
-  projects (the scene generator is under both `lacin` and `ege-odbars`).
+  (`app/[lang]/projects/[slug]/page.tsx`). The map can point two projects at
+  one component, but a borrowed instrument is a smell: EGE ODBARS used to
+  mount LAÇİN's scene generator and now runs its own course, which is the
+  thing only it can show.
 - Each instrument is a self-contained `"use client"` component that calls
   `record("instrument:<name>")` from `lib/progress.ts` on completion.
 - The standalone `/lab` and `/sim` routes still exist and are reachable via the
   console (`open lab|sim`) but are intentionally out of the nav.
+
+EGE ODBARS carries two views of the same vehicle and they must stay distinct:
+`lib/rover.ts` drives it in profile with a suspension model (EGENODE's delivery
+run), while `lib/course.ts` + `lib/track.ts` sit behind its camera. The course
+run's point is the tracking stack — one jolt moves every box in the frame at
+once, and the visitor decides at the third station whether the tracker gets its
+global motion compensation. `lib/track.ts` needs both a per-track motion model
+and that compensation to behave: with either missing the identity-switch count
+is noise, and the demo would be blaming the terrain for the tracker's own gap.
+
+The call itself is made **on the frame**: `Decision` in `odbars-run.tsx` floats
+over the canvas, anchored to the projected top of the object the station is
+asking about (`anchorFor`), with a stem down to it. Two things it must keep: the
+anchor skips props closer than seven metres, because the nearest cone of all is
+the one level with the front wheels and off the side of the picture; and a
+phone-width frame is given extra height, since a 200-pixel frame with a panel
+across the bottom is a panel, not a view.
+
+Each answer there is a **manoeuvre**, not a score: it sets the line the vehicle
+drives (`MANOEUVRES` in `lib/course.ts`), and a chassis box with a real width
+either fits through the gap or hits it. Nothing marks an answer wrong — the
+collision does. Two consequences of that are easy to break: a steering
+controller that aims down the road rides wide through curves and clips cones
+the visitor never chose to clip (it holds the centreline *here*, deliberately),
+and a lane offset with no expiry is still swerving forty metres later, which is
+what `laneUntil` is for. Contact costs speed and damage, and damage is
+permanent: it bends the camera mount (`bias`) and makes the detector miss more,
+so a bad call at the barrier is still being paid for at the gate.
 
 TÜBİTAK's bench is the one instrument with nothing behind it to measure: the
 2019 experiments left no numbers, so `lib/motor.ts` runs the textbook

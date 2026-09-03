@@ -398,6 +398,142 @@ export const dictionaries = {
       note:
         "This bench runs on the standard steady-state equations for a brushed DC motor, not on measurements from the 2019 experiments — those numbers were never kept. What is carried over is the question the project asked and the way it asked it: change one thing, sweep the load again, compare.",
     },
+    course: {
+      eyebrow: "The vehicle's own view",
+      title: "Take the run, make the calls",
+      intro:
+        "ODBARS drives itself down the course. At each station it stops, shows what its perception layer has found, and asks you what to do about it. The frame is not footage — it is what the detector and the tracker see: geometry, boxes, and the identity each object has been given.",
+      start: "Begin the run",
+      restart: "Run it again",
+      standby: "Standby — the camera is live once the run begins",
+      frame: "Forward camera with detection and tracking overlay",
+      progress: "{done} / {total} decided",
+      missions: "Task manager",
+      evidence: "Detected · {kind} {score}",
+      impact: "CONTACT",
+      landing: "hard landing",
+      keys: "click, or press 1–3",
+      kinds: {
+        cone: "cone",
+        barrier: "barrier",
+        sign: "sign",
+        gate: "gate post",
+        rock: "rock",
+        ramp: "ramp",
+        bay: "bay",
+      },
+      /** Drawn on the frame, so already in the case they are shown in. */
+      plates: {
+        cone: "CONE",
+        barrier: "BARRIER",
+        sign: "SIGN",
+        gate: "POST",
+        rock: "ROCK",
+        ramp: "RAMP",
+        bay: "BAY",
+      },
+      hud: {
+        speed: "Speed",
+        tracks: "Tracked",
+        switches: "ID switches",
+        compensation: "Motion compensation",
+        on: "On",
+        off: "Off",
+        rough: "Broken ground",
+        distance: "{z} / {total} m",
+        camera: "CAM 01 · 60 HZ",
+        hits: "Contacts",
+        damage: "Damage",
+      },
+      stations: {
+        cones: {
+          name: "Cone slalom",
+          question:
+            "The track narrows between two rows of cones. There is room, but not much of it.",
+          options: ["Hold the line between them", "Cut the corner"],
+          right: "Right. The cones are the track — the gap between them is the task, and the vehicle fits through it with thirty centimetres to spare.",
+          wrong: [
+            "",
+            "The short line went through the slalom rather than around it: two cones down, and the chassis took both.",
+          ],
+        },
+        barrier: {
+          name: "Barrier",
+          question: "A barrier closes the right of the lane. The left is open by about two metres.",
+          options: ["Stop and wait", "Go around to the left", "Push through on the right"],
+          right: "Right. The gap on the left is real, and the vehicle went round it without touching anything.",
+          wrong: [
+            "Three seconds of waiting, and then it had to go round the left anyway. A barrier does not move for patience.",
+            "",
+            "There was no room on the right — that is where the barrier is. The vehicle hit it, lost most of its speed, and the mount has been off ever since.",
+          ],
+        },
+        rough: {
+          name: "Broken ground",
+          question:
+            "The surface breaks up ahead. The camera is about to be thrown around, and every box in the frame will move at once — not because the objects moved, but because the vehicle did.",
+          options: ["Turn on motion compensation", "Carry on without it"],
+          right:
+            "Right. The stage estimates how the whole frame moved and shifts the tracks by it before matching. Watch the switch counter through the rough section.",
+          wrong: [
+            "",
+            "Left off. Association is now matching this frame's boxes against where things were before the jolt — the counter will tell you how that goes.",
+          ],
+        },
+        sign: {
+          name: "Stop sign",
+          question: "A stop sign is read on the right at 0.88. The junction behind it is clear.",
+          options: ["Come to a full stop", "Slow down and roll through", "Ignore it"],
+          right: "Right. A sign the vehicle reads is a sign the vehicle obeys, empty junction or not.",
+          wrong: [
+            "",
+            "Rolling through costs two seconds. The junction being clear is not the point — the run is scored on obeying what it reads.",
+            "Ignoring a sign the vehicle read perfectly well costs four seconds, and it is the one failure that says the perception was fine and the policy was not.",
+          ],
+        },
+        gate: {
+          name: "Narrow gate",
+          question: "Two posts, 3.2 metres apart, on a line the vehicle is not quite squared up to.",
+          options: ["Slow down and centre first", "Keep the speed and thread it"],
+          right: "Right. Straightening before the gate costs a second and saves a post.",
+          wrong: [
+            "",
+            "At this speed the correction inside the gate was wider than the gate: the vehicle caught the right-hand post.",
+          ],
+        },
+        ramp: {
+          name: "Ramp",
+          question: "A ramp crosses the full width of the track.",
+          options: ["Slow down and take it square", "Keep the speed"],
+          right: "Right. Square and slow keeps all six wheels loaded and the camera pointing forward.",
+          wrong: [
+            "",
+            "It left the ground and came down hard. A rocker-bogie is built for the terrain, not for the landing.",
+          ],
+        },
+        bay: {
+          name: "Parking bay",
+          question: "The bay is detected on the ground ahead, 2.6 metres wide.",
+          options: ["Line up and stop inside it", "Drive through and stop past it"],
+          right: "Right. The run ends inside the bay or it does not end.",
+          wrong: [
+            "",
+            "Past the bay is not in the bay, and the task manager can tell the difference.",
+          ],
+        },
+      },
+      result: {
+        eyebrow: "Run complete",
+        line: "{correct} of {total} calls right, and {switches} identity switches on the way.",
+        clean: "Nothing was touched: the vehicle came through the course without a single contact, and the camera is still pointing where it was bolted.",
+        cost: "{hits} contacts, {damage}% damage and {penalty} seconds of penalty. Damage does not stay in the past — a knocked mount reads the world at a slight angle, and the detector misses more of it for the rest of the run.",
+        compensated:
+          "With compensation on, the tracker kept its identities through the broken ground — the boxes moved with the frame instead of being mistaken for new objects.",
+        raw: "Without compensation, most of those switches happened in one fifty-metre stretch. That stretch is why the stage exists.",
+      },
+      note:
+        "The course is written for this page. It is shaped like the tasks a ground-vehicle competition sets, but it is not a copy of any official course, and the frame is a drawing of the perception layer rather than a recording from the vehicle. The tracking, the compensation and the switch counter are real code running on the scene in front of you.",
+    },
     console: {
       open: "Open console",
       title: "Console",
@@ -804,6 +940,142 @@ export const dictionaries = {
         "En iyisi %{efficiency} — {torque} mN·m, {rpm} dev/dk. Motor en çok gücü bambaşka bir yerde üretiyor: daha sağda {power} W, ama orada verim yalnızca %{powerEfficiency}. Bir motoru yalnızca güce bakarak seçersen oraya düşersin.",
       note:
         "Bu tezgâh, fırçalı DC motorun standart kararlı hâl denklemleriyle çalışır; 2019 deneylerinin ölçümleriyle değil — o sayılar saklanmadı. Devralınan şey projenin sorduğu soru ve sorma biçimi: tek şeyi değiştir, yükü yeniden süpür, karşılaştır.",
+    },
+    course: {
+      eyebrow: "Aracın kendi görüşü",
+      title: "Turu al, kararları sen ver",
+      intro:
+        "ODBARS parkurda kendi gidiyor. Her istasyonda duruyor, algı katmanının ne bulduğunu gösteriyor ve ne yapacağını sana soruyor. Ekrandaki görüntü bir kayıt değil — tespit ve takip katmanının gördüğü şey: geometri, kutular ve her nesneye verilen kimlik.",
+      start: "Turu başlat",
+      restart: "Turu yeniden al",
+      standby: "Beklemede — tur başlayınca kamera devrede",
+      frame: "Tespit ve takip bindirmeli ön kamera",
+      progress: "{done} / {total} karar verildi",
+      missions: "Görev yöneticisi",
+      evidence: "Tespit · {kind} {score}",
+      impact: "TEMAS",
+      landing: "sert iniş",
+      keys: "tıkla ya da 1–3 tuşlarına bas",
+      kinds: {
+        cone: "koni",
+        barrier: "bariyer",
+        sign: "levha",
+        gate: "geçit direği",
+        rock: "taş",
+        ramp: "rampa",
+        bay: "park kutusu",
+      },
+      /** Kareye çizilir; JS'in toUpperCase'i "İ" bilmediği için hazır büyük. */
+      plates: {
+        cone: "KONİ",
+        barrier: "BARİYER",
+        sign: "LEVHA",
+        gate: "DİREK",
+        rock: "TAŞ",
+        ramp: "RAMPA",
+        bay: "KUTU",
+      },
+      hud: {
+        speed: "Hız",
+        tracks: "İzlenen",
+        switches: "Kimlik takası",
+        compensation: "Hareket telafisi",
+        on: "Açık",
+        off: "Kapalı",
+        rough: "Engebeli zemin",
+        distance: "{z} / {total} m",
+        camera: "KAMERA 01 · 60 HZ",
+        hits: "Temas",
+        damage: "Hasar",
+      },
+      stations: {
+        cones: {
+          name: "Koni slalomu",
+          question:
+            "Şerit iki koni sırası arasında daralıyor. Yer var, ama bol değil.",
+          options: ["Aradaki çizgiyi koru", "Virajı kısa kes"],
+          right: "Doğru. Koniler şeridin kendisi — aradan geçmek görevin ta kendisi ve araç oradan otuz santim payla geçiyor.",
+          wrong: [
+            "",
+            "Kısa çizgi slalomun etrafından değil içinden geçti: iki koni devrildi, ikisini de şasi aldı.",
+          ],
+        },
+        barrier: {
+          name: "Bariyer",
+          question: "Bariyer şeridin sağını kapatıyor. Solda yaklaşık iki metre açıklık var.",
+          options: ["Dur ve bekle", "Soldan dolan", "Sağdan zorla"],
+          right: "Doğru. Soldaki açıklık gerçekti; araç hiçbir yere değmeden dolandı.",
+          wrong: [
+            "Üç saniye beklendi ve sonunda yine soldan dolaşmak gerekti. Bariyer sabra çekilmiyor.",
+            "",
+            "Sağda geçecek yer yoktu — orası bariyerin kendisi. Araç ona girdi, hızının çoğunu kaybetti ve kamera o günden beri eğik bakıyor.",
+          ],
+        },
+        rough: {
+          name: "Engebeli zemin",
+          question:
+            "İleride zemin bozuluyor. Kamera sarsılacak ve karedeki bütün kutular aynı anda kayacak — nesneler kımıldadığı için değil, araç kımıldadığı için.",
+          options: ["Hareket telafisini aç", "Telafisiz devam et"],
+          right:
+            "Doğru. Katman tüm karenin ne kadar kaydığını kestirip izleri eşleştirmeden önce o kadar kaydırıyor. Engebeli bölüm boyunca takas sayacını izle.",
+          wrong: [
+            "",
+            "Kapalı bırakıldı. Eşleştirme artık bu karenin kutularını, sarsıntıdan önceki yerleriyle karşılaştırıyor — sonucu sayaç anlatacak.",
+          ],
+        },
+        sign: {
+          name: "DUR levhası",
+          question: "Sağda 0,88 skorla bir DUR levhası okundu. Arkasındaki kavşak boş.",
+          options: ["Tam duruş yap", "Yavaşlayıp geç", "Yok say"],
+          right: "Doğru. Aracın okuduğu levha, aracın uyduğu levhadır — kavşak boş olsa da.",
+          wrong: [
+            "",
+            "Yavaşlayıp geçmek iki saniye ceza. Kavşağın boş olması ölçüt değil; tur, okuduğuna uymakla puanlanıyor.",
+            "Gayet net okunmuş bir levhayı yok saymak dört saniye ceza — ve algının değil, kararın hatalı olduğunu söyleyen tek başarısızlık bu.",
+          ],
+        },
+        gate: {
+          name: "Dar geçit",
+          question: "Aralarında 3,2 metre olan iki direk; araç henüz tam hizalanmış değil.",
+          options: ["Yavaşla ve önce ortala", "Hızı koru, aradan süz"],
+          right: "Doğru. Geçitten önce doğrulmak bir saniyeye mal olur, bir direği kurtarır.",
+          wrong: [
+            "",
+            "Bu hızda geçidin içindeki düzeltme geçitten geniş kaldı: araç sağ direğe takıldı.",
+          ],
+        },
+        ramp: {
+          name: "Rampa",
+          question: "Rampa şeridi baştan başa kesiyor.",
+          options: ["Yavaşla ve dik gir", "Hızı koru"],
+          right: "Doğru. Dik ve yavaş girmek altı tekerleği de yüklü, kamerayı da ileri bakar tutar.",
+          wrong: [
+            "",
+            "Araç yerden kesildi ve sert indi. Rocker-bogie arazi için yapıldı, iniş için değil.",
+          ],
+        },
+        bay: {
+          name: "Park kutusu",
+          question: "İleride zeminde 2,6 metre genişliğinde park kutusu algılandı.",
+          options: ["Hizalan ve içinde dur", "İçinden geçip ilerde dur"],
+          right: "Doğru. Tur ya kutunun içinde biter ya da bitmez.",
+          wrong: [
+            "",
+            "Kutuyu geçmek kutuya girmek değil, ve görev yöneticisi farkı görüyor.",
+          ],
+        },
+      },
+      result: {
+        eyebrow: "Tur tamamlandı",
+        line: "{total} kararın {correct} tanesi doğru ve yol boyunca {switches} kimlik takası.",
+        clean: "Hiçbir şeye değilmedi: araç parkuru tek bir temas olmadan tamamladı ve kamera hâlâ vidalandığı yere bakıyor.",
+        cost: "{hits} temas, %{damage} hasar ve {penalty} saniye ceza. Hasar geçmişte kalmıyor — sarsılan bir mount dünyayı hafif eğik okur, tespit de turun geri kalanında daha çoğunu kaçırır.",
+        compensated:
+          "Telafi açıkken takip, engebeli zemin boyunca kimliklerini korudu — kutular kareyle birlikte kaydı, yeni nesne sanılmadı.",
+        raw: "Telafi kapalıyken bu takasların çoğu elli metrelik tek bir bölümde oldu. O bölüm, katmanın var olma sebebi.",
+      },
+      note:
+        "Parkur bu sayfa için yazıldı. Bir kara aracı yarışmasının verdiği görevlerin biçiminde, ama hiçbir resmî parkurun kopyası değil; ekrandaki kare de araçtan bir kayıt değil, algı katmanının çizimi. Takip, telafi ve takas sayacı ise önündeki sahne üzerinde gerçekten çalışan kodun kendisi.",
     },
     console: {
       open: "Konsolu aç",
