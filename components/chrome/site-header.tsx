@@ -114,7 +114,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
             onClick={openCinematic}
             className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal transition-colors hover:text-bone flex items-center gap-1"
           >
-            🚀 Aya Yolculuk
+            🚀 {dict.nav.cinematic}
           </button>
         </nav>
 

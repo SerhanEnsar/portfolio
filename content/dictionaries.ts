@@ -18,6 +18,7 @@ export const dictionaries = {
       sim: "Sim",
       menu: "Menu",
       close: "Close",
+      cinematic: "Journey to the Moon",
     },
     hero: {
       scroll: "Scroll",
@@ -564,6 +565,7 @@ export const dictionaries = {
       sim: "Sim",
       menu: "Menü",
       close: "Kapat",
+      cinematic: "Aya Yolculuk",
     },
     hero: {
       scroll: "Kaydır",

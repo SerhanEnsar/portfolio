@@ -111,10 +111,16 @@ export function CinematicPlayer() {
 
       {/* Orientation Warning (Mobile) */}
       <div className="absolute inset-0 z-[110] portrait:flex landscape:hidden bg-black flex-col items-center justify-center text-center p-6">
-        <div className="text-bone font-display uppercase tracking-widest text-xl font-bold mb-4">Cihazınızı Yan Çevirin</div>
-        <div className="text-dim font-mono text-xs uppercase tracking-widest">En iyi sinematik deneyim için yatay mod gereklidir.</div>
+        <div className="text-bone font-display uppercase tracking-widest text-xl font-bold mb-4">
+          {lang === 'en' ? 'Turn Your Device Sideways' : 'Cihazınızı Yan Çevirin'}
+        </div>
+        <div className="text-dim font-mono text-xs uppercase tracking-widest">
+          {lang === 'en'
+            ? 'Landscape is required for the cinematic.'
+            : 'En iyi sinematik deneyim için yatay mod gereklidir.'}
+        </div>
         <Button variant="outline" className="mt-6 border-line text-bone font-mono uppercase tracking-widest" onClick={closeCinematic}>
-          Çıkış Yap
+          {lang === 'en' ? 'Exit' : 'Çıkış Yap'}
         </Button>
       </div>
 
