@@ -84,6 +84,15 @@ export function Reticle() {
     };
 
     const tick = () => {
+      // A locked element can also leave — a button that answers a question and
+      // unmounts itself, say. No pointer event follows it out of the document,
+      // so without this check the bracket stays drawn around a node that is no
+      // longer there until the visitor happens to move the mouse.
+      if (locked && !locked.isConnected) {
+        locked = null;
+        box.style.opacity = "0";
+      }
+
       x += (targetX - x) * EASE;
       y += (targetY - y) * EASE;
       dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
