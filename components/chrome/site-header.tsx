@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import type { Locale } from "@/content/locale";
@@ -32,6 +32,32 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
 
   const onHome = pathname === `/${locale}`;
   const href = (id: string) => (onHome ? `#${id}` : `/${locale}#${id}`);
+
+  /**
+   * Same-page section jump from the mobile panel, driven by hand.
+   *
+   * Left to the browser, the jump is lost: closing the panel collapses its
+   * height in the same tick, and the layout change cancels the scroll before
+   * it has moved a pixel — the tap reads as a dead link. So the panel closes
+   * first, and the scroll runs once it is out of the way. Off the home page
+   * the link is a real navigation and is left alone.
+   */
+  const jump = (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
+    setOpen(false);
+    if (!onHome) return;
+
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    event.preventDefault();
+    history.replaceState(null, "", `#${id}`);
+    // Somebody who asked for less motion gets the section, not the journey.
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(
+      () => target.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" }),
+      still ? 0 : 320,
+    );
+  };
 
   /** Same page, other language — swap only the locale segment. */
   const swapLocale = (next: Locale) => {
@@ -145,7 +171,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
                 <a
                   key={id}
                   href={href(id)}
-                  onClick={() => setOpen(false)}
+                  onClick={(event) => jump(event, id)}
                   className="border-b border-line/60 py-4 font-display text-2xl font-bold uppercase tracking-tight text-bone last:border-0"
                 >
                   {dict.nav[id]}
