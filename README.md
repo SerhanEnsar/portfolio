@@ -24,6 +24,9 @@ look.
 app/[lang]/                  locale-scoped routes; [lang]/layout.tsx is the root layout
   projects/[slug]/           20 static pages (10 projects × 2 locales)
   lab/ sim/                  standalone instrument routes, off the nav, reachable from the console
+  opengraph-image.tsx        the share card — one for the site, one per project
+app/sitemap.ts robots.ts     what crawlers are told
+app/icon.png favicon.ico     the mark, from the same photograph
 proxy.ts                     sends locale-less URLs to /en or /tr
 content/                     all copy and data, typed and bilingual
   projects.ts site.ts        the work, the profile
@@ -33,7 +36,10 @@ components/sequence/         the scroll-scrub engine
 components/sections/         one file per home section
 components/project/          project page parts: meta, gallery, instruments, stories
 lib/                         DOM-free logic — simulation, geometry, scoring, progress
+  og.ts site-url.ts          what the share cards and the crawlers are built from
 scripts/build-sequence.mjs   clip → frame tiers under public/
+assets/fonts/                the two faces the cards are typeset in, as bytes
+public/profile/              the photograph: mark.jpg for the header, portrait.jpg for the card
 ```
 
 Next 16 notes that differ from older versions: the middleware convention is now
@@ -63,8 +69,10 @@ npm run sequence unilate wide.mp4 -- --portrait tall.mp4
 
 The script resamples the clip to an exact frame count, grades it into the
 palette, denoises (grain is close to incompressible and dominates payload size),
-and writes two tiers — 1600w for desktop, 900w for mobile — plus a blurred
-poster.
+and writes two tiers — 1600w for desktop, 900w for mobile — plus two stills: a
+blurred `poster.jpg` for the runtime to hold while frames decode, and a sharp
+`card.jpg` from a third of the way in, which is what the project's share card
+shows.
 
 Nothing requires the two tiers to share an aspect ratio: `FrameStage` cover-fits
 each frame from its own dimensions, and a phone only ever downloads the 900
@@ -117,10 +125,17 @@ project list. `open`, `ls`, `cat`, `lang` — `help` lists them.
 
 A second, separate video system that shares nothing with the scene engine:
 `components/Cinematic*` and a zustand store play a seven-clip story from
-`public/cinematic/` in a full-screen overlay, opened from the header button or the footer trigger. Scenes do
-not auto-advance — each ends on a gesture gate (swipe up, hold to scan, rotate a
-dial). After retrimming clips, regenerate `encode.sh` and the scene start times
-with `node scripts/generate-ffmpeg.mjs` rather than editing either by hand.
+`public/cinematic/` in a full-screen overlay, opened from the header button or
+the footer trigger. Scenes do not auto-advance — each ends on a gesture gate
+(swipe up, hold to scan, rotate a dial). After retrimming clips, regenerate
+`encode.sh` and the scene start times with `node scripts/generate-ffmpeg.mjs`
+rather than editing either by hand.
+
+Its copy is the one part of the site that does not come from `content/`: the
+strings sit in the cinematic's own components and pick a locale from the route
+params. That is deliberate, but it is also why a line there can be left in one
+language while every other string on the page follows the switch — check both
+locales after touching it.
 
 ## Share cards
 
@@ -130,9 +145,22 @@ are typeset in the site's own faces from `assets/fonts/`, and a project's card
 uses that project's scene — `card.jpg`, written by the sequence build next to
 the poster.
 
-The absolute origin comes from `NEXT_PUBLIC_SITE_URL`, falling back to Vercel's
-production hostname. Set it if the custom domain should be the one in the
-canonical links and the sitemap.
+The absolute origin lives in `lib/site-url.ts`: `NEXT_PUBLIC_SITE_URL` wins so a
+preview deployment can describe itself rather than claiming to be production,
+then the real domain, then Vercel's own hostname, then localhost. Cards,
+canonical links, `sitemap.xml` and `robots.txt` all resolve against it.
+
+Three things `next/og` will not forgive, all of them silent: fonts have to be
+handed over as bytes (hence `assets/fonts/`, not `next/font`), images have to be
+inlined as data URIs because there is no origin to fetch from mid-build, and
+absolutely-positioned boxes need an explicit width and height — the `inset`
+shorthand is ignored, so a scrim written with it renders as nothing at all.
+
+The photograph in `public/profile/` is also the site's mark: round in the
+header, whole in the card, and the icon a link preview shows. If it is ever
+recropped, **rename the file** — browsers and the image optimizer key their
+caches on the URL, and replacing the bytes under a stable name leaves visitors
+looking at the old picture with no way to know it.
 
 ## CV
 
@@ -141,6 +169,7 @@ only when that file exists.
 
 ## Deploying
 
-Pushes to `main` deploy to the existing Vercel project, so the domain and its
-settings carry over untouched. The previous version of the site is frozen at the
+Pushes to `main` deploy to the existing Vercel project at
+[serhanensar.me](https://serhanensar.me), so the domain and its settings carry
+over untouched. The previous version of the site is frozen at the
 `v1-legacy` tag and branch.
