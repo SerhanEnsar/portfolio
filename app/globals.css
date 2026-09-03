@@ -29,6 +29,11 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* The scroll engine measures scene progress against the scrolling element,
+       which is this one, and a static container makes those offsets awkward to
+       resolve — framer-motion says so out loud in development. Nothing moves
+       because of this: the root box is already the containing block. */
+    position: relative;
   }
 
   body {
