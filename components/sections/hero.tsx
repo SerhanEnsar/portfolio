@@ -64,7 +64,10 @@ function HeroCopy({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               vertical room the base Latin caps do not, so the line box is tall
               enough to hold them instead of letting the next line's dots ride
               up into the line above. */}
-          <h1 className="font-display text-[clamp(3.2rem,11vw,9rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-bone">
+          {/* Sized by the shorter dimension, not just the wider one: a phone held
+              sideways is 844 wide and 390 tall, and a title measured in vw
+              alone grows past the viewport and slides under the header. */}
+          <h1 className="font-display text-[clamp(2.6rem,min(11vw,16vh),9rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-bone">
             {profile.nameLines.map((line, i) => (
               <motion.span
                 key={line}

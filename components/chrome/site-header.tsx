@@ -100,7 +100,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label={dict.nav.menu}>
+        <nav className="hidden items-center gap-8 lg:flex" aria-label={dict.nav.menu}>
           {SECTIONS.map((id) => (
             <a
               key={id}
@@ -148,7 +148,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={open ? dict.nav.close : dict.nav.menu}
-            className="flex h-8 w-8 items-center justify-center text-dim transition-colors hover:text-bone md:hidden"
+            className="flex h-8 w-8 items-center justify-center text-dim transition-colors hover:text-bone lg:hidden"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -163,7 +163,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-line bg-void/95 backdrop-blur-md md:hidden"
+            className="overflow-hidden border-t border-line bg-void/95 backdrop-blur-md lg:hidden"
             aria-label={dict.nav.menu}
           >
             <div className="flex flex-col px-5 py-2">
