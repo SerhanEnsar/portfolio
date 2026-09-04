@@ -304,6 +304,17 @@ a site otherwise built from square corners — a deliberate exception, because a
 portrait is the one thing here that is a person rather than an instrument.
 Leave it round.
 
+The **favicon is not the portrait**, and that is the one place the rule
+inverts. A browser tab renders it at 16 pixels, where a photograph is mush —
+the site shipped one for a while and it read as a grey smudge. `app/favicon.ico`,
+`app/icon.png` and `app/apple-icon.png` are an `SE` monogram drawn by
+`scripts/build-mark.py` from the vendored Saira Condensed, in the page's own
+register: void ground, signal amber, square corners, edge to edge because at
+that size every spare pixel is a stroke that reads. The script is run by hand,
+not by the build. Sizes are deliberate — 192 and the `.ico`'s 48 are multiples
+of 48, which is what Google's favicon crawler asks for, and 180 is Apple's
+fixed touch-icon size.
+
 If the photograph is ever recropped, **rename the file**. The optimizer and
 every browser key their cache on the URL, so replacing the bytes under a stable
 name leaves visitors looking at the old picture with no way to know it.
