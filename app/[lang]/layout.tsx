@@ -83,6 +83,12 @@ export async function generateMetadata({
       title: profile.name,
       description,
     },
+    // Search Console owns the sitemap submission and the reindex requests;
+    // it will only talk to a property it can prove belongs to this site, and
+    // the tag has to be on every page it might land on.
+    verification: {
+      google: "rz4NsH0QeGZDlkIKCM1lSGuy9CadMVnArcyDTBdQGtE",
+    },
   };
 }
 
