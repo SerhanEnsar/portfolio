@@ -12,7 +12,12 @@
  * and localhost is last, so nothing has to be true about the internet to run
  * `next dev`.
  */
-const DOMAIN = "https://serhanensar.me";
+/**
+ * The apex 307s to `www`, so `www` is the address that actually answers and the
+ * one Google has indexed. A canonical pointing at the redirecting host makes
+ * every crawler take an extra hop to reach the page it was already on.
+ */
+const DOMAIN = "https://www.serhanensar.me";
 
 export const siteUrl = (() => {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
